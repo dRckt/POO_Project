@@ -6,6 +6,7 @@ namespace POO_Project
     {
         static void Main(string[] args)
         {
+            // ligne de test
 
             Line L1 = new Line("Ligne 1");
             Weather meteo_bx = new Weather("Bruxelles");
