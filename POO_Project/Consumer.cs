@@ -14,8 +14,6 @@ namespace POO_Project
 
         protected string alertMessage;
 
-        protected bool isConsuming = true;
-
         public Consumer(string name, Line inputLine)
         {
             this.name = name;
@@ -145,7 +143,6 @@ namespace POO_Project
     {
         public dissipator(string name, Line inputLine) : base(name, inputLine)
         {
-            isConsuming = false;
         }
         public override void LaunchClaimingPower()
         {
