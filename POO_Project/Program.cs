@@ -17,12 +17,15 @@ namespace POO_Project
             WindFarm eol                            = new WindFarm("Parc Eolien       ", L1, meteo_bx);
             SolarPowerPlant champdepanneau   = new SolarPowerPlant("panneau solaire   ", L1, meteo_bx);
             PurchaseAbroad achat              = new PurchaseAbroad("achat à l'étranger", L1, 10000, bourse);
-
+            
             Console.WriteLine(doel.Resume());
             Console.WriteLine(esso.Resume());
             Console.WriteLine(eol.Resume());
             Console.WriteLine(champdepanneau.Resume());
             Console.WriteLine(achat.Resume());
+
+           
+
 
             /*
             for (int h = 0; h < 15; h++)

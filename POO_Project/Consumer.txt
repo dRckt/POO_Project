@@ -1,0 +1,148 @@
+﻿
+QUESTIONS POUR ROBIN
+
+
+// Classe Consumer.cs de Robin
+
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace POO_Project
+{
+    class Consumer
+    {
+        private string name;
+
+        private Line inputLine;
+
+        private double claimingPower;
+        private double missingPower;
+
+        private string alertMessage;
+        private double buyingPrice;
+
+        public Consumer(string name, Line inputLine, double buyingPrice)
+        {
+            // Pourquoi le setName ? pourquoi vouloir modifier le nom de l'objet par la suite
+            // pareil pour InputLine
+
+            setName(name);
+            setInputLine(inputLine);
+            setBuyingPrice(buyingPrice);
+
+            cleanAlertMessage();
+
+            setClaimingPower(0); //consomme 0 a la creation
+
+            setMissingPower();
+        }
+
+
+        public void setName(string newName)
+        {
+            name = newName;
+        }
+        public string getName()
+        {
+            return name;
+        }
+
+
+        public void setInputLine(Line newInputLine)
+        {
+            inputLine = newInputLine;
+        }
+        public Line getInputLine()
+        {
+            return inputLine;
+        }
+
+
+        public void setClaimingPower(double newClaimingPower)
+        {
+            claimingPower = newClaimingPower;
+        }
+        public double getClaimingPower()
+        {
+            return claimingPower;
+        }
+
+        public void setMissingPower()
+        {
+            double a = claimingPower;
+            double b = inputLine.getCurrentPower();
+            missingPower = a - b;  //energie manquante = energie demand�e - energie recue
+
+            if (missingPower > 0)
+            {
+                alertMessage = String.Format("The consumer {0} is missing {1}W.", name, missingPower);
+            }
+            else
+            {
+                alertMessage = String.Format("The consumer {0} is receiving {1}W in excess.", name, (-missingPower));
+            }
+        }
+
+        public double getMissingPower()
+        {
+            return missingPower;
+        }
+
+        public void cleanAlertMessage()
+        {
+            alertMessage = "";
+        }
+        public string getAlertMessage()
+        {
+            return alertMessage;
+        }
+
+
+
+        public void setBuyingPrice(double newBuyingPrice)
+        {
+            buyingPrice = newBuyingPrice;
+        }
+        public double getBuyingPrice()
+        {
+            return buyingPrice;
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
