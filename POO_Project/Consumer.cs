@@ -14,10 +14,15 @@ namespace POO_Project
 
         protected string alertMessage;
 
-        public Consumer(string name, Line inputLine)
+        protected concentrationNode inputNode;
+
+        public Consumer(string name) //, Line inputLine)
         {
             this.name = name;
-            this.inputLine = inputLine;
+            //this.inputLine = inputLine;
+
+            this.inputNode = new concentrationNode(String.Format(name+"_inputNode"));
+            this.inputLine = this.inputNode.getOutputLine; //ligne d'entrée du consumer = ligne de sortie du noeud de concentration
 
             alertMessage = "";
         }

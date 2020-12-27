@@ -31,7 +31,7 @@ namespace POO_Project
             this.name = name;
             //this.outputLine = outputLine;
 
-            outputNode = new distributionNode(String.Format(name + "_outputNode"));
+            this.outputNode = new distributionNode(String.Format(name + "_outputNode"));
             this.outputLine = this.outputNode.getInputLine; //ligne de sortie de la centrale = ligne d'entrée de son noeud de distribution
         }
 
