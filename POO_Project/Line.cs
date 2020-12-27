@@ -9,41 +9,50 @@ namespace POO_Project
         private string name;
         private double currentPower;
 
+        private double powerClaimed;
+
         private double maxPower;
         private string alertMessage;
 
-        private double inputLink;
-        private double outputLink;
-        private bool inputIsConnected;
-        private bool outputIsConnected;
+        //private double inputLink;
+        //private double outputLink;
+
+
+        //private bool inputIsConnected;
+        //private bool outputIsConnected;
 
         public Line(string name)
         {
             this.setName(name);
-            this.inputIsConnected = false;
-            this.outputIsConnected = false;
+            //this.inputIsConnected = false;
+            //this.outputIsConnected = false;
+            this.powerClaimed = 0;
         }
 
 
-        public void setName(string newName)
-        {
-            this.name = newName;
-        }
+
+        public void setName(string newName){this.name = newName;}
         public string getName { get { return name; } }       
-
-
 
         public void setCurrentPower(double newCurrentPower)
         {
-            this.currentPower = newCurrentPower;
+            if (newCurrentPower > this.maxPower)
+            {
+                this.alertMessage = String.Format("Required power on {0} is too high", this.name);
+            }
+            else
+            {
+                this.currentPower = newCurrentPower;
+            }
         }
-        public double getCurrentPower()
-        {
-            return this.currentPower;
-        }
+        public double getCurrentPower{ get { return currentPower; } }
 
+        public void setPowerClaimed(double newPowerClaimed){this.powerClaimed = newPowerClaimed;}
+        public double getPowerClaimed{ get { return powerClaimed; } }
 
+        public double getMaxPower{get { return maxPower; } }
 
+        /*
         public void setInputLink(double newInputLink)
         {
             this.inputLink = newInputLink;
@@ -63,5 +72,7 @@ namespace POO_Project
         {
             return this.outputLink;
         }
+        */
+        
     }
 }

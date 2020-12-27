@@ -61,7 +61,7 @@ namespace POO_Project
         public void setMissingPower()
         {
             double a = this.claimingPower;
-            double b = this.inputLine.getCurrentPower();
+            double b = this.inputLine.getCurrentPower;
             this.missingPower = a - b;  //energie manquante = energie demand�e - energie recue
 
             if (this.missingPower > 0)
