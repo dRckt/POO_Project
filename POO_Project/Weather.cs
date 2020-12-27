@@ -24,7 +24,7 @@ namespace POO_Project
             var random = new Random();
             sunlight = random.Next(0, 10);
             windSpeed = random.Next(0, 10);
-            temperature = random.Next(-5, 35);
+            temperature = random.Next(-5, 35);  // varie entre -5 et +35°C
         }
 
         public double getSunlight { get { return sunlight; } }

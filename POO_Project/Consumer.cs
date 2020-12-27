@@ -4,64 +4,113 @@ using System.Text;
 
 namespace POO_Project
 {
-    class Consumer
+    public class Consumer
     {
-        private string name;
+        protected string name;
+        protected Line inputLine;
 
-        private Line inputLine;
+        protected double claimingPower;
+        protected double missingPower;
 
-        private double claimingPower;
-        private double missingPower;
+        protected string alertMessage;
 
-        private string alertMessage;
-        private double buyingPrice;
-
-        public Consumer(string name, Line inputLine, double buyingPrice)
+        public Consumer(string name, Line inputLine)
         {
-            this.setName(name);
-            this.setInputLine(inputLine);
-            this.setBuyingPrice(buyingPrice);
-            this.cleanAlertMessage();
+            this.name = name;
+            this.inputLine = inputLine;
 
-            this.setClaimingPower(0); //consomme 0 � la cr�ation
+            alertMessage = "";
+        }
+        
+        // permet de récupérer le nom du consommateur
+        public string GetName { get { return name; } }
+        // permet de récupérer la ligne d'entrée
+        public Line getInputLine { get { return inputLine; } }
+        
+        // si besoin éventuel, permet de brancher le consommateur sur une autre ligne passée en paramètre
+        public void SetInputLine(Line newInputLine) { inputLine = newInputLine; }
 
-            this.setMissingPower();
+        // générer une demande de puissance
+        public virtual void LaunchClaimingPower()
+        {
+            SetMissingPower();
+        }
+        
+        // permet de récupérer la demande de puissance actuelle
+        public double GetClaimingPower { get { return claimingPower; } }
+        
+        // va chercher la puissance sur inputLine
+        public void SetMissingPower()
+        {
+            double a = claimingPower;
+            double b = inputLine.getCurrentPower();
+            missingPower = a - b;  // puissance manquante = puissance demandée - puissance disponible sur inputLine
+
+            if (missingPower > 0)   // pas assez de puissance sur la lige
+            {
+                alertMessage = String.Format("The consumer {0} is missing {1}W.", name, missingPower);
+            }
+            else if (missingPower == 0)     // bonne quantité de puissance sur la ligne
+            {
+                alertMessage = String.Format("The consumer {0} has received all the available power", name);
+                Consuming();
+            }
+            else        // trop de puissance sur la ligne
+            {
+                alertMessage = String.Format("The consumer {0} is receiving {1}W in excess.", name, Math.Abs(missingPower));
+            }
+        }
+        
+        public double GetMissingPower { get { return missingPower; } }
+        public string GetAlertMessage { get { return alertMessage; } }
+        public string CleanAlertMessage { set { alertMessage = ""; } }
+
+        public void Consuming()
+        {
+            // Le consomateur vide inputLine
+            claimingPower -= inputLine.getCurrentPower();
+            inputLine.setCurrentPower(0);
+        }
+    }
+
+    public class City : Consumer
+    {
+        private double temperature;
+        private double nbr_hab;
+
+        public City(string name, Line inputLine, double nbr_hab, Weather meteo) : base(name, inputLine)
+        {
+            // La ville se différencie par un nombre d'habitant et une certaine température donnée par la météo sur laquelle elle est focalisée
+            temperature = meteo.getTemperature;
+            this.nbr_hab = nbr_hab;
         }
 
+        public override void LaunchClaimingPower()
+        {
+            // température peut prendre une valeur entre -5 et +35°C
+            if (temperature < 10)
+            {
+                claimingPower = 1000;
+            }
+            else if (temperature >= 5 & temperature < 20)
+            {
+                claimingPower = 500;
+            }
+            else  // temperature >= 20°C
+            {
+                claimingPower = 50;     // faible consomation
+            }
 
-        public void setName(string newName)
-        {
-            this.name = newName;
-        }
-        public string getName()
-        {
-            return this.name;
-        }
+            claimingPower *= nbr_hab;   // * le nombre d'habitant de la ville
 
-
-        public void setInputLine(Line newInputLine)
-        {
-            this.inputLine = newInputLine;
+            SetMissingPower();
         }
-        public Line getInputLine()
-        {
-            return this.inputLine;
-        }
-
-
-        public void setClaimingPower(double newClaimingPower)
-        {
-            this.claimingPower = newClaimingPower;
-        }
-        public double getClaimingPower()
-        {
-            return this.claimingPower;
-        }
+    }
 
         public void setMissingPower()
         {
             double a = this.claimingPower;
-            double b = this.inputLine.getCurrentPower;
+            double b = this.inputLine.getCurrentPower();
             this.missingPower = a - b;  //energie manquante = energie demand�e - energie recue
 
             if (this.missingPower > 0)
@@ -76,27 +125,27 @@ namespace POO_Project
 
         public double getMissingPower()
         {
-            return this.missingPower;
+            this.market = market;    
+        }
+        public override void LaunchClaimingPower()
+        {
+            wattPrice = market.getWattPrice;
+            claimingPower = inputLine.getCurrentPower();
+            benefices = claimingPower * wattPrice;
+            SetMissingPower();
+        }
+    }
+
+    public class dissipator : Consumer
+    {
+        public dissipator(string name, Line inputLine) : base(name, inputLine)
+        {
+        }
+        public override void LaunchClaimingPower()
+        {
+            claimingPower = inputLine.getCurrentPower() ;
+            SetMissingPower();
         }
 
-        public void cleanAlertMessage()
-        {
-            this.alertMessage = "";
-        }
-        public string getAlertMessage()
-        {
-            return this.alertMessage;
-        }
-
-
-
-        public void setBuyingPrice(double newBuyingPrice)
-        {
-            this.buyingPrice = newBuyingPrice;
-        }
-        public double getBuyingPrice()
-        {
-            return this.buyingPrice;
-        }
     }
 }
