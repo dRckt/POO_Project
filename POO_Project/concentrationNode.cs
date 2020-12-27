@@ -16,7 +16,7 @@ namespace POO_Project
 
         private double maxPower;
 
-        private double alertMessage;
+        private List<string> alertMessageListList;
 
         public concentrationNode(string name)
         {
@@ -34,8 +34,6 @@ namespace POO_Project
 
         }
 
-        public Line getOutputLine{ get { return this.outputLine; }  }
-
         //fait la somme des courants sur ligne d'entrées
         public double getOutputPower()
         {
@@ -47,19 +45,28 @@ namespace POO_Project
             return sum;
         }
 
-        public double getPowerClaimed(){return this.outputLine.getPowerClaimed;}
-   
+        public double getPowerClaimed() { return this.outputLine.getPowerClaimed; }
 
-        public void setClaimedPowerOfInputLines() { Console.WriteLine("pass"); }
+        public Line getOutputLine{ get { return this.outputLine; }  }
         public void addInputLine(Line newInputLine){ this.inputLineList.Add(newInputLine);}
+
+
+
+        public void setClaimedPowerOfInputLines() 
+        { 
+            Console.WriteLine("PROGRAMME EN CONSTRUCTION :: doit décider où est ce qu'il réclame du courant"); 
+        }
+
+
+
 
         public void showState()
         {
-            string nodeStateMessage = String.Format("Noeud de concentration {0}:: Nombre d'entrées: {1}  ;  Puissance de sortie: {2}W  ;  AlertMessage: {3}", this.concentrationNodeName , this.inputLineList.Count , this.getOutputPower() , this.alertMessage);
+            string nodeStateMessage = String.Format("Noeud de concentration {0}:: Nombre d'entrées: {1}  ;  Puissance de sortie: {2}W  ", this.concentrationNodeName , this.inputLineList.Count , this.getOutputPower());
             Console.WriteLine(nodeStateMessage);
             foreach (Line inputLine in this.inputLineList)
             {
-                string lineStateMessage = String.Format("   Ligne {0}:: puissance: {1}  ;  alertMessage: {2}", inputLine.getName, inputLine.getCurrentPower, inputLine.getAlertMessage );
+                string lineStateMessage = String.Format("   Ligne {0}:: puissance: {1}  ", inputLine.getName, inputLine.getCurrentPower);
                 Console.WriteLine(lineStateMessage);
             }
             

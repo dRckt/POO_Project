@@ -6,6 +6,8 @@ namespace POO_Project
 {
     class classTest_Robin
     {
+        public string opera;
+        public string apero;
         public classTest_Robin()
         {
             concentrationNode test_node = new concentrationNode("noeud test");
@@ -35,6 +37,15 @@ namespace POO_Project
             //Console.WriteLine("puissnace récupérée avec succès.");
             Console.WriteLine("_________");
             test_node.showState();
+
+
+            string apero = "blablabla";
+            string opera = "blablabla";
+            if (String.Equals(apero, opera))
+            {
+                Console.WriteLine("Ah oui oui");
+            }
+            else { Console.WriteLine("Ah non non"); }
 
         }
     }
