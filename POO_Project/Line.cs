@@ -24,9 +24,11 @@ namespace POO_Project
         public Line(string name)
         {
             this.setName(name);
+            this.maxPower = 142;
             //this.inputIsConnected = false;
             //this.outputIsConnected = false;
-            this.powerClaimed = 0;
+            this.setPowerClaimed(0);
+            this.setCurrentPower(0);
         }
 
 
@@ -51,6 +53,8 @@ namespace POO_Project
         public double getPowerClaimed{ get { return powerClaimed; } }
 
         public double getMaxPower{get { return maxPower; } }
+
+        public string getAlertMessage { get { return alertMessage; } }
 
         /*
         public void setInputLink(double newInputLink)

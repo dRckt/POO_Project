@@ -34,6 +34,8 @@ namespace POO_Project
 
         }
 
+        public Line getOutputLine{ get { return this.outputLine; }  }
+
         //fait la somme des courants sur ligne d'entrées
         public double getOutputPower()
         {
@@ -46,9 +48,22 @@ namespace POO_Project
         }
 
         public double getPowerClaimed(){return this.outputLine.getPowerClaimed;}
-        //ajouter une ligne d'entrée
+   
+
+        public void setClaimedPowerOfInputLines() { Console.WriteLine("pass"); }
         public void addInputLine(Line newInputLine){ this.inputLineList.Add(newInputLine);}
 
+        public void showState()
+        {
+            string nodeStateMessage = String.Format("Noeud de concentration {0}:: Nombre d'entrées: {1}  ;  Puissance de sortie: {2}W  ;  AlertMessage: {3}", this.concentrationNodeName , this.inputLineList.Count , this.getOutputPower() , this.alertMessage);
+            Console.WriteLine(nodeStateMessage);
+            foreach (Line inputLine in this.inputLineList)
+            {
+                string lineStateMessage = String.Format("   Ligne {0}:: puissance: {1}  ;  alertMessage: {2}", inputLine.getName, inputLine.getCurrentPower, inputLine.getAlertMessage );
+                Console.WriteLine(lineStateMessage);
+            }
+            
+        }
 
     }
 }

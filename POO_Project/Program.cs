@@ -6,8 +6,8 @@ namespace POO_Project
     {
         static void Main(string[] args)
         {
-            classTest_Damien test_Damien = new classTest_Damien();
-            //classTest_Damien test_Robin = new classTest_Robin();
+            //classTest_Damien test_Damien = new classTest_Damien();
+            classTest_Robin test_Robin = new classTest_Robin();
             
         }
     }
