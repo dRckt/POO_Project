@@ -4,7 +4,7 @@ using System.Text;
 
 namespace POO_Project
 {
-    class distributionNode
+    public class distributionNode
     {
         private Line inputLine;
         private List<Line> outputLineList = new List<Line> { };

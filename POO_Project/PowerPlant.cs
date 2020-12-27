@@ -24,10 +24,15 @@ namespace POO_Project
         //protected double startTime;
         //protected double stopTime;
 
-        public PowerPlant(string name, Line outputLine)
+        protected distributionNode outputNode;
+
+        public PowerPlant(string name)//, Line outputLine)
         {
             this.name = name;
-            this.outputLine = outputLine;
+            //this.outputLine = outputLine;
+
+            outputNode = new distributionNode(String.Format(name + "_outputNode"));
+            this.outputLine = this.outputNode.getInputLine; //ligne de sortie de la centrale = ligne d'entrée de son noeud de distribution
         }
 
         public virtual void Start() { isWorking = true; }
