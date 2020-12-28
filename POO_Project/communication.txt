@@ -13,7 +13,7 @@ Damien:: regarde dans Manager.cs il y a une fonction UpdatePowerOfPowerPlant() a
 Mes remarques sous forme de commentaires dans le code sont de la forme	 // D : ..... (tu peux faire pareil // R : ..... )
 
 proposition Line.cs --> passer maxPower en paramètre de la ligne pour pouvoir avoir des lignes de differentes maxPower
-					--> ne pas utiliser isDissipatorLine, ca fait peut etre un peut trop copié de chez Sarah, alors qu'on peut simplement brancher la ligne sur un dissipateur en sortie
+					--> ne pas utiliser isDissipatorLine alors qu'on peut simplement brancher la ligne sur un dissipateur en sortie
 					--> Supprimer PowerClaimed, on ne l'utilise pas et ce n'est pas une caractéristique de la ligne de savoir ce qu'on va lui demander de fournir, elle est juste caractérisée par sa puissance actuelle, et c'est le conomateur qui va venir modifier cette valeur
 					--> On pourrait se passer des methodes SetInputNode() et SetOutPutNode() en passant en paramètres les noeuds 
 

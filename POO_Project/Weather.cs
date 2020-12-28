@@ -30,6 +30,7 @@ namespace POO_Project
         public double GetSunlight { get { return sunlight; } }
         public double GetWindspeed { get { return windSpeed; } }
         public double GetTemperature { get { return temperature; } }
+        public string GetLocalisation { get { return localisation; } }
 
         public string GetMeteo()
         {
@@ -37,5 +38,28 @@ namespace POO_Project
 
             return meteo;
         }
+    }
+
+    public class WeatherManager
+    {
+        private List<Weather> WeatherList;
+        
+        public WeatherManager()
+        {
+            WeatherList = new List<Weather>();
+        }
+
+        public void CreateWeather(string localisation)
+        {
+            Weather weather = new Weather(localisation);
+            AddWeather(weather);
+        }
+
+        public void AddWeather(Weather weather)
+        {
+            WeatherList.Add(weather);
+        }
+        public double GetWeatherListCount { get { return WeatherList.Count; } }
+        public List<Weather> GetWeatherList { get { return WeatherList; } }
     }
 }

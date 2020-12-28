@@ -10,26 +10,100 @@ namespace POO_Project
         protected List<PowerPlant> PowerPlantList;
         protected List<Consumer> ConsumerList;
 
+        private Market market;
+        private WeatherManager weather_manager;
 
-
+        private double count;
 
         public Manager()
         {
             Console.WriteLine("");
             PowerPlantList = new List<PowerPlant> { };
             ConsumerList = new List<Consumer> { };
-        }
 
+            weather_manager = new WeatherManager();
+            market = new Market();
+        }
+        // creation Meteo
+        private Weather ChooseWeather()
+        {
+            Console.WriteLine("Creer une nouvelle meteo (0) ou utiliser une meteo disponnible ? (1)");
+            string reponse = Console.ReadLine();
+
+            if (reponse == "0")
+            {
+                Console.WriteLine("Quelle est la localisation de la nouvelle meteo ?");
+                string localisation = Console.ReadLine();
+                Weather new_weather = new Weather(localisation);
+                weather_manager.AddWeather(new_weather);
+                return new_weather;
+            }
+            else if (reponse == "1")
+            {
+                if (weather_manager.GetWeatherListCount == 0)
+                {
+                    Console.WriteLine("erreur : La liste est vide");
+                    return ChooseWeather();
+                }
+                else
+                {
+                    foreach (Weather weather in weather_manager.GetWeatherList)
+                    {
+                        Console.WriteLine(String.Format("Meteo de {0}", weather.GetLocalisation));
+                    }
+                    return ChooseWeather();
+                }
+            }
+            else
+            {
+                Console.WriteLine("erreur : entrée incorrecte");
+                return ChooseWeather();
+            }
+        }
+        // creation d'une centrale
         public PowerPlant CreateNewPowerPlant()
         {
-            //interction avec le terminal pour donner les paramètres de la centrale (type, production, etc..)
-            //!!centrale éteinte quand elle est créé
+            Console.WriteLine(String.Format("------------------------------CREATION CENTRALE n°{0}------------------------------", count));
+            Console.WriteLine("Quelle genre de centrale voulez vous créer ? Entrez :");
+            Console.WriteLine("    g - Gaz Station");
+            Console.WriteLine("    n - nuclear Power Plant");
+            Console.WriteLine("    w - Wind Farm");
+            Console.WriteLine("    s - Solar Station");
 
-            //voir type de centrale qu'on crée (nucleaire, gaz, ..) mais cas général:
-            PowerPlant NewPowerPlant = new PowerPlant("<nom choisi par input terminal>");
+            string type_central = Console.ReadLine();
+            PowerPlant NewPowerPlant;
+
+            if (type_central == "g")
+            {
+                NewPowerPlant = new GasPowerPlant(ChooseName() , market);
+            }
+            else if (type_central == "n")
+            {
+                NewPowerPlant = new NuclearPowerPlant(ChooseName(), market);
+            }
+            else if (type_central == "w")
+            {
+                NewPowerPlant = new WindFarm(ChooseName(), ChooseWeather());
+            }
+            else if (type_central == "s")
+            {
+                NewPowerPlant = new SolarPowerPlant(ChooseName(), ChooseWeather());
+            }
+            else
+            {
+                Console.WriteLine("Entrée incorrecte");
+                return CreateNewPowerPlant();
+            }
+
             PowerPlantList.Add(NewPowerPlant);
-            
-            return NewPowerPlant;
+            Console.WriteLine(String.Format("La centrale {0} a bien été créée.", NewPowerPlant.GetName));
+
+            count++;
+
+            return CreateNewPowerPlant();
+
+            // interction avec le terminal pour donner les paramètres de la centrale (type, production, etc..)
+            // !!centrale éteinte quand elle est créé
         }
 
         public Consumer CreateNewConsumer()
@@ -41,6 +115,13 @@ namespace POO_Project
             ConsumerList.Add(NewConsumer); 
 
             return NewConsumer;
+        }
+
+        private string ChooseName()
+        {
+            Console.WriteLine("Entrez le nom de la centrale :");
+            string name = Console.ReadLine();
+            return name;
         }
 
         public void ConnectDistributionToConcentrationNode(string ConnexionLineName, Node DistributionNode, Node ConcentrationNode)
@@ -65,7 +146,7 @@ namespace POO_Project
             //(éventuellement d'abord appel de la mise a jour des puissances réclamées par les clients (UpdateClaimingOfConsumer), voir interactions avc terminal)
             //UpdateClaimingOfConsumer();
 
-            foreach (PowerPlant PowerPlant in this.PowerPlantList)
+            foreach (PowerPlant PowerPlant in PowerPlantList)
             {
 
                 List<Line> LineList = new List<Line> { PowerPlant.GetOutPutLine };

@@ -4,7 +4,6 @@ using System.Text;
 
 namespace POO_Project
 {
-    // Classe mere
     public class PowerPlant
     {
         protected string name;
@@ -37,6 +36,7 @@ namespace POO_Project
             OutputLine.SetOutPutNode(OutPutNode);  //je précise à la ligne qui est mon noeud de sortie (pour pouvoir le récupérer par après)
         }
         public Line GetOutPutLine { get { return this.OutputLine; } }
+        public string GetName { get { return name; } }
 
         public virtual void Start() { IsWorking = true; }
         public virtual void Stop() { IsWorking = false; }
