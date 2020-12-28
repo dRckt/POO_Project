@@ -16,8 +16,8 @@ namespace POO_Project
         public Manager()
         {
             Console.WriteLine("");
-            this.PowerPlantList = new List<PowerPlant> { };
-            this.ConsumerList = new List<Consumer> { };
+            PowerPlantList = new List<PowerPlant> { };
+            ConsumerList = new List<Consumer> { };
         }
 
         public PowerPlant CreateNewPowerPlant()
@@ -27,7 +27,7 @@ namespace POO_Project
 
             //voir type de centrale qu'on crée (nucleaire, gaz, ..) mais cas général:
             PowerPlant NewPowerPlant = new PowerPlant("<nom choisi par input terminal>");
-            this.PowerPlantList.Add(NewPowerPlant);
+            PowerPlantList.Add(NewPowerPlant);
             
             return NewPowerPlant;
         }
@@ -38,7 +38,7 @@ namespace POO_Project
 
             //voir type de consommateur qu'on créé, mais cas général:
             Consumer NewConsumer = new Consumer("<nom choisi par input terminal>");
-            this.ConsumerList.Add(NewConsumer); 
+            ConsumerList.Add(NewConsumer); 
 
             return NewConsumer;
         }
