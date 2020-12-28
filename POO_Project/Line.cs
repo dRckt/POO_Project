@@ -14,15 +14,15 @@ namespace POO_Project
         private double MaxPower;
         private string alertMessage;
 
+        protected Node inputNode;
+        protected Node OutPutNode;
+
         //private double inputLink;
         //private double outputLink;
 
 
         //private bool inputIsConnected;
         //private bool outputIsConnected;
-
-        protected Node inputNode;
-        protected Node OutPutNode;
 
         private bool IsConsumerLine;
         private bool IsPowerPlantLine;
@@ -45,17 +45,18 @@ namespace POO_Project
 
         /// Propriétés GET
         public string GetName { get { return name; } }
-        public Node GetInputNode { get { return this.inputNode; } }
-        public Node GetOutputNode { get { return this.OutPutNode; } }
-        public double GetPowerClaimed { get { return PowerClaimed; } }
         public double GetMaxPower { get { return MaxPower; } }
-        public string GetAlertMessage { get { return alertMessage; } }
-        public bool GetIsConsumerLine { get { return this.IsConsumerLine; } }
-        public bool GetIsPowerPlantLine { get { return this.IsPowerPlantLine; } }
         public double GetCurrentPower { get { return currentPower; } }
-        public bool GetIsDissipatorLine { get { return this.IsDissipatorLine; } }
+        public Node GetInputNode { get { return inputNode; } }
+        public Node GetOutputNode { get { return OutPutNode; } }
 
-        /// Propiétés SET
+        public double GetPowerClaimed { get { return PowerClaimed; } }                        // D : inutile ici 
+        public string GetAlertMessage { get { return alertMessage; } }
+        public bool GetIsConsumerLine { get { return IsConsumerLine; } }
+        public bool GetIsPowerPlantLine { get { return IsPowerPlantLine; } }  
+        public bool GetIsDissipatorLine { get { return IsDissipatorLine; } }
+
+        /// Methodes SET
         public void SetInputNode(Node inputNode) { this.inputNode = inputNode; }
         public void SetOutPutNode(Node OutPutNode) { this.OutPutNode = OutPutNode; }
         public void SetPowerClaimed(double newPowerClaimed) { PowerClaimed = newPowerClaimed; }
