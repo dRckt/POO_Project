@@ -47,11 +47,30 @@ namespace POO_Project
                 }
                 else
                 {
+                    Dictionary<int, Weather> dict_Weather = new Dictionary<int, Weather>();
+                    int id = 0;
                     foreach (Weather weather in weather_manager.GetWeatherList)
                     {
-                        Console.WriteLine(String.Format("Meteo de {0}", weather.GetLocalisation));
+                        dict_Weather.Add(id, weather);
+                        Console.WriteLine(String.Format("   {0} - Meteo de {1}",id, weather.GetLocalisation));
+                        id++;
                     }
-                    return ChooseWeather();
+
+                    Console.WriteLine("Entrez l'id de la meteo souhaitée");
+                    int weather_id = Convert.ToInt32(Console.ReadLine());
+
+                    try
+                    {
+                        Weather new_weather = dict_Weather[weather_id];
+                        Console.WriteLine(String.Format("meteo choisie : meteo de {0}", new_weather.GetLocalisation));
+                        return new_weather;
+
+                    }
+                    catch
+                    {
+                        Console.WriteLine("error : id mauvais");
+                        return ChooseWeather();
+                    }                  
                 }
             }
             else
