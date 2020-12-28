@@ -14,26 +14,28 @@ namespace POO_Project
 
         protected string alertMessage;
 
+        protected bool isConsuming = true;
+
         protected ConcentrationNode inputNode;
 
-        public Consumer(string name) //, Line inputLine)
-        {
+        public Consumer(string name)//, Line inputLine)
+        {            
             this.name = name;
             //this.inputLine = inputLine;
 
-            this.inputNode = new ConcentrationNode(String.Format(name+"_inputNode"));
+            this.inputNode = new ConcentrationNode(String.Format(name + "_inputNode"));
             this.inputLine = inputNode.GetOutputLine; //ligne d'entrée du consumer = ligne de sortie du noeud de concentration
             inputLine.SetIsConsumerLine(true);
             inputLine.SetInputNode(inputNode);
 
             alertMessage = "";
         }
-        
+
         // permet de récupérer le nom du consommateur
         public string GetName { get { return name; } }
         // permet de récupérer la ligne d'entrée
-        public Line GetInputLine { get { return inputLine; } }
-        
+        public Line getInputLine { get { return inputLine; } }
+
         // si besoin éventuel, permet de brancher le consommateur sur une autre ligne passée en paramètre
         public void SetInputLine(Line newInputLine) { inputLine = newInputLine; }
 
@@ -42,16 +44,15 @@ namespace POO_Project
         {
             SetMissingPower();
         }
-        
+
         // permet de récupérer la demande de puissance actuelle
         public double GetClaimingPower { get { return claimingPower; } }
-        
+
         // va chercher la puissance sur inputLine
         public void SetMissingPower()
         {
             double a = claimingPower;
-            double b = inputLine.
-             CurrentPower;
+            double b = inputLine.GetCurrentPower;
             missingPower = a - b;  // puissance manquante = puissance demandée - puissance disponible sur inputLine
 
             if (missingPower > 0)   // pas assez de puissance sur la lige
@@ -68,7 +69,7 @@ namespace POO_Project
                 alertMessage = String.Format("The consumer {0} is receiving {1}W in excess.", name, Math.Abs(missingPower));
             }
         }
-        
+
         public double GetMissingPower { get { return missingPower; } }
         public string GetAlertMessage { get { return alertMessage; } }
         public string CleanAlertMessage { set { alertMessage = ""; } }
@@ -86,7 +87,6 @@ namespace POO_Project
         private double temperature;
         private double nbr_hab;
 
-        //public City(string name, Line inputLine, double nbr_hab, Weather meteo) : base(name, inputLine)
         public City(string name, double nbr_hab, Weather meteo) : base(name)
         {
             // La ville se différencie par un nombre d'habitant et une certaine température donnée par la météo sur laquelle elle est focalisée
@@ -114,27 +114,30 @@ namespace POO_Project
 
             SetMissingPower();
         }
-    //}
+    }
 
-        public void SetMissingPower()
+    public class Entreprise : Consumer
+    {
+        double nbr_machines;
+        public Entreprise(string name, double nbr_machines) : base(name)
         {
-            double a = this.claimingPower;
-            double b = this.inputLine.GetCurrentPower;
-            this.missingPower = a - b;  //energie manquante = energie demand�e - energie recue
-
-            if (this.missingPower > 0)
-            {
-                this.alertMessage = String.Format("The consumer {0} is missing {1}W.", this.name, this.missingPower);
-            }
-            else
-            {
-                this.alertMessage = String.Format("The consumer {0} is receiving {1}W in excess.", this.name, (-this.missingPower));
-            }
+            this.nbr_machines = nbr_machines;
         }
-
-        public double GetMissingPower()
+        public override void LaunchClaimingPower()
         {
-            this.market = market;    
+            claimingPower = nbr_machines * 10000; // chaque machine consomme 10000W
+            SetMissingPower();
+        }
+    }
+
+    public class SaleAbroad : Consumer
+    {
+        Market market;
+        double wattPrice;
+        double benefices;
+        public SaleAbroad(string name, Market market) : base(name)
+        {
+            this.market = market;
         }
         public override void LaunchClaimingPower()
         {
@@ -147,13 +150,13 @@ namespace POO_Project
 
     public class dissipator : Consumer
     {
-    //public dissipator(string name, Line inputLine) : base(name, inputLine)
-    public dissipator(string name) : base(name)
-    {
+        public dissipator(string name) : base(name)
+        {
+            isConsuming = false;
         }
         public override void LaunchClaimingPower()
         {
-            claimingPower = inputLine.GetCurrentPower ;
+            claimingPower = inputLine.GetCurrentPower;
             SetMissingPower();
         }
 
