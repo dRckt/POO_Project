@@ -64,13 +64,13 @@ namespace POO_Project
         public void SetIsPowerPlantLine(bool b) { IsPowerPlantLine = b; }
         public void SetCurrentPower(double newCurrentPower)
         {
-            if (newCurrentPower > this.MaxPower)
+            if (newCurrentPower > MaxPower)
             {
-                this.alertMessage = String.Format("Required power on {0} is too high", this.name);
+                alertMessage = String.Format("Required power on {0} is too high", name);
             }
             else
             {
-                this.currentPower = newCurrentPower;
+                currentPower = newCurrentPower;
             }
         }
 
