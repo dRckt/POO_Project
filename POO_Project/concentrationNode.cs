@@ -18,6 +18,8 @@ namespace POO_Project
 
         private List<string> alertMessageListList;
 
+        protected bool IsConsumerNode;
+
         public concentrationNode(string name)
         {
             //créé d'abord sa ligne de sortie
@@ -32,6 +34,7 @@ namespace POO_Project
             this.maxPower = this.outputLine.getMaxPower; //puissance max du noeud = puissance max de la ligne de sortie
             Console.WriteLine(String.Format("Une noeud de concentration nommé {0} a été créé.", name));
 
+            this.IsConsumerNode = false;
         }
 
         //fait la somme des courants sur ligne d'entrées
@@ -71,6 +74,8 @@ namespace POO_Project
             }
             
         }
+
+        public bool getIsConsumerNode{ get { return this.IsConsumerNode; } }
 
     }
 }

@@ -17,6 +17,8 @@ namespace POO_Project
         private List<string> alertMessageList;
         private string distributionNodeName;
 
+        protected bool IsCentralNode;
+
 
         public distributionNode(string name)
         {
@@ -31,6 +33,8 @@ namespace POO_Project
             this.powerClaimed = this.getPowerClaimed();
 
             this.maxPower = this.inputLine.getMaxPower;
+
+            this.IsCentralNode = false;
         }
 
         public double getInputPower { get { return inputLine.getCurrentPower; } }
@@ -79,6 +83,8 @@ namespace POO_Project
             }
 
         }
+
+        public bool getIsCentralNode { get { return this.IsCentralNode; } }
 
     }
 }
