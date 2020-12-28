@@ -22,7 +22,7 @@ namespace POO_Project
             //this.inputLine = inputLine;
 
             this.inputNode = new ConcentrationNode(String.Format(name+"_inputNode"));
-            this.inputLine = this.inputNode.GetOutputLine; //ligne d'entrée du consumer = ligne de sortie du noeud de concentration
+            this.inputLine = inputNode.GetOutputLine; //ligne d'entrée du consumer = ligne de sortie du noeud de concentration
             inputLine.SetIsConsumerLine(true);
             inputLine.SetInputNode(inputNode);
 

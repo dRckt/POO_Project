@@ -65,9 +65,6 @@ namespace POO_Project
     public class GasPowerPlant : PowerPlant
     {
         Market market;
-
-        //REMARQUE la centrale ne doit pas prendre en param une ligne, elle doit créer un noeud (qui créera cette ligne)
-        //ensuite dire "la ligne d'entrée du noeud de distribution que je viens de créer EST la ligne de sortie de ma centrale"
         //public GasPowerPlant(string name, Line OutputLine, Market market) : base(name, OutputLine)
         public GasPowerPlant(string name, Market market) : base(name)
         {

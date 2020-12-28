@@ -42,7 +42,7 @@ namespace POO_Project
         public double GetOutputPower()
         {
             double sum = 0;
-            foreach (Line inputLine in this.inputLineList)
+            foreach (Line inputLine in base.InputLineList)
             {
                 sum += inputLine.GetCurrentPower;
             }

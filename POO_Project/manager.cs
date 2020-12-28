@@ -49,6 +49,9 @@ namespace POO_Project
             DistributionNode.AddOutputLineToList(ConnexionLine);
             ConcentrationNode.AddInputLineToList(ConnexionLine);
 
+            ConnexionLine.SetInputNode(DistributionNode);
+            ConnexionLine.SetOutPutNode(ConcentrationNode);
+
         }
 
         public void UpdateClaimingOfConsumer() //devra probablement prendre un dictionnaire en param, voir interaction avec terminal pour récupérer ce dict
@@ -88,11 +91,12 @@ namespace POO_Project
                 {
                     sum += line.GetPowerClaimed;
                 }
+                /* //Pfinalement pas nécessaire mais aura peut etre besoin de ce bloc de code ailleurs
                 else if (line.GetIsDissipatorLine) 
                 {
                     sum -= line.GetCurrentPower;  //Ce qui etait en trop sur la ligne dissipative est récupéré
                     line.SetCurrentPower(0);  //puissance de la ligne dissipative mise a 0
-                }
+                }*/
                 else
                 {
                     Node node = line.GetOutputNode;
