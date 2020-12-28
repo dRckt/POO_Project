@@ -24,8 +24,8 @@ namespace POO_Project
             wattPrice = ran.Next(1000, 2000);
         }
 
-        public double getNuclearPrice { get { return nuclearPrice; } }
-        public double getGasPrice { get { return gasPrice; } }
-        public double getWattPrice { get { return wattPrice; } }
+        public double GetNuclearPrice { get { return nuclearPrice; } }
+        public double GetGasPrice { get { return gasPrice; } }
+        public double GetWattPrice { get { return wattPrice; } }
     }
 }

@@ -25,22 +25,22 @@ namespace POO_Project
 
         public Consumer(string name, Line inputLine, double buyingPrice)
         {
-            // Pourquoi le setName ? pourquoi vouloir modifier le nom de l'objet par la suite
+            // Pourquoi le SetName ? pourquoi vouloir modifier le nom de l'objet par la suite
             // pareil pour InputLine
 
-            setName(name);
-            setInputLine(inputLine);
-            setBuyingPrice(buyingPrice);
+            SetName(name);
+            SetInputLine(inputLine);
+            SetBuyingPrice(buyingPrice);
 
             cleanAlertMessage();
 
-            setClaimingPower(0); //consomme 0 a la creation
+            SetClaimingPower(0); //consomme 0 a la creation
 
-            setMissingPower();
+            SetMissingPower();
         }
 
 
-        public void setName(string newName)
+        public void SetName(string newName)
         {
             name = newName;
         }
@@ -50,7 +50,7 @@ namespace POO_Project
         }
 
 
-        public void setInputLine(Line newInputLine)
+        public void SetInputLine(Line newInputLine)
         {
             inputLine = newInputLine;
         }
@@ -60,7 +60,7 @@ namespace POO_Project
         }
 
 
-        public void setClaimingPower(double newClaimingPower)
+        public void SetClaimingPower(double newClaimingPower)
         {
             claimingPower = newClaimingPower;
         }
@@ -69,10 +69,10 @@ namespace POO_Project
             return claimingPower;
         }
 
-        public void setMissingPower()
+        public void SetMissingPower()
         {
             double a = claimingPower;
-            double b = inputLine.getCurrentPower();
+            double b = inputLine.GetCurrentPower;
             missingPower = a - b;  //energie manquante = energie demand�e - energie recue
 
             if (missingPower > 0)
@@ -101,7 +101,7 @@ namespace POO_Project
 
 
 
-        public void setBuyingPrice(double newBuyingPrice)
+        public void SetBuyingPrice(double newBuyingPrice)
         {
             buyingPrice = newBuyingPrice;
         }

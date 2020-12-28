@@ -4,14 +4,16 @@ using System.Text;
 
 namespace POO_Project
 {
-    public class manager
+    public class Manager
     {
 
         protected List<PowerPlant> PowerPlantList;
         protected List<Consumer> ConsumerList;
 
 
-        public manager()
+
+
+        public Manager()
         {
             Console.WriteLine("");
             this.PowerPlantList = new List<PowerPlant> { };
@@ -41,11 +43,11 @@ namespace POO_Project
             return NewConsumer;
         }
 
-        public void ConnectDistributionToConcentrationNode(string ConnexionLineName, distributionNode DistributionNode, concentrationNode ConcentrationNode)
+        public void ConnectDistributionToConcentrationNode(string ConnexionLineName, Node DistributionNode, Node ConcentrationNode)
         {
             Line ConnexionLine = new Line(ConnexionLineName);
-            DistributionNode.addOutputLine(ConnexionLine);
-            ConcentrationNode.addInputLine(ConnexionLine);
+            DistributionNode.AddOutputLineToList(ConnexionLine);
+            ConcentrationNode.AddInputLineToList(ConnexionLine);
 
         }
 
@@ -58,23 +60,46 @@ namespace POO_Project
         public void UpdatePowerOfPowerPlant()
         {
             //(éventuellement d'abord appel de la mise a jour des puissances réclamées par les clients (UpdateClaimingOfConsumer), voir interactions avc terminal)
+            //UpdateClaimingOfConsumer();
 
-            //parcour les centrales
-                
-                //METHODE RECURSIVE qui part d'une LISTE de noeud (return double sum)
-                //variable sum=0
-                //parcourir les noeuds de la liste
-                    //demander au noeud si il appartient a un consumer (getIsConsumerNode = true;)
-                        //si oui:
-                            //recupérer la puissance réclamée du consumer et l'ajouter a sum (sum += ...)
-                        //si non:
-                            //récupérer la liste de noeuds (ou l'unique noeud) auquel on est connecté
-                            //APPEL RECURSIF
-                            //sum += RETURN de l'appel recursif
-                 //RETURN SUM (quand on a fini de parcourir les noeuds)
-                 //La centrale qu'on parcourait attribue 'sum' comme étant sa puissance a fournir (DAMIEN)
-            //fin du parcour =>toutes les centrales devraient avoir mis a jour la puissance
+            foreach (PowerPlant PowerPlant in this.PowerPlantList)
+            {
 
+                List<Line> LineList = new List<Line> { PowerPlant.GetOutPutLine };
+                double NewPowerClaimed = GetPowerClaimed(LineList);
+
+                ///// -- DAMIEN -- /////
+                ///// -- DAMIEN -- /////
+                ///
+                ///   ici mettre a jour la puissance de la centrale, nouvelle puissance requise = NewPowerClaimed
+                ///
+                ///// -- DAMIEN -- /////
+                ///// -- DAMIEN -- /////
+            }
+
+        }
+
+        public double GetPowerClaimed(List<Line> LineList)
+        {
+            double sum = 0;
+            foreach (Line line in LineList)
+            {
+                if (line.GetIsConsumerLine )
+                {
+                    sum += line.GetPowerClaimed;
+                }
+                else if (line.GetIsDissipatorLine) 
+                {
+                    sum -= line.GetCurrentPower;  //Ce qui etait en trop sur la ligne dissipative est récupéré
+                    line.SetCurrentPower(0);  //puissance de la ligne dissipative mise a 0
+                }
+                else
+                {
+                    Node node = line.GetOutputNode;
+                    sum += GetPowerClaimed(node.GetOutputLineList);
+                }
+            }
+            return sum;
         }
     }
 }

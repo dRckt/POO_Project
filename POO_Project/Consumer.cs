@@ -14,15 +14,17 @@ namespace POO_Project
 
         protected string alertMessage;
 
-        protected concentrationNode inputNode;
+        protected ConcentrationNode inputNode;
 
         public Consumer(string name) //, Line inputLine)
         {
             this.name = name;
             //this.inputLine = inputLine;
 
-            this.inputNode = new concentrationNode(String.Format(name+"_inputNode"));
-            this.inputLine = this.inputNode.getOutputLine; //ligne d'entrée du consumer = ligne de sortie du noeud de concentration
+            this.inputNode = new ConcentrationNode(String.Format(name+"_inputNode"));
+            this.inputLine = this.inputNode.GetOutputLine; //ligne d'entrée du consumer = ligne de sortie du noeud de concentration
+            inputLine.SetIsConsumerLine(true);
+            inputLine.SetInputNode(inputNode);
 
             alertMessage = "";
         }
@@ -30,7 +32,7 @@ namespace POO_Project
         // permet de récupérer le nom du consommateur
         public string GetName { get { return name; } }
         // permet de récupérer la ligne d'entrée
-        public Line getInputLine { get { return inputLine; } }
+        public Line GetInputLine { get { return inputLine; } }
         
         // si besoin éventuel, permet de brancher le consommateur sur une autre ligne passée en paramètre
         public void SetInputLine(Line newInputLine) { inputLine = newInputLine; }
@@ -48,7 +50,8 @@ namespace POO_Project
         public void SetMissingPower()
         {
             double a = claimingPower;
-            double b = inputLine.getCurrentPower();
+            double b = inputLine.
+             CurrentPower;
             missingPower = a - b;  // puissance manquante = puissance demandée - puissance disponible sur inputLine
 
             if (missingPower > 0)   // pas assez de puissance sur la lige
@@ -73,8 +76,8 @@ namespace POO_Project
         public void Consuming()
         {
             // Le consomateur vide inputLine
-            claimingPower -= inputLine.getCurrentPower();
-            inputLine.setCurrentPower(0);
+            claimingPower -= inputLine.GetCurrentPower;
+            inputLine.SetCurrentPower(0);
         }
     }
 
@@ -83,10 +86,11 @@ namespace POO_Project
         private double temperature;
         private double nbr_hab;
 
-        public City(string name, Line inputLine, double nbr_hab, Weather meteo) : base(name, inputLine)
+        //public City(string name, Line inputLine, double nbr_hab, Weather meteo) : base(name, inputLine)
+        public City(string name, double nbr_hab, Weather meteo) : base(name)
         {
             // La ville se différencie par un nombre d'habitant et une certaine température donnée par la météo sur laquelle elle est focalisée
-            temperature = meteo.getTemperature;
+            temperature = meteo.GetTemperature;
             this.nbr_hab = nbr_hab;
         }
 
@@ -110,12 +114,12 @@ namespace POO_Project
 
             SetMissingPower();
         }
-    }
+    //}
 
-        public void setMissingPower()
+        public void SetMissingPower()
         {
             double a = this.claimingPower;
-            double b = this.inputLine.getCurrentPower();
+            double b = this.inputLine.GetCurrentPower;
             this.missingPower = a - b;  //energie manquante = energie demand�e - energie recue
 
             if (this.missingPower > 0)
@@ -128,14 +132,14 @@ namespace POO_Project
             }
         }
 
-        public double getMissingPower()
+        public double GetMissingPower()
         {
             this.market = market;    
         }
         public override void LaunchClaimingPower()
         {
-            wattPrice = market.getWattPrice;
-            claimingPower = inputLine.getCurrentPower();
+            wattPrice = market.GetWattPrice;
+            claimingPower = inputLine.GetCurrentPower;
             benefices = claimingPower * wattPrice;
             SetMissingPower();
         }
@@ -143,12 +147,13 @@ namespace POO_Project
 
     public class dissipator : Consumer
     {
-        public dissipator(string name, Line inputLine) : base(name, inputLine)
-        {
+    //public dissipator(string name, Line inputLine) : base(name, inputLine)
+    public dissipator(string name) : base(name)
+    {
         }
         public override void LaunchClaimingPower()
         {
-            claimingPower = inputLine.getCurrentPower() ;
+            claimingPower = inputLine.GetCurrentPower ;
             SetMissingPower();
         }
 

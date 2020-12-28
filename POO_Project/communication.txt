@@ -1,24 +1,11 @@
 ﻿///////// FICHIER COMMUNICATION //////////////
 
-D'après moi c'est la classe consumer qui dit "moi je réclame autant de puissance"
-Quand on met a jour:
- -> consumer modifie la variable claimingPower de sa ligne (et donc de son noeud logiquement)
- -> Le noeud du consumer modifie les variables claimingPower de ses lignes d'entrée (en s'occupant de répartir qui réclame combien parmis ces lignes, car certaines ne peuvent peut etre pas changer la puissance qu'elles envoient)
- -> Les noeuds suivants sont des noeuds de centrale qui font la somme des claiming power de chaque ligne sur lesquelle elle distribuent
- -> La centrale adapte sa production (en vidant d'abord la ligne dissipative s'il y en a)
- 
- -> Le noeud de la centrale met a jour la puissance envoyée sur chaque ligne (chaque ligne étant connectée a un noeud de concentration)
- -> chaque noeud de concentration met a jour la puissance qu'il recoit
- -> la ligne du consommateur met a jour ce qu'elle recoit, voir alertMessage pour savoir si elle a assez/trop de puissance
+Damien:: regarde dans Manager.cs il y a une fonction UpdatePowerOfPowerPlant() avec une partie que tu dois compléter
 
 
-La centrale donc pouvoir:
- - dire si elle peut s'adapter ou pas (bool) quand on lui demande
- - lire la variable 'claimingPower' de son noeud pour savoir combien envoyer
- - 
- Central créé noeud de distribution avec son constructeur:
 
 
- Consumer doit créer un noeud de concentration DANS son constructeur:    concentrationNode <Nom du noeud> = new concentrationNode(<nom du noeud>);
- Ensuite dire que la ligne de sortie de ce noeud est la ligne d'entrée du consumer  :  this.inputLine = <nom du noeud>.getOutputLine;
- quand le consumer veut adapter sa demande:      <ligne d'entrée du consumer>.setPowerClaimed(<nouvelle puissance demandée>);
+
+
+
+

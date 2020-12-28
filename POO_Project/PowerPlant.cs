@@ -8,8 +8,8 @@ namespace POO_Project
     public class PowerPlant
     {
         protected string name;
-        protected Line outputLine;
-        protected bool isWorking = false;
+        protected Line OutputLine;
+        protected bool IsWorking = false;
         protected string alertMessage = "";
 
         //protected string type;
@@ -24,20 +24,23 @@ namespace POO_Project
         //protected double startTime;
         //protected double stopTime;
 
-        protected distributionNode outputNode;
+        protected DistributionNode OutPutNode;
 
-        public PowerPlant(string name)//, Line outputLine)
+        public PowerPlant(string name)//, Line OutputLine)
         {
             this.name = name;
-            //this.outputLine = outputLine;
+            //this.OutputLine = OutputLine;
 
-            this.outputNode = new distributionNode(String.Format(name + "_outputNode"));
-            this.outputLine = this.outputNode.getInputLine; //ligne de sortie de la centrale = ligne d'entrée de son noeud de distribution
+            this.OutPutNode = new DistributionNode(String.Format(name + "_OutPutNode"));
+            this.OutputLine = this.OutPutNode.GetInputLine; //ligne de sortie de la centrale = ligne d'entrée de son noeud de distribution
+            OutputLine.SetIsPowerPlantLine(true);  //je précise que cette ligne est reliée a une centrale
+            OutputLine.SetOutPutNode(OutPutNode);  //je précise à la ligne qui est mon noeud de sortie (pour pouvoir le récupérer par après)
         }
+        public Line GetOutPutLine { get { return this.OutputLine; } }
 
-        public virtual void Start() { isWorking = true; }
-        public virtual void Stop() { isWorking = false; }
-        public bool IsWorking { get { return isWorking; } }
+        public virtual void Start() { IsWorking = true; }
+        public virtual void Stop() { IsWorking = false; }
+        public bool GetIsWorking { get { return IsWorking; } } //j'ai ajouté le Get devant parce que build plantait sinon (ambiguité entre la methode et le bool)
         public virtual double Production()
         {
             Console.WriteLine("Si ce message s'affiche, ca pue, faut pas arriver ici");
@@ -65,7 +68,8 @@ namespace POO_Project
 
         //REMARQUE la centrale ne doit pas prendre en param une ligne, elle doit créer un noeud (qui créera cette ligne)
         //ensuite dire "la ligne d'entrée du noeud de distribution que je viens de créer EST la ligne de sortie de ma centrale"
-        public GasPowerPlant(string name, Line outputLine, Market market) : base(name, outputLine)
+        //public GasPowerPlant(string name, Line OutputLine, Market market) : base(name, OutputLine)
+        public GasPowerPlant(string name, Market market) : base(name)
         {
             this.market = market;
         }
@@ -78,7 +82,7 @@ namespace POO_Project
         }
         public override double Cost()
         {
-            double gasPrice = market.getGasPrice;
+            double gasPrice = market.GetGasPrice;
             productionCost = gasPrice * powerProduction;
             return productionCost;
         }
@@ -96,12 +100,13 @@ namespace POO_Project
         private double count_marche = 1;
         private double count_arret = 10;
         Market market;
-        public NuclearPowerPlant(string name, Line outputLine, Market market) : base(name, outputLine)
+        //public NuclearPowerPlant(string name, Line OutputLine, Market market) : base(name, OutputLine)
+        public NuclearPowerPlant(string name, Market market) : base(name)
         {
             this.market = market;
             Start();                // mise en marche automatique au moment de la création de la centrale
         }
-        public override void Start() { productionState = 2; isWorking = true; }
+        public override void Start() { productionState = 2; IsWorking = true; }
         public override void Stop() { productionState = 3; }
         public override double Production()
         {
@@ -117,7 +122,7 @@ namespace POO_Project
                 // production nulle
                 case 1:
                     {
-                        isWorking = false;
+                        IsWorking = false;
                         powerProduction = 0;
                         break;
                     }
@@ -158,7 +163,7 @@ namespace POO_Project
         }
         public override double Cost()
         {
-            double nuclearPrice = market.getNuclearPrice;
+            double nuclearPrice = market.GetNuclearPrice;
             productionCost = nuclearPrice * powerProduction;
             return productionCost;
         }
@@ -170,13 +175,14 @@ namespace POO_Project
         Weather meteo;
         double windspeed;
         bool reduceProduction = false;
-        public WindFarm(string name, Line outputLine, Weather meteo) : base(name, outputLine)
+        //public WindFarm(string name, Line OutputLine, Weather meteo) : base(name, OutputLine)
+        public WindFarm(string name, Weather meteo) : base(name)
         {
             this.meteo = meteo;
         }
         public override double Production()
         {
-            windspeed = meteo.getWindspeed;
+            windspeed = meteo.GetWindspeed;
             if (reduceProduction)
             {
                 powerProduction = 1000 * windspeed / 2;
@@ -197,13 +203,14 @@ namespace POO_Project
     {
         Weather meteo;
         double sunlight;
-        public SolarPowerPlant(string name, Line outputLine, Weather meteo) : base(name, outputLine)
+        //public SolarPowerPlant(string name, Line OutputLine, Weather meteo) : base(name, OutputLine)
+        public SolarPowerPlant(string name, Weather meteo) : base(name)
         {
             this.meteo = meteo;
         }
         public override double Production()
         {
-            sunlight = meteo.getSunlight;
+            sunlight = meteo.GetSunlight;
             powerProduction = 2000 * sunlight;
             return powerProduction;
         }
@@ -213,7 +220,8 @@ namespace POO_Project
     {
         double purchasedPower;
         Market market;
-        public PurchaseAbroad(string name, Line outputLine, double purchasedPower, Market market) : base(name, outputLine)
+        //public PurchaseAbroad(string name, Line OutputLine, double purchasedPower, Market market) : base(name, OutputLine)
+        public PurchaseAbroad(string name, double purchasedPower, Market market) : base(name)
         {
             this.purchasedPower = purchasedPower;
             this.market = market;
@@ -225,7 +233,7 @@ namespace POO_Project
         }
         public override double Cost()
         {
-            double wattPrice = market.getWattPrice;
+            double wattPrice = market.GetWattPrice;
             productionCost = wattPrice * powerProduction;
             return productionCost;
         }

@@ -4,58 +4,60 @@ using System.Text;
 
 namespace POO_Project
 {
-    public class concentrationNode
+    public class ConcentrationNode : Node
     {
-        private string concentrationNodeName;
-        private Line outputLine;
-        private List<Line> inputLineList = new List<Line>{};
+        private string ConcentrationNodeName;
+        private Line OutputLine;
+        //private List<Line> inputLineList = new List<Line>{};
 
         private double outputPower; //peut etre inutile puisqu'on a jamais besoin de stocker la variable, a chaque fois qu'on veut savoir on recalcule la somme pour mettre a jour
 
-        private double powerClaimed;
+        private double PowerClaimed;
 
-        private double maxPower;
+        private double MaxPower;
 
-        private List<string> alertMessageListList;
+        private List<string> AlertMessageList;
 
-        protected bool IsConsumerNode;
+        //protected bool IsConsumerNode;
 
-        public concentrationNode(string name)
+        public ConcentrationNode(string name) : base()
         {
             //créé d'abord sa ligne de sortie
-            string outputLineName = name+"_outputLine";
-            this.outputLine = new Line(outputLineName);
+            string OutputLineName = name+"_OutputLine";
+            this.OutputLine = new Line(OutputLineName);
+            base.AddOutputLineToList(OutputLine);
             //liste vide pour ses lignes d'entrée
-            this.inputLineList = new List<Line>{};
-            this.outputPower = this.getOutputPower(); //voir commentaire dans header
-            this.powerClaimed = this.getPowerClaimed();
+            //this.inputLineList = new List<Line>{};
+            this.outputPower = this.GetOutputPower(); //voir commentaire dans header
+            this.PowerClaimed = this.GetPowerClaimed();
             //déclarer quelque chose qui décide sur quelle ligne il réclame combien dans ses entrées
 
-            this.maxPower = this.outputLine.getMaxPower; //puissance max du noeud = puissance max de la ligne de sortie
+            this.MaxPower = this.OutputLine.GetMaxPower; //puissance max du noeud = puissance max de la ligne de sortie
             Console.WriteLine(String.Format("Une noeud de concentration nommé {0} a été créé.", name));
 
-            this.IsConsumerNode = false;
+            //this.IsConsumerNode = false;
         }
 
         //fait la somme des courants sur ligne d'entrées
-        public double getOutputPower()
+        public double GetOutputPower()
         {
             double sum = 0;
             foreach (Line inputLine in this.inputLineList)
             {
-                sum += inputLine.getCurrentPower;
+                sum += inputLine.GetCurrentPower;
             }
             return sum;
         }
 
-        public double getPowerClaimed() { return this.outputLine.getPowerClaimed; }
+        public double GetPowerClaimed() { return this.OutputLine.GetPowerClaimed; }
 
-        public Line getOutputLine{ get { return this.outputLine; }  }
-        public void addInputLine(Line newInputLine){ this.inputLineList.Add(newInputLine);}
+        public Line GetOutputLine{ get { return this.OutputLine; }  }
+        
+        //public void addInputLine(Line newInputLine){ this.inputLineList.Add(newInputLine);}
 
 
 
-        public void setClaimedPowerOfInputLines() 
+        public void SetClaimedPowerOfInputLines() 
         { 
             Console.WriteLine("PROGRAMME EN CONSTRUCTION :: doit décider où est ce qu'il réclame du courant"); 
         }
@@ -65,17 +67,18 @@ namespace POO_Project
 
         public void showState()
         {
-            string nodeStateMessage = String.Format("Noeud de concentration {0}:: Nombre d'entrées: {1}  ;  Puissance de sortie: {2}W  ", this.concentrationNodeName , this.inputLineList.Count , this.getOutputPower());
+            string nodeStateMessage = String.Format("Noeud de concentration {0}:: Nombre d'entrées: {1}  ;  Puissance de sortie: {2}W  ", this.ConcentrationNodeName , base.InputLineList.Count , this.GetOutputPower());
             Console.WriteLine(nodeStateMessage);
-            foreach (Line inputLine in this.inputLineList)
+            foreach (Line inputLine in base.InputLineList)
             {
-                string lineStateMessage = String.Format("   Ligne {0}:: puissance: {1}  ", inputLine.getName, inputLine.getCurrentPower);
+                string lineStateMessage = String.Format("   Ligne {0}:: puissance: {1}  ", inputLine.GetName, inputLine.GetCurrentPower);
                 Console.WriteLine(lineStateMessage);
             }
             
         }
 
-        public bool getIsConsumerNode{ get { return this.IsConsumerNode; } }
+        //public bool getIsConsumerNode{ get { return this.IsConsumerNode; } }
+        //public void SetIsConsumerNode(bool b) { this.IsConsumerNode = b; }
 
     }
 }

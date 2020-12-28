@@ -26,19 +26,19 @@ namespace POO_Project
         }
         public string GetAlert { get { return alert_message; } }
         public string GetName { get { return name; } }
-        public string GetLine { get { return inputLine.getName; } }
+        public string GetLine { get { return inputLine.GetName; } }
 
 
         public void ChargeBattery()
         {
-            double charge_supp = inputLine.getCurrentPower;
+            double charge_supp = inputLine.GetCurrentPower;
             if ((charge + charge_supp) <= maximum_charge)       // si la charge maximum permet de stocker la puissance de l'inputLine, la batterie stocke la puissance
             {
                 charge += charge_supp;
             }
             else
             {
-                alert_message = String.Format("Battery {0} can not support the charge ({1}) coming from {2}", name, charge_supp, inputLine.getName);
+                alert_message = String.Format("Battery {0} can not support the charge ({1}) coming from {2}", name, charge_supp, inputLine.GetName);
             }
 
         }

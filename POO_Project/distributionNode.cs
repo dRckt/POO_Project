@@ -4,87 +4,92 @@ using System.Text;
 
 namespace POO_Project
 {
-    public class distributionNode
+    public class DistributionNode : Node
     {
-        private Line inputLine;
-        private List<Line> outputLineList = new List<Line> { };
+        private Line InputLine;
+        //private List<Line> OutputLineList = new List<Line> { };
 
-        private Line dissipatorLine;
+        private Line DissipatorLine;
 
-        private double inputPower;
-        private double powerClaimed;
-        private double maxPower;
-        private List<string> alertMessageList;
-        private string distributionNodeName;
+        private double InputPower;
+        private double PowerClaimed;
+        private double MaxPower;
+        private List<string> AlertMessageList;
+        private string DistributionNodeName;
 
         protected bool IsCentralNode;
 
 
-        public distributionNode(string name)
+        public DistributionNode(string name) : base()
         {
-            string inputLineName = name + "_inputLine";
-            this.inputLine = new Line(inputLineName);
-            this.outputLineList = new List<Line> { };
+            string InputLineName = name + "_InputLine";
+            this.InputLine = new Line(InputLineName);
+            base.AddInputLineToList(InputLine);
+            //this.OutputLineList = new List<Line> { };
 
-            string dissipatorLineName = name + "_dissipatorLine";
-            this.dissipatorLine = new Line(dissipatorLineName);
 
-            this.inputPower = this.getInputPower;
-            this.powerClaimed = this.getPowerClaimed();
 
-            this.maxPower = this.inputLine.getMaxPower;
+            string DissipatorLineName = name + "_DissipatorLine";
+            this.DissipatorLine = new Line(DissipatorLineName);
+
+            this.InputPower = this.GetInputPower;
+            this.PowerClaimed = this.GetPowerClaimed();
+
+            this.MaxPower = this.InputLine.GetMaxPower;
 
             this.IsCentralNode = false;
         }
 
-        public double getInputPower { get { return inputLine.getCurrentPower; } }
-        public double getPowerClaimed()
+        public double GetInputPower { get { return InputLine.GetCurrentPower; } }
+        public double GetPowerClaimed()
         {
             double sum = 0;
-            foreach (Line outputLine in this.outputLineList)
+            foreach (Line OutputLine in this.OutputLineList)
             {
-                sum += outputLine.getCurrentPower;
+                sum += OutputLine.GetCurrentPower;
             }
             return sum;
         }
 
-        public Line getInputLine { get { return this.inputLine; } }
-        public Line getDissipatorLine { get {return this.dissipatorLine; } }
+        public Line GetInputLine { get { return this.InputLine; } }
+        public Line GetDissipatorLine { get {return this.DissipatorLine; } }
 
-        public void addOutputLine(Line newOutputLine) { this.outputLineList.Add(newOutputLine); }
-
-
+        //public void addOutputLine(Line newOutputLine) { this.OutputLineList.Add(newOutputLine); }
 
 
-        public void setCurrentPowerOfOutputLines()
+
+        public void SetCurrentPowerOfOutputLines()
         {
-            foreach (Line outputLine in this.outputLineList)
+            foreach (Line OutputLine in base.OutputLineList)
             {
-                foreach (string alertMessage in this.alertMessageList)
+                foreach (string alertMessage in this.AlertMessageList)
                 {
                     if (String.Equals(alertMessage, "Trouver un template pour ici"))
                     {
                         Console.WriteLine("");
                     }
                 }
-                //outputLine.setCurrentPower("A COMPLETER");
+                //OutputLine.SetCurrentPower("A COMPLETER");
             }
         }
 
 
         public void showState()
         {
-            string nodeStateMessage = String.Format("Noeud de distribution {0}:: Puissance d'entrée: {1}W  ; Nombre de sorties:  {2}", this.distributionNodeName, this.getInputPower, this.outputLineList.Count);
+            string nodeStateMessage = String.Format("Noeud de distribution {0}:: Puissance d'entrée: {1}W  ; Nombre de sorties:  {2}", this.DistributionNodeName, this.GetInputPower, base.OutputLineList.Count);
             Console.WriteLine(nodeStateMessage);
-            foreach (Line outputLine in this.outputLineList)
+            foreach (Line OutputLine in base.OutputLineList)
             {
-                string lineStateMessage = String.Format("   Ligne {0}:: puissance: {1} ", outputLine.getName, outputLine.getCurrentPower);
+                string lineStateMessage = String.Format("   Ligne {0}:: puissance: {1} ", OutputLine.GetName, OutputLine.GetCurrentPower);
                 Console.WriteLine(lineStateMessage);
             }
 
         }
 
-        public bool getIsCentralNode { get { return this.IsCentralNode; } }
+        public bool GetIsCentralNode { get { return this.IsCentralNode; } }
+        public void SetIsCentralNode(bool b) { this.IsCentralNode = b; }
+
+       
 
     }
 }

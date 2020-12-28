@@ -27,11 +27,11 @@ namespace POO_Project
             temperature = random.Next(-5, 35);  // varie entre -5 et +35°C
         }
 
-        public double getSunlight { get { return sunlight; } }
-        public double getWindspeed { get { return windSpeed; } }
-        public double getTemperature { get { return temperature; } }
+        public double GetSunlight { get { return sunlight; } }
+        public double GetWindspeed { get { return windSpeed; } }
+        public double GetTemperature { get { return temperature; } }
 
-        public string getMeteo()
+        public string GetMeteo()
         {
             string meteo = String.Format("Météo de {0} : Ensoleillement = {1}, Force du vent = {2}, Température = {3}", localisation, sunlight, windSpeed, temperature);
 

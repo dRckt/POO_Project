@@ -11,15 +11,23 @@ namespace POO_Project
         {
 
 
-            Line L1 = new Line("Ligne 1");
+            //Line L1 = new Line("Ligne 1");
             Weather meteo_bx = new Weather("Bruxelles");
             Market bourse = new Market();
 
+            /*
             NuclearPowerPlant doel = new NuclearPowerPlant("Centrale nucléaire", L1, bourse);
             GasPowerPlant esso = new GasPowerPlant("Gas Station       ", L1, bourse);
             WindFarm eol = new WindFarm("Parc Eolien       ", L1, meteo_bx);
             SolarPowerPlant champdepanneau = new SolarPowerPlant("panneau solaire   ", L1, meteo_bx);
             PurchaseAbroad achat = new PurchaseAbroad("achat à l'étranger", L1, 10000, bourse);
+            */
+
+            NuclearPowerPlant doel = new NuclearPowerPlant("Centrale nucléaire", bourse);
+            GasPowerPlant esso = new GasPowerPlant("Gas Station       ", bourse);
+            WindFarm eol = new WindFarm("Parc Eolien       ", meteo_bx);
+            SolarPowerPlant champdepanneau = new SolarPowerPlant("panneau solaire   ", meteo_bx);
+            PurchaseAbroad achat = new PurchaseAbroad("achat à l'étranger", 10000, bourse);
 
             Console.WriteLine(doel.Resume());
             Console.WriteLine(esso.Resume());

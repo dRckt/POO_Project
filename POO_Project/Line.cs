@@ -9,9 +9,9 @@ namespace POO_Project
         private string name;
         private double currentPower;
 
-        private double powerClaimed;
+        private double PowerClaimed;
 
-        private double maxPower;
+        private double MaxPower;
         private string alertMessage;
 
         //private double inputLink;
@@ -20,25 +20,41 @@ namespace POO_Project
 
         //private bool inputIsConnected;
         //private bool outputIsConnected;
+        protected Node inputNode;
+        protected Node OutPutNode;
+
+        private bool IsConsumerLine;
+        private bool IsPowerPlantLine;
+
+        private bool IsDissipatorLine;
 
         public Line(string name)
         {
-            this.setName(name);
-            this.maxPower = 142;
+            this.SetName(name);
+            this.MaxPower = 142;
             //this.inputIsConnected = false;
             //this.outputIsConnected = false;
-            this.setPowerClaimed(0);
-            this.setCurrentPower(0);
-        }
+            this.SetPowerClaimed(0);
+            this.SetCurrentPower(0);
+
+            this.IsConsumerLine = false;
+            this.IsPowerPlantLine = false;
+            this.IsDissipatorLine = false;
+    }
+
+        public void SetInputNode(Node inputNode) { this.inputNode = inputNode; }
+        public void SetOutPutNode(Node OutPutNode) { this.OutPutNode = OutPutNode; }
+
+        public Node GetInputNode { get { return this.inputNode; } }
+        public Node GetOutputNode { get { return this.OutPutNode; } }
 
 
+        public void SetName(string newName){this.name = newName;}
+        public string GetName { get { return name; } }       
 
-        public void setName(string newName){this.name = newName;}
-        public string getName { get { return name; } }       
-
-        public void setCurrentPower(double newCurrentPower)
+        public void SetCurrentPower(double newCurrentPower)
         {
-            if (newCurrentPower > this.maxPower)
+            if (newCurrentPower > this.MaxPower)
             {
                 this.alertMessage = String.Format("Required power on {0} is too high", this.name);
             }
@@ -47,32 +63,56 @@ namespace POO_Project
                 this.currentPower = newCurrentPower;
             }
         }
-        public double getCurrentPower{ get { return currentPower; } }
+        public double GetCurrentPower{ get { return currentPower; } }
 
-        public void setPowerClaimed(double newPowerClaimed){this.powerClaimed = newPowerClaimed;}
-        public double getPowerClaimed{ get { return powerClaimed; } }
+        public void SetPowerClaimed(double newPowerClaimed){this.PowerClaimed = newPowerClaimed;}
+        public double GetPowerClaimed{ get { return PowerClaimed; } }
 
-        public double getMaxPower{get { return maxPower; } }
+        public double GetMaxPower{ get { return MaxPower; } }
 
-        public string getAlertMessage { get { return alertMessage; } }
+        public string GetAlertMessage { get { return alertMessage; } }
+
+        public bool GetIsConsumerLine { get { return this.IsConsumerLine; } }
+        public bool GetIsPowerPlantLine { get { return this.IsPowerPlantLine; } }
+        public void SetIsConsumerLine(bool b)
+        {
+            this.IsConsumerLine = b;
+        }
+        public void SetIsPowerPlantLine(bool b)
+        {
+            this.IsPowerPlantLine = b;
+        }
+
+        public void SetIsDissipatorLine(bool b)
+        {
+            this.IsDissipatorLine = b;
+        }
+        public bool GetIsDissipatorLine { get { return this.IsDissipatorLine; } }
+
+        
 
         /*
-        public void setInputLink(double newInputLink)
+        public void SetInputLink(double newInputLink)
         {
             this.inputLink = newInputLink;
             this.inputIsConnected = true;
         }
-        public void setOutputLink(double newOutputLink)
+        public void Set
+        
+        
+        
+        
+        OutputLink(double newOutputLink)
         {
             this.outputLink = newOutputLink;
             this.outputIsConnected = true;
         }
 
-        public double getInputLink()
+        public double GetInputLink()
         {
             return this.inputLink;
         }
-        public double getOutputLink()
+        public double GetOutputLink()
         {
             return this.outputLink;
         }
