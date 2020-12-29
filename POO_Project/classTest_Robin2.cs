@@ -68,7 +68,7 @@ namespace POO_Project
 
             Console.WriteLine("Pour l'instant tout est OKKKKKKK");
 
-            consumerNode1.showState();
+            consumerNode1.ShowState();
             Console.WriteLine(consumerLine1[0].GetPowerClaimed);
             Console.WriteLine("________");
             Console.WriteLine(String.Format("Resultat de la requete :: {0}", outsider.GetPowerClaimed(centralLineList)));

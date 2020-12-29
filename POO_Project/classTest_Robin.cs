@@ -12,23 +12,32 @@ namespace POO_Project
             Console.WriteLine("Hello World!");
             ConcentrationNode consumerNode1 = new ConcentrationNode("consumerNode1");
             ConcentrationNode consumerNode2 = new ConcentrationNode("consumerNode2");
-            //ConcentrationNode consumerNode3 = new ConcentrationNode("consumerNode3");
+            ConcentrationNode consumerNode3 = new ConcentrationNode("consumerNode3");
+            ConcentrationNode consumerNode4 = new ConcentrationNode("consumerNode4");
 
             DistributionNode centralNode1 = new DistributionNode("centralNode1");
             //DistributionNode centralNode2 = new DistributionNode("centralNode2");
             //DistributionNode centralNode3 = new DistributionNode("centralNode3");
 
-
-
             List<Line> consumerLine1 = consumerNode1.GetOutputLineList;  //OUTPUT car noeud, input pour consomateur dans v final
             consumerLine1[0].SetIsConsumerLine(true);
-            consumerLine1[0].SetPowerClaimed(42);
+            consumerLine1[0].SetPowerClaimed(5);
             consumerLine1[0].SetInputNode(consumerNode1);
             
             List<Line> consumerLine2 = consumerNode2.GetOutputLineList;
             consumerLine2[0].SetIsConsumerLine(true);
-            consumerLine2[0].SetPowerClaimed(42);
+            consumerLine2[0].SetPowerClaimed(4);
             consumerLine2[0].SetInputNode(consumerNode2);
+
+            List<Line> consumerLine3 = consumerNode3.GetOutputLineList;
+            consumerLine3[0].SetIsConsumerLine(true);
+            consumerLine3[0].SetPowerClaimed(3);
+            consumerLine3[0].SetInputNode(consumerNode2);
+
+            List<Line> consumerLine4 = consumerNode4.GetOutputLineList;
+            consumerLine3[0].SetIsConsumerLine(true);
+            consumerLine3[0].SetPowerClaimed(2);
+            consumerLine3[0].SetInputNode(consumerNode4);
 
             List<Line> centralLineList = new List<Line> { centralNode1.GetInputLineList[0] };//, centralNode2.GetInputLineList[0], centralNode3.GetInputLineList[0] };
             centralNode1.GetInputLineList[0].SetOutPutNode(centralNode1);
@@ -39,16 +48,25 @@ namespace POO_Project
             DistributionNode midDistributionNode = new DistributionNode("midDistributionNode");
             ConcentrationNode midConcentrationNode = new ConcentrationNode("midConcentrationNode");
 
-            Manager outsider = new Manager();
-            //outsider.ConnectDistributionToConcentrationNode("TEST-LINE", centralNode1, consumerNode1);
+            ConcentrationNode midConcentrationNode_bis = new ConcentrationNode("midConcentrationNode_bis"); 
+            DistributionNode midDistributionNode_bis = new DistributionNode("midDistributionNode_bis");
 
-            
+
+
+            Manager outsider = new Manager();
+   
+
+            //ETAGE 1
             outsider.ConnectDistributionToDistributionNode(centralNode1, midDistributionNode);
-            //outsider.ConnectDistributionToConcentrationNode("Distr/Conc_Line", midDistributionNode, midConcentrationNode);
-            //concentrationToDistribution a tester
-            outsider.ConnectDistributionToConcentrationNode("BLAKLALA", midDistributionNode, consumerNode1);
-            outsider.ConnectDistributionToConcentrationNode("ssssss", midDistributionNode, midConcentrationNode);
-            outsider.ConnectConcentrationToConcentrationNode(midConcentrationNode, consumerNode2);
+            outsider.ConnectDistributionToConcentrationNode("LINE_FLOOR1", centralNode1, consumerNode1);
+            //outsider.ConnectDistributionToConcentrationNode("LINE_BIS", centralNode1, midConcentrationNode_bis);
+            //outsider.ConnectConcentrationToDistributionNode(midConcentrationNode_bis, midDistributionNode_bis);
+            //outsider.ConnectDistributionToConcentrationNode("LINE_B", midDistributionNode_bis, consumerNode4);
+            //ETAGE 2
+            outsider.ConnectDistributionToConcentrationNode("LINE_FLOOR2.2", midDistributionNode, consumerNode2);
+            outsider.ConnectDistributionToConcentrationNode("LINE_MID", midDistributionNode, midConcentrationNode);
+            //ETAGE 3
+            outsider.ConnectConcentrationToConcentrationNode(midConcentrationNode, consumerNode3);
 
 
          
@@ -64,7 +82,7 @@ namespace POO_Project
 
             Console.WriteLine("Pour l'instant tout est OKKKKKKK");
 
-            consumerNode1.showState();
+            consumerNode1.ShowState();
             Console.WriteLine(consumerLine1[0].GetPowerClaimed);
             Console.WriteLine("________");
             Console.WriteLine(String.Format("Resultat de la requete :: {0}", outsider.GetPowerClaimed(centralLineList)));

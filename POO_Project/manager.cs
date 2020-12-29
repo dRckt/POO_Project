@@ -210,21 +210,31 @@ namespace POO_Project
 
                 List<Line> LineList = new List<Line> { PowerPlant.GetOutPutLine };
                 double NewPowerClaimed = GetPowerClaimed(LineList);
+                //double MissingPower = NewPowerClaimed - PowerPlant.Production(); //Ca va puer???
+
 
                 ///// -- DAMIEN -- /////
                 ///// -- DAMIEN -- /////
                 ///
-                ///   ici mettre a jour la puissance de la centrale, nouvelle puissance requise = NewPowerClaimed
+                ///   ici mettre a jour la puissance de la centrale
                 ///
                 ///// -- DAMIEN -- /////
                 ///// -- DAMIEN -- /////
+                ///
+                UpdateClaimingOfConsumer();
             }
 
         }
 
+
         public double GetPowerClaimed(List<Line> LineList)
         {
-
+            /* !!! Pour l'instant récupère la somme de toutes les puissances demandées sur une liste de ligne
+             *  si plusieurs centrales alimentent un meme consommateur, ca pourrait poser probleme 
+             *  =>demander au max a une centrale
+             *  
+             * 
+             */
             double sum = 0;
             foreach (Line line in LineList)
             {
@@ -233,12 +243,10 @@ namespace POO_Project
                     sum += line.GetPowerClaimed;
                     Console.WriteLine("LineConsumer ::: {0}, {1}", line, line.GetName);
                 }
-                /* //Pfinalement pas nécessaire mais aura peut etre besoin de ce bloc de code ailleurs
                 else if (line.GetIsDissipatorLine) 
                 {
-                    sum -= line.GetCurrentPower;  //Ce qui etait en trop sur la ligne dissipative est récupéré
-                    line.SetCurrentPower(0);  //puissance de la ligne dissipative mise a 0
-                }*/
+                    Console.WriteLine(""); //pass
+                }
                 else
                 {
                     Console.WriteLine("Line ::: {0}, {1}", line, line.GetName);

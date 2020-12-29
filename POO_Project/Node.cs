@@ -29,10 +29,12 @@ namespace POO_Project
             OutputLineList.Add(newOutputLine);
         }
 
+        //pour les noeuds de distribution
         public void ResetInputLineList(Line newInputLine)
         {
             InputLineList = new List<Line> { newInputLine };
         }
+        //pour les noeuds de concentration
         public void ResetOutputLineList(Line newOutputLine)
         {
             OutputLineList = new List<Line> { newOutputLine };

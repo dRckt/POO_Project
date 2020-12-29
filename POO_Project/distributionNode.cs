@@ -7,17 +7,12 @@ namespace POO_Project
     public class DistributionNode : Node
     {
         private Line InputLine;
-        //private List<Line> OutputLineList = new List<Line> { };
-
         private Line DissipatorLine;
 
         private double InputPower;
         private double PowerClaimed;
         private double MaxPower;
         private List<string> AlertMessageList;
-        private string DistributionNodeName;
-
-        protected bool IsCentralNode;
 
 
         public DistributionNode(string name) : base(name)
@@ -25,19 +20,16 @@ namespace POO_Project
             string InputLineName = name + "_InputLine";
             this.InputLine = new Line(InputLineName);
             base.AddInputLineToList(InputLine);
-            //this.OutputLineList = new List<Line> { };
-
-
 
             string DissipatorLineName = name + "_DissipatorLine";
             this.DissipatorLine = new Line(DissipatorLineName);
+            DissipatorLine.SetIsDissipatorLine(true);
 
             this.InputPower = this.GetInputPower;
             this.PowerClaimed = this.GetPowerClaimed();
 
             this.MaxPower = this.InputLine.GetMaxPower;
-
-            this.IsCentralNode = false;
+            Console.WriteLine(String.Format("Un noeud de distribution nommé {0} a été créé", name));
         }
 
         public double GetInputPower { get { return InputLine.GetCurrentPower; } }
@@ -75,13 +67,14 @@ namespace POO_Project
                     }
                 }
                 //OutputLine.SetCurrentPower("A COMPLETER");
+                //OutputLine.SetCurrentPower( /(base.OutputLineList.Count-1));
             }
         }
 
 
-        public void showState()
+        public void ShowState()
         {
-            string nodeStateMessage = String.Format("Noeud de distribution {0}:: Puissance d'entrée: {1}W  ; Nombre de sorties:  {2}", this.DistributionNodeName, this.GetInputPower, base.OutputLineList.Count);
+            string nodeStateMessage = String.Format("Noeud de distribution {0}:: Puissance d'entrée: {1}W  ; Nombre de sorties:  {2}", base.GetName, this.GetInputPower, base.OutputLineList.Count);
             Console.WriteLine(nodeStateMessage);
             foreach (Line OutputLine in base.OutputLineList)
             {
@@ -91,8 +84,8 @@ namespace POO_Project
 
         }
 
-        public bool GetIsCentralNode { get { return this.IsCentralNode; } }
-        public void SetIsCentralNode(bool b) { this.IsCentralNode = b; }
+        //public bool GetIsCentralNode { get { return this.IsCentralNode; } }
+        //public void SetIsCentralNode(bool b) { this.IsCentralNode = b; }
 
        
 

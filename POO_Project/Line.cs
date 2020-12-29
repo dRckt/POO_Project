@@ -17,24 +17,14 @@ namespace POO_Project
         protected Node inputNode;
         protected Node OutPutNode;
 
-        //private double inputLink;
-        //private double outputLink;
-
-
-        //private bool inputIsConnected;
-        //private bool outputIsConnected;
-
         private bool IsConsumerLine;
         private bool IsPowerPlantLine;
-
         private bool IsDissipatorLine;
 
         public Line(string name)
         {
             this.name = name;
             MaxPower = 142;
-            //this.inputIsConnected = false;
-            //this.outputIsConnected = false;
             SetPowerClaimed(0);
             SetCurrentPower(0);
 
@@ -50,8 +40,9 @@ namespace POO_Project
         public Node GetInputNode { get { return inputNode; } }
         public Node GetOutputNode { get { return OutPutNode; } }
 
-        public double GetPowerClaimed { get { return PowerClaimed; } }                        // D : inutile ici 
+        public double GetPowerClaimed { get { return PowerClaimed; } }                        // D : inutile ici //R: utile dans manager
         public string GetAlertMessage { get { return alertMessage; } }
+
         public bool GetIsConsumerLine { get { return IsConsumerLine; } }
         public bool GetIsPowerPlantLine { get { return IsPowerPlantLine; } }  
         public bool GetIsDissipatorLine { get { return IsDissipatorLine; } }
@@ -74,34 +65,6 @@ namespace POO_Project
                 currentPower = newCurrentPower;
             }
         }
-
-
-        /*
-        public void SetInputLink(double newInputLink)
-        {
-            this.inputLink = newInputLink;
-            this.inputIsConnected = true;
-        }
-        public void Set
-        
-        
-        
-        
-        OutputLink(double newOutputLink)
-        {
-            this.outputLink = newOutputLink;
-            this.outputIsConnected = true;
-        }
-
-        public double GetInputLink()
-        {
-            return this.inputLink;
-        }
-        public double GetOutputLink()
-        {
-            return this.outputLink;
-        }
-        */
         
     }
 }
