@@ -44,7 +44,7 @@ namespace POO_Project
         public string GetAlertMessage { get { return alertMessage; } }
 
         public bool GetIsConsumerLine { get { return IsConsumerLine; } }
-        public bool GetIsPowerPlantLine { get { return IsPowerPlantLine; } }  
+        public bool GetIsPowerPlantLine { get { return IsPowerPlantLine; } }
         public bool GetIsDissipatorLine { get { return IsDissipatorLine; } }
 
         /// Methodes SET
@@ -65,6 +65,5 @@ namespace POO_Project
                 currentPower = newCurrentPower;
             }
         }
-        
     }
 }

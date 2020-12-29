@@ -12,8 +12,8 @@ namespace POO_Project
 
             Manager reseaux = new Manager();
 
-            reseaux.CreateNewPowerPlant();
-            
+            //reseaux.CreateNewPowerPlant();
+            reseaux.CreateNewConsumer();
 
         }
 

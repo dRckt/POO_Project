@@ -12,8 +12,11 @@ namespace POO_Project
 
         private Market market;
         private WeatherManager weather_manager;
+        
 
-        private double count;
+        //uniquement pour des tests
+        double centrale_count;
+        double consom_count;
 
         public Manager()
         {
@@ -82,7 +85,9 @@ namespace POO_Project
         // creation d'une centrale
         public PowerPlant CreateNewPowerPlant()
         {
-            Console.WriteLine(String.Format("------------------------------CREATION CENTRALE n°{0}------------------------------", count));
+            
+
+            Console.WriteLine(String.Format("------------------------------CREATION CENTRALE n°{0}------------------------------", centrale_count));
             Console.WriteLine("Quelle genre de centrale voulez vous créer ? Entrez :");
             Console.WriteLine("    g - Gaz Station");
             Console.WriteLine("    n - nuclear Power Plant");
@@ -92,61 +97,106 @@ namespace POO_Project
             string type_central = Console.ReadLine();
             PowerPlant NewPowerPlant;
 
-            if (type_central == "g")
+            switch (type_central)
             {
-                NewPowerPlant = new GasPowerPlant(ChooseName() , market);
-            }
-            else if (type_central == "n")
-            {
-                NewPowerPlant = new NuclearPowerPlant(ChooseName(), market);
-            }
-            else if (type_central == "w")
-            {
-                NewPowerPlant = new WindFarm(ChooseName(), ChooseWeather());
-            }
-            else if (type_central == "s")
-            {
-                NewPowerPlant = new SolarPowerPlant(ChooseName(), ChooseWeather());
-            }
-            else
-            {
-                Console.WriteLine("Entrée incorrecte");
-                return CreateNewPowerPlant();
+                case "g":
+                    {
+                        NewPowerPlant = new GasPowerPlant(ChooseName("gaz station"), market);
+                        break;
+                    }
+                case "n":
+                    {
+                        NewPowerPlant = new NuclearPowerPlant(ChooseName("nuclear power plant"), market);
+                        break;
+                    }
+                case "w":
+                    {
+                        NewPowerPlant = new WindFarm(ChooseName("wind farm"), ChooseWeather());
+                        break;
+                    }
+                case "s":
+                    {
+                        NewPowerPlant = new SolarPowerPlant(ChooseName("solar power plant"), ChooseWeather());
+                        break;
+                    }
+                default:
+                    {
+                        Console.WriteLine("Entrée incorrecte");
+                        return CreateNewPowerPlant();
+                    }
             }
 
             PowerPlantList.Add(NewPowerPlant);
             Console.WriteLine(String.Format("La centrale {0} a bien été créée.", NewPowerPlant.GetName));
 
-            count++;
+            centrale_count++;
 
             return CreateNewPowerPlant();
 
             // interction avec le terminal pour donner les paramètres de la centrale (type, production, etc..)
             // !!centrale éteinte quand elle est créé
         }
-
+       
         public Consumer CreateNewConsumer()
         {
-            //interction avec le terminal pour donner les paramètres du consommateur
+            Console.WriteLine(String.Format("------------------------------CREATION CONSOMMATEUR n°{0}------------------------------", consom_count));
+            Console.WriteLine("Quelle genre de centrale voulez vous créer ? Entrez :");
+            Console.WriteLine("    c - city");
+            Console.WriteLine("    e - entreprise");
+            Console.WriteLine("    d - dissipator");
 
-            //voir type de consommateur qu'on créé, mais cas général:
-            Consumer NewConsumer = new Consumer("<nom choisi par input terminal>");
-            ConsumerList.Add(NewConsumer); 
+            string type_centrale = Console.ReadLine();
+            Consumer NewConsumer;
 
-            return NewConsumer;
+            switch (type_centrale)
+            {
+                case "c":
+                    {
+                        NewConsumer = new City(ChooseName("city"), ChooseNbr("habitants") ,ChooseWeather());
+                        break;
+                    }
+                case "e":
+                    {
+                        NewConsumer = new Entreprise(ChooseName("entreprise"), ChooseNbr("machines"));
+                        break;
+                    }
+                case "d":
+                    {
+                        NewConsumer = new dissipator(ChooseName("dissipator"));
+                        break;
+                    }
+                default:
+                    {
+                        Console.WriteLine("ERROR : input invalide");
+                        return CreateNewConsumer();
+                    }
+            }
+
+            Console.WriteLine(String.Format("Le consommateur {0} a bien été créée.", NewConsumer.GetName));
+            ConsumerList.Add(NewConsumer);
+            consom_count++;
+            return CreateNewConsumer();
         }
 
-        private string ChooseName()
+        private double ChooseNbr(string obj)
         {
-            Console.WriteLine("Entrez le nom de la centrale :");
+            Console.WriteLine(String.Format("Number of {0} :", obj));
+            double nbr_obj = Convert.ToDouble(Console.ReadLine());
+            return nbr_obj;
+        }
+
+        private string ChooseName(string obj)
+        {
+            Console.WriteLine(String.Format("Enter name of the new {0} :", obj));
             string name = Console.ReadLine();
             return name;
         }
 
 
-
+        // Connecter un noeud de concentration à un noeud de distribution
         public void ConnectConcentrationToDistributionNode(ConcentrationNode ConcentrationNode, DistributionNode DistributionNode)
         {
+            // crée la ligne de connexion qui va etre la premiere ligne de la liste des lignes de sortie du noeud de concentration (la seule)
             Line ConnexionLine = ConcentrationNode.GetOutputLineList[0];
 
             DistributionNode.SetInputLine(ConnexionLine);
@@ -154,11 +204,12 @@ namespace POO_Project
 
             ConnexionLine.SetInputNode(ConcentrationNode);
             ConnexionLine.SetOutPutNode(DistributionNode);
-
         }
 
+        // Connecter un noeud de distribution à un noeud de concentration
         public void ConnectDistributionToConcentrationNode(string ConnexionLineName, DistributionNode DistributionNode, ConcentrationNode ConcentrationNode)
         {
+            // creation d'une nouvelle ligne
             Line ConnexionLine = new Line(ConnexionLineName);
 
             ConcentrationNode.AddInputLineToList(ConnexionLine);
@@ -215,7 +266,8 @@ namespace POO_Project
                 double NewPowerClaimed = GetPowerClaimed(LineList);
                 //double MissingPower = NewPowerClaimed - PowerPlant.Production(); //Ca va puer???
 
-
+                                
+                
                 ///// -- DAMIEN -- /////
                 ///// -- DAMIEN -- /////
                 ///

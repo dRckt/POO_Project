@@ -39,9 +39,9 @@ namespace POO_Project
         }
         
         //inutile? 
-        public double GetPowerClaimed() { return this.OutputLine.GetPowerClaimed; }
+        public double GetPowerClaimed() { return OutputLine.GetPowerClaimed; }
 
-        public Line GetOutputLine{ get { return this.OutputLine; }  }
+        public Line GetOutputLine{ get { return OutputLine; }  }
  
         public void SetClaimedPowerOfInputLines() 
         { 
