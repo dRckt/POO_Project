@@ -40,5 +40,14 @@ namespace POO_Project
             OutputLineList = new List<Line> { newOutputLine };
         }
 
+
+        public void SetClaimedPowerOfInputLines_Concentration()
+        {
+            Console.WriteLine("PROGRAMME EN CONSTRUCTION :: doit décider où est ce qu'il réclame du courant");
+            foreach (Line line in this.InputLineList)
+            {
+                line.SetPowerClaimed(OutputLineList[0].GetPowerClaimed / InputLineList.Count);  //COEFF ?????
+            }
+        }
     }
 }

@@ -197,7 +197,10 @@ namespace POO_Project
         public void UpdateClaimingOfConsumer() //devra probablement prendre un dictionnaire en param, voir interaction avec terminal pour récupérer ce dict
         {
             //parcourir tous les consumer (clé) du dict et leur attribuer un nouveau claimingPower (valeur)
-            
+            foreach (Consumer consumer in ConsumerList)
+            {
+                consumer.getInputLine.GetInputNode.SetClaimedPowerOfInputLines_Concentration();
+            }
             //
         }
         public void UpdatePowerOfPowerPlant()
@@ -221,6 +224,10 @@ namespace POO_Project
                 ///// -- DAMIEN -- /////
                 ///// -- DAMIEN -- /////
                 ///
+                /// MESSAGE NOTIFICATION
+                /// message de modification de production à une centrale,
+                /// message d'arrêt d'une centrale
+                /// message de démarrage d'une centrale,  (missing power trop élevé = démarrage d'une centrale?)
                 UpdateClaimingOfConsumer();
             }
 

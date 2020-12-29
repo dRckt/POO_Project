@@ -46,6 +46,10 @@ namespace POO_Project
         public void SetClaimedPowerOfInputLines() 
         { 
             Console.WriteLine("PROGRAMME EN CONSTRUCTION :: doit décider où est ce qu'il réclame du courant"); 
+            foreach (Line line in base.InputLineList)
+            {
+                line.SetPowerClaimed(OutputLine.GetPowerClaimed/InputLineList.Count);  //COEFF ?????
+            }
         }
 
         public void ShowState()
