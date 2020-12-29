@@ -4,10 +4,9 @@ using System.Text;
 
 namespace POO_Project
 {
-    class classTest_Robin
+    public class classTest_Robin2
     {
-
-        public classTest_Robin()
+        public classTest_Robin2()
         {
             Console.WriteLine("Hello World!");
             ConcentrationNode consumerNode1 = new ConcentrationNode("consumerNode1");
@@ -24,42 +23,47 @@ namespace POO_Project
             consumerLine1[0].SetIsConsumerLine(true);
             consumerLine1[0].SetPowerClaimed(42);
             consumerLine1[0].SetInputNode(consumerNode1);
-            
+
             List<Line> consumerLine2 = consumerNode2.GetOutputLineList;
             consumerLine2[0].SetIsConsumerLine(true);
             consumerLine2[0].SetPowerClaimed(42);
             consumerLine2[0].SetInputNode(consumerNode2);
-
+            /*
+            List<Line> consumerLine3 = consumerNode3.GetOutputLineList;
+            consumerLine3[0].SetIsConsumerLine(true);
+            consumerLine3[0].SetPowerClaimed(42);
+            consumerLine3[0].SetInputNode(consumerNode3);
+            */
             List<Line> centralLineList = new List<Line> { centralNode1.GetInputLineList[0] };//, centralNode2.GetInputLineList[0], centralNode3.GetInputLineList[0] };
             centralNode1.GetInputLineList[0].SetOutPutNode(centralNode1);
+            //centralNode2.GetInputLineList[0].SetOutPutNode(centralNode2);
+            //centralNode3.GetInputLineList[0].SetOutPutNode(centralNode3);
 
 
-            
+
 
             DistributionNode midDistributionNode = new DistributionNode("midDistributionNode");
             ConcentrationNode midConcentrationNode = new ConcentrationNode("midConcentrationNode");
 
             Manager outsider = new Manager();
-            //outsider.ConnectDistributionToConcentrationNode("TEST-LINE", centralNode1, consumerNode1);
 
             
-            outsider.ConnectDistributionToDistributionNode(centralNode1, midDistributionNode);
-            //outsider.ConnectDistributionToConcentrationNode("Distr/Conc_Line", midDistributionNode, midConcentrationNode);
-            //concentrationToDistribution a tester
-            outsider.ConnectDistributionToConcentrationNode("BLAKLALA", midDistributionNode, consumerNode1);
-            outsider.ConnectDistributionToConcentrationNode("ssssss", midDistributionNode, midConcentrationNode);
-            outsider.ConnectConcentrationToConcentrationNode(midConcentrationNode, consumerNode2);
+            //outsider.ConnectTwoNode("mid-consumer2", midDistributionNode, consumerNode2);
 
 
-         
+            //midConcentrationNode.AddInputLineToList(centralNode1.GetOutputLineList[0]);
+            //centralNode1.GetInputLineList[0].SetOutPutNode(midConcentrationNode);
 
+            //midDistributionNode.AddOutputLineToList(consumerLine1[0]);
+            //consumerLine1[0].SetInputNode(midDistributionNode);
+            //midDistributionNode.AddOutputLineToList(consumerLine2[0]);
+            //consumerLine2[0].SetInputNode(midDistributionNode);
+            //midDistributionNode.AddOutputLineToList(consumerLine3[0]);
+            //consumerLine3[0].SetInputNode(midDistributionNode);
 
-
-            Node node = centralNode1.GetInputLine.GetOutputNode;
-            Console.WriteLine("-------------------");
-            Console.WriteLine(node);
-            Console.WriteLine(node.GetOutputLineList[0]);
-            Console.WriteLine("-------------------");
+            ////////
+            ///
+            //outsider.ConnectTwoNode("Line420", centralNode1, consumerNode1);
 
 
             Console.WriteLine("Pour l'instant tout est OKKKKKKK");

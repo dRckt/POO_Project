@@ -20,7 +20,7 @@ namespace POO_Project
         protected bool IsCentralNode;
 
 
-        public DistributionNode(string name) : base()
+        public DistributionNode(string name) : base(name)
         {
             string InputLineName = name + "_InputLine";
             this.InputLine = new Line(InputLineName);
@@ -56,6 +56,11 @@ namespace POO_Project
 
         //public void addOutputLine(Line newOutputLine) { this.OutputLineList.Add(newOutputLine); }
 
+
+        public void SetInputLine(Line newInputLine)
+        {
+            this.InputLine = newInputLine;
+        }
 
 
         public void SetCurrentPowerOfOutputLines()

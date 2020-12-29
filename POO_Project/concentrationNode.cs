@@ -13,17 +13,18 @@ namespace POO_Project
         private double outputPower; //peut etre inutile puisqu'on a jamais besoin de stocker la variable, a chaque fois qu'on veut savoir on recalcule la somme pour mettre a jour
 
         private double PowerClaimed;
-
+       
         private double MaxPower;
 
         private List<string> AlertMessageList;
 
         //protected bool IsConsumerNode;
 
-        public ConcentrationNode(string name) : base()
+        public ConcentrationNode(string name) : base(name)
         {
             //créé d'abord sa ligne de sortie
             string OutputLineName = name+"_OutputLine";
+          
             this.OutputLine = new Line(OutputLineName);
             base.AddOutputLineToList(OutputLine);
             //liste vide pour ses lignes d'entrée
@@ -48,7 +49,7 @@ namespace POO_Project
             }
             return sum;
         }
-
+        
         public double GetPowerClaimed() { return this.OutputLine.GetPowerClaimed; }
 
         public Line GetOutputLine{ get { return this.OutputLine; }  }
@@ -63,15 +64,13 @@ namespace POO_Project
         }
 
 
-
-
         public void showState()
         {
-            string nodeStateMessage = String.Format("Noeud de concentration {0}:: Nombre d'entrées: {1}  ;  Puissance de sortie: {2}W  ", this.ConcentrationNodeName , base.InputLineList.Count , this.GetOutputPower());
+            string nodeStateMessage = String.Format("Noeud de concentration {0}:: Nombre d'entrées: {1}  ;  Puissance de sortie: {2}W /// claimed on output {3} ", this.ConcentrationNodeName, base.InputLineList.Count, this.GetOutputPower(), base.OutputLineList[0].GetPowerClaimed);
             Console.WriteLine(nodeStateMessage);
             foreach (Line inputLine in base.InputLineList)
             {
-                string lineStateMessage = String.Format("   Ligne {0}:: puissance: {1}  ", inputLine.GetName, inputLine.GetCurrentPower);
+                string lineStateMessage = String.Format("   Ligne {0}:: puissance: {1}  /// claimed on input {2} ", inputLine.GetName, inputLine.GetCurrentPower, inputLine.GetPowerClaimed);
                 Console.WriteLine(lineStateMessage);
             }
             

@@ -8,8 +8,10 @@ namespace POO_Project
     {
         protected List<Line> InputLineList;
         protected List<Line> OutputLineList;
-        public Node()
+        private string Name;
+        public Node(string name)
         {
+            Name = name;
             Console.WriteLine("");
             InputLineList = new List<Line> { };
             OutputLineList = new List<Line> { };
@@ -17,7 +19,7 @@ namespace POO_Project
 
         public List<Line> GetInputLineList { get { return InputLineList; } }
         public List<Line> GetOutputLineList { get { return OutputLineList; } }
-
+        public string GetName { get { return Name; } }
         public void AddInputLineToList(Line newInputLine)
         {
             InputLineList.Add(newInputLine);
@@ -26,5 +28,15 @@ namespace POO_Project
         {
             OutputLineList.Add(newOutputLine);
         }
+
+        public void ResetInputLineList(Line newInputLine)
+        {
+            InputLineList = new List<Line> { newInputLine };
+        }
+        public void ResetOutputLineList(Line newOutputLine)
+        {
+            OutputLineList = new List<Line> { newOutputLine };
+        }
+
     }
 }

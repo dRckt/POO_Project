@@ -143,16 +143,56 @@ namespace POO_Project
             return name;
         }
 
-        public void ConnectDistributionToConcentrationNode(string ConnexionLineName, Node DistributionNode, Node ConcentrationNode)
+
+
+        public void ConnectConcentrationToDistributionNode(ConcentrationNode ConcentrationNode, DistributionNode DistributionNode)
+        {
+            Line ConnexionLine = ConcentrationNode.GetOutputLineList[0];
+
+            DistributionNode.SetInputLine(ConnexionLine);
+            DistributionNode.ResetInputLineList(ConnexionLine);
+
+            ConnexionLine.SetInputNode(ConcentrationNode);
+            ConnexionLine.SetOutPutNode(DistributionNode);
+
+        }
+
+        public void ConnectDistributionToConcentrationNode(string ConnexionLineName, DistributionNode DistributionNode, ConcentrationNode ConcentrationNode)
         {
             Line ConnexionLine = new Line(ConnexionLineName);
-            DistributionNode.AddOutputLineToList(ConnexionLine);
+
             ConcentrationNode.AddInputLineToList(ConnexionLine);
+            DistributionNode.AddOutputLineToList(ConnexionLine);
 
             ConnexionLine.SetInputNode(DistributionNode);
             ConnexionLine.SetOutPutNode(ConcentrationNode);
 
         }
+
+        public void ConnectDistributionToDistributionNode(DistributionNode amontNode, DistributionNode avalNode)
+        {
+            Line ConnexionLine = avalNode.GetInputLine;
+
+            amontNode.AddOutputLineToList(ConnexionLine);
+
+            ConnexionLine.SetInputNode(amontNode);
+            ConnexionLine.SetOutPutNode(avalNode);
+
+        }
+
+        public void ConnectConcentrationToConcentrationNode(ConcentrationNode amontNode, ConcentrationNode avalNode)
+        {
+            Line ConnexionLine = amontNode.GetOutputLine;
+
+            avalNode.AddInputLineToList(ConnexionLine);
+
+            ConnexionLine.SetInputNode(amontNode);
+            ConnexionLine.SetOutPutNode(avalNode);
+
+        }
+
+
+
 
         public void UpdateClaimingOfConsumer() //devra probablement prendre un dictionnaire en param, voir interaction avec terminal pour récupérer ce dict
         {
@@ -184,12 +224,14 @@ namespace POO_Project
 
         public double GetPowerClaimed(List<Line> LineList)
         {
+
             double sum = 0;
             foreach (Line line in LineList)
             {
                 if (line.GetIsConsumerLine )
                 {
                     sum += line.GetPowerClaimed;
+                    Console.WriteLine("LineConsumer ::: {0}, {1}", line, line.GetName);
                 }
                 /* //Pfinalement pas nécessaire mais aura peut etre besoin de ce bloc de code ailleurs
                 else if (line.GetIsDissipatorLine) 
@@ -199,8 +241,12 @@ namespace POO_Project
                 }*/
                 else
                 {
+                    Console.WriteLine("Line ::: {0}, {1}", line, line.GetName);
                     Node node = line.GetOutputNode;
-                    sum += GetPowerClaimed(node.GetOutputLineList);
+                    Console.WriteLine("Node ::: {0}", node, node.GetName);
+                    sum += GetPowerClaimed(node.GetOutputLineList);  
+                    //probleme?? un ligne n'a pas de outputnode?!
+                    // OU un noeud n'a pas de outputlineList
                 }
             }
             return sum;
