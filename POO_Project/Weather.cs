@@ -10,21 +10,32 @@ namespace POO_Project
 
         private double sunlight;     // sunlight  takes a value between 0 and 10, depending on the intensity of the sun
         private double windSpeed;    // windSpeed takes a value between 0 and 10
-        private double temperature;  
+        private double temperature;
 
-        public Weather(string localisation)
+        Clock clock;
+
+        public Weather(string localisation, Clock clock)
         {
             this.localisation = localisation;
-
+            this.clock = clock;
             changeWeather();        // initialise à des valeurs aléatoires
         }
 
         public void changeWeather() 
         {
+            /*
             var random = new Random();
             sunlight = random.Next(0, 10);
             windSpeed = random.Next(0, 10);
             temperature = random.Next(-5, 35);  // varie entre -5 et +35°C
+            */
+
+            double hour = clock.GetHour;
+
+            sunlight = Math.Sin((Math.PI/24)) ;
+            windSpeed = ;
+            temperature = ;
+
         }
 
         public double GetSunlight { get { return sunlight; } }

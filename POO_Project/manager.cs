@@ -14,7 +14,6 @@ namespace POO_Project
         private Market market;
         private WeatherManager weather_manager;
               
-
         public Manager()
         {
             Console.WriteLine("");
@@ -131,7 +130,7 @@ namespace POO_Project
                 ///// -- DAMIEN -- /////
                 ///// -- DAMIEN -- /////
                 ///
-                ///   ici mettre a jour la puissance de la centrale
+                ///  ici mettre a jour la puissance de la centrale
                 ///
                 ///// -- DAMIEN -- /////
                 ///// -- DAMIEN -- /////
@@ -140,12 +139,13 @@ namespace POO_Project
                 /// message de modification de production à une centrale,
                 /// message d'arrêt d'une centrale
                 /// message de démarrage d'une centrale,  (missing power trop élevé = démarrage d'une centrale?)
+                
                 UpdateClaimingOfConsumer();
             }
 
         }
 
-
+        
         public double GetPowerClaimed(List<Line> LineList)
         {
             /* !!! Pour l'instant récupère la somme de toutes les puissances demandées sur une liste de ligne
@@ -178,5 +178,7 @@ namespace POO_Project
             }
             return sum;
         }
+
+        
     }
 }
