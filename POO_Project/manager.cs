@@ -32,7 +32,7 @@ namespace POO_Project
         public PowerPlant CreateNewPowerPlant()
         {
             // Communication avec la console pour créer la centrale
-            PowerPlant NewPowerPlant = i.CreateNewPowerPlant(weather_manager, market);
+            PowerPlant NewPowerPlant = i.CreateNewPowerPlant(weather_manager, clock, market);
             NewPowerPlant.GetOutPutLine.SetMyPowerPlant(NewPowerPlant);
 
             PowerPlantList.Add(NewPowerPlant);
