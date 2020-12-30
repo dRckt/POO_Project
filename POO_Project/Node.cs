@@ -9,12 +9,17 @@ namespace POO_Project
         protected List<Line> InputLineList;
         protected List<Line> OutputLineList;
         private string Name;
+
+        private bool IsPowerPlantNode;
+        private PowerPlant myPowerPlant;
         public Node(string name)
         {
             Name = name;
             Console.WriteLine("");
             InputLineList = new List<Line> { };
             OutputLineList = new List<Line> { };
+            IsPowerPlantNode = false;
+
         }
 
         // recupere la liste des lignes d'entrées
@@ -22,6 +27,13 @@ namespace POO_Project
 
         // recupere la liste des lignes de sorties
         public List<Line> GetOutputLineList { get { return OutputLineList; } }
+
+        public void SetIsPowerPlantNode(bool b, PowerPlant p)
+        {
+            IsPowerPlantNode = b;
+            myPowerPlant = p;
+        }
+        public PowerPlant GetPowerPlant { get { return myPowerPlant; } }
         
         // recupere le nom du noeud
         public string GetName { get { return Name; } }
@@ -52,7 +64,16 @@ namespace POO_Project
 
 
 
+        public double AskDisponiblePower()
+        {
+            double DisponiblePower = 0;
+            foreach (Line line in InputLineList)
+            {
 
+                DisponiblePower += line.AskDisponiblePower();
+            }
+            return DisponiblePower;
+        }
 
 
         ////////////////////////////////////// UNIQUEMENT POUR LES NOEUDS DE CONCENTRATION ? //////////////////////////////////////

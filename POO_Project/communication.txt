@@ -17,7 +17,7 @@ Mes remarques sous forme de commentaires dans le code sont de la forme	 // D : .
 proposition Line.cs --> passer maxPower en paramètre de la ligne pour pouvoir avoir des lignes de differentes maxPower
 					--> ne pas utiliser isDissipatorLine alors qu'on peut simplement brancher la ligne sur un dissipateur en sortie
 					--> Supprimer PowerClaimed, on ne l'utilise pas et ce n'est pas une caractéristique de la ligne de savoir ce qu'on va lui demander de fournir, elle est juste caractérisée par sa puissance actuelle, et c'est le conomateur qui va venir modifier cette valeur
-					--> On pourrait se passer des methodes SetInputNode() et SetOutPutNode() en passant en paramètres les noeuds 
+					--> On pourrait se passer des methodes SetInputNode() et SetOutputNode() en passant en paramètres les noeuds 
 	Reponse : Pour SetInputNode(), SetOutputNode() et PowerClaimed, je ne sais pas encore si j'en ai besoin car je ne sais pas encore comment faire pour répartir le courant dans les noeud (on en parlera pendant la réunion du 30/12)
 				-> sera peut etre supprimé quand jaurai trouvé comment faire
 			Pour maxPower, l'idée c'est qu'une ligne à une puissance max par défaut mais qu'on peut la changer direct après création avec SetMaxPower, en soit comme ca ou avec un parametre ca revient au meme d'après moi, donc comme tu préfères

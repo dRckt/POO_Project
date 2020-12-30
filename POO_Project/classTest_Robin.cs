@@ -40,7 +40,7 @@ namespace POO_Project
             consumerLine3[0].SetInputNode(consumerNode4);
 
             List<Line> centralLineList = new List<Line> { centralNode1.GetInputLineList[0] };//, centralNode2.GetInputLineList[0], centralNode3.GetInputLineList[0] };
-            centralNode1.GetInputLineList[0].SetOutPutNode(centralNode1);
+            centralNode1.GetInputLineList[0].SetOutputNode(centralNode1);
 
 
             

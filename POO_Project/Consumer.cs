@@ -35,6 +35,7 @@ namespace POO_Project
         public string GetName { get { return name; } }
         // permet de récupérer la ligne d'entrée
         public Line getInputLine { get { return inputLine; } }
+        public ConcentrationNode GetInputNode { get { return inputNode; } }
 
         // si besoin éventuel, permet de brancher le consommateur sur une autre ligne passée en paramètre
         public void SetInputLine(Line newInputLine) { inputLine = newInputLine; }

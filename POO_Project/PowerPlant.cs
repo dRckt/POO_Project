@@ -23,19 +23,21 @@ namespace POO_Project
         //protected double startTime;
         //protected double stopTime;
 
-        protected DistributionNode OutPutNode;
+        protected DistributionNode OutputNode;
 
         public PowerPlant(string name)
         {
             this.name = name;
-            
+            //this.OutputLine = OutputLine;
+
             this.OutPutNode = new DistributionNode(String.Format(name + "_OutPutNode"));
             this.OutputLine = this.OutPutNode.GetInputLine; //ligne de sortie de la centrale = ligne d'entrée de son noeud de distribution
-            OutputLine.SetIsPowerPlantLine(true);           //je précise que cette ligne est reliée a une centrale
-            OutputLine.SetOutPutNode(OutPutNode);           //je précise à la ligne qui est mon noeud de sortie (pour pouvoir le récupérer par après)
+            OutputLine.SetIsPowerPlantLine(true);  //je précise que cette ligne est reliée a une centrale
+            OutputLine.SetOutPutNode(OutPutNode);  //je précise à la ligne qui est mon noeud de sortie (pour pouvoir le récupérer par après)
         }
 
         public Line GetOutPutLine { get { return this.OutputLine; } }
+        public DistributionNode GetOutputNode{get {return this.OutputNode; } } 
         public string GetName { get { return name; } }
 
         public virtual void Start() { IsWorking = true; }
