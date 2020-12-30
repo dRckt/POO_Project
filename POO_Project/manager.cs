@@ -203,7 +203,7 @@ namespace POO_Project
             DistributionNode.ResetInputLineList(ConnexionLine);
 
             ConnexionLine.SetInputNode(ConcentrationNode);
-            ConnexionLine.SetOutPutNode(DistributionNode);
+            ConnexionLine.SetOutputNode(DistributionNode);
         }
 
         // Connecter un noeud de distribution à un noeud de concentration
@@ -216,7 +216,7 @@ namespace POO_Project
             DistributionNode.AddOutputLineToList(ConnexionLine);
 
             ConnexionLine.SetInputNode(DistributionNode);
-            ConnexionLine.SetOutPutNode(ConcentrationNode);
+            ConnexionLine.SetOutputNode(ConcentrationNode);
 
         }
 
@@ -227,7 +227,7 @@ namespace POO_Project
             amontNode.AddOutputLineToList(ConnexionLine);
 
             ConnexionLine.SetInputNode(amontNode);
-            ConnexionLine.SetOutPutNode(avalNode);
+            ConnexionLine.SetOutputNode(avalNode);
 
         }
 
@@ -238,7 +238,7 @@ namespace POO_Project
             avalNode.AddInputLineToList(ConnexionLine);
 
             ConnexionLine.SetInputNode(amontNode);
-            ConnexionLine.SetOutPutNode(avalNode);
+            ConnexionLine.SetOutputNode(avalNode);
 
         }
 
@@ -312,7 +312,7 @@ namespace POO_Project
                     Node node = line.GetOutputNode;
                     Console.WriteLine("Node ::: {0}", node, node.GetName);
                     sum += GetPowerClaimed(node.GetOutputLineList);  
-                    //probleme?? un ligne n'a pas de outputnode?!
+                    //probleme?? un ligne n'a pas de OutputNode?!
                     // OU un noeud n'a pas de outputlineList
                 }
             }

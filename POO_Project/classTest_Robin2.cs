@@ -35,9 +35,9 @@ namespace POO_Project
             consumerLine3[0].SetInputNode(consumerNode3);
             */
             List<Line> centralLineList = new List<Line> { centralNode1.GetInputLineList[0] };//, centralNode2.GetInputLineList[0], centralNode3.GetInputLineList[0] };
-            centralNode1.GetInputLineList[0].SetOutPutNode(centralNode1);
-            //centralNode2.GetInputLineList[0].SetOutPutNode(centralNode2);
-            //centralNode3.GetInputLineList[0].SetOutPutNode(centralNode3);
+            centralNode1.GetInputLineList[0].SetOutputNode(centralNode1);
+            //centralNode2.GetInputLineList[0].SetOutputNode(centralNode2);
+            //centralNode3.GetInputLineList[0].SetOutputNode(centralNode3);
 
 
 
@@ -52,7 +52,7 @@ namespace POO_Project
 
 
             //midConcentrationNode.AddInputLineToList(centralNode1.GetOutputLineList[0]);
-            //centralNode1.GetInputLineList[0].SetOutPutNode(midConcentrationNode);
+            //centralNode1.GetInputLineList[0].SetOutputNode(midConcentrationNode);
 
             //midDistributionNode.AddOutputLineToList(consumerLine1[0]);
             //consumerLine1[0].SetInputNode(midDistributionNode);

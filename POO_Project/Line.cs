@@ -15,7 +15,7 @@ namespace POO_Project
         private string alertMessage;
 
         protected Node inputNode;
-        protected Node OutPutNode;
+        protected Node OutputNode;
 
         private bool IsConsumerLine;
         private bool IsPowerPlantLine;
@@ -38,7 +38,7 @@ namespace POO_Project
         public double GetMaxPower { get { return MaxPower; } }
         public double GetCurrentPower { get { return currentPower; } }
         public Node GetInputNode { get { return inputNode; } }
-        public Node GetOutputNode { get { return OutPutNode; } }
+        public Node GetOutputNode { get { return OutputNode; } }
 
         public double GetPowerClaimed { get { return PowerClaimed; } }                        // D : inutile ici //R: utile dans manager
         public string GetAlertMessage { get { return alertMessage; } }
@@ -49,7 +49,7 @@ namespace POO_Project
 
         /// Methodes SET
         public void SetInputNode(Node inputNode) { this.inputNode = inputNode; }
-        public void SetOutPutNode(Node OutPutNode) { this.OutPutNode = OutPutNode; }
+        public void SetOutputNode(Node OutputNode) { this.OutputNode = OutputNode; }
         public void SetPowerClaimed(double newPowerClaimed) { PowerClaimed = newPowerClaimed; }
         public void SetIsConsumerLine(bool b) { IsConsumerLine = b; }
         public void SetIsDissipatorLine(bool b) { IsDissipatorLine = b; }
