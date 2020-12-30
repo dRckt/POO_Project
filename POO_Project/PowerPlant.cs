@@ -36,7 +36,7 @@ namespace POO_Project
             OutputLine.SetOutputNode(OutputNode);  //je précise à la ligne qui est mon noeud de sortie (pour pouvoir le récupérer par après)
         }
         public Line GetOutPutLine { get { return this.OutputLine; } }
-        public Node GetOutputNode{get {return this.OutputNode; } } 
+        public DistributionNode GetOutputNode{get {return this.OutputNode; } } 
         public string GetName { get { return name; } }
 
         public virtual void Start() { IsWorking = true; }

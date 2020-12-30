@@ -178,5 +178,32 @@ namespace POO_Project
             }
             return sum;
         }
+
+        public void PropagatePowerClaimed()
+        {
+
+        }
+
+        public void DividePowerClaimedOnConcentrationNode(ConcentrationNode concentrationNode)
+        {
+            Line OutputLine = concentrationNode.GetOutputLine;
+            List<Line> InputLineList = concentrationNode.GetInputLineList;
+            double PowerClaimed = OutputLine.GetPowerClaimed;
+
+            //Dictionnaire clé=Line valeur=% de powerClaimed
+            Dictionary<Line, double> DictLineCoef = new Dictionary<Line, double>();
+
+            double FoundPower = 0;
+
+            foreach (Line line in InputLineList)
+            {
+                double DisponiblePower = line.AskDisponiblePower();
+                double NeedOntThisLine = DisponiblePower - FoundPower;
+                double coef = (NeedOntThisLine) / PowerClaimed;
+                FoundPower += NeedOntThisLine;
+
+                DictLineCoef.Add(line, coef);
+            }
+        }
     }
 }
