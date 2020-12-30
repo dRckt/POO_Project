@@ -42,15 +42,11 @@ namespace POO_Project
 
             return NewPowerPlant;
         }
-
-        public List<PowerPlant> GetPowerPlantList { get { return PowerPlantList; } }
-        public List<Consumer> GetConsumerList { get { return ConsumerList; } }
        
         public Consumer CreateNewConsumer()
         {
             // Communication avec la console pour créer le consomateur
-            Consumer NewConsumer;
-            NewConsumer = i.CreateNewConsumer(weather_manager, clock);
+            Consumer NewConsumer = i.CreateNewConsumer(weather_manager, clock);
 
             Console.WriteLine(String.Format("Le consommateur {0} a bien été créée.", NewConsumer.GetName));
             ConsumerList.Add(NewConsumer);
@@ -58,7 +54,9 @@ namespace POO_Project
             return NewConsumer;
         }
 
-        
+        public List<PowerPlant> GetPowerPlantList { get { return PowerPlantList; } }
+        public List<Consumer> GetConsumerList { get { return ConsumerList; } }
+
 
 
         // Connecter un noeud de concentration à un noeud de distribution
