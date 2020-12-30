@@ -16,6 +16,7 @@ namespace POO_Project
         protected double productionCost;
         protected double CO2emission;
         protected double powerProduction;
+        protected double disponibleProduction;
 
         protected bool constantProduction;
         protected bool adjustableProduction;
@@ -23,7 +24,7 @@ namespace POO_Project
         //protected double startTime;
         //protected double stopTime;
 
-        protected DistributionNode OutputNode;
+        protected DistributionNode OutPutNode;
 
         public PowerPlant(string name)
         {
@@ -45,8 +46,19 @@ namespace POO_Project
         public bool GetIsWorking { get { return IsWorking; } } //j'ai ajouté le Get devant parce que build plantait sinon (ambiguité entre la methode et le bool)
         public virtual double Production()
         {
-            Console.WriteLine("Si ce message s'affiche, ca pue, faut pas arriver ici");
+            if (IsWorking)
+            {
+                powerProduction = DisponibleProduction();
+            }
+            else
+            {
+                powerProduction = 0;
+            }
             return powerProduction;
+        }
+        public virtual double DisponibleProduction()
+        {
+            return 0;
         }
         public virtual double Cost()
         {
@@ -61,12 +73,17 @@ namespace POO_Project
             string resume = string.Format("{0} : Production = {1} W, cout = {2} $, emission = {3} grammes", name, Production(), Cost(), C02());
             return resume;
         }
+        public double AskDisponiblePower()
+        {
+            return disponibleProduction;
+        }
     }
 
     // Classes filles héritées
     public class GasPowerPlant : PowerPlant
     {
         Market market;
+       
 
         public GasPowerPlant(string name, Market market) : base(name)
         {
@@ -75,11 +92,11 @@ namespace POO_Project
             adjustableProduction = false;
         }
 
-        public override double Production()
+        public override double DisponibleProduction()
         {
             var ran = new Random();
-            powerProduction = ran.Next(5000, 50000);
-            return powerProduction;
+            disponibleProduction = ran.Next(5000, 50000);
+            return disponibleProduction;
         }
         public override double Cost()
         {
@@ -111,9 +128,8 @@ namespace POO_Project
         }
         public override void Start() { productionState = 2; IsWorking = true; }
         public override void Stop() { productionState = 3; }
-        public override double Production()
+        public override double DisponibleProduction()
         {
-
             switch (productionState)
             {
                 // production stable
@@ -185,22 +201,35 @@ namespace POO_Project
             constantProduction = false;
             adjustableProduction = true;
         }
-        public override double Production()
+        public override double DisponibleProduction()
         {
             windspeed = meteo.GetWindspeed;
-            if (reduceProduction)
+            powerProduction = 1000 * windspeed;
+            return powerProduction;
+        }
+
+        public override double Production()
+        {
+            if (IsWorking)
             {
-                powerProduction = 1000 * windspeed / 2;
+                if (reduceProduction)
+                {
+                    powerProduction = DisponibleProduction() / 2;
+                }
+                else
+                {
+                    powerProduction = DisponibleProduction();
+                }   
             }
             else
             {
-                powerProduction = 1000 * windspeed;
+                powerProduction = 0;
             }
             return powerProduction;
         }
 
-        public void ReduceProduction() { reduceProduction = true; }
-        public void StopReduceProduction() { reduceProduction = false; }
+        public bool ReduceProduction { set { reduceProduction = true; } }
+        public bool StopReduceProduction { set { reduceProduction = false; } }
       
     }
 
@@ -215,7 +244,7 @@ namespace POO_Project
             constantProduction = false;
             adjustableProduction = false;
         }
-        public override double Production()
+        public override double DisponibleProduction()
         {
             sunlight = meteo.GetSunlight;
             powerProduction = 2000 * sunlight;
