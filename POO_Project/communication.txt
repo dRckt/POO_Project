@@ -10,6 +10,8 @@ Damien:: regarde dans Manager.cs il y a une fonction UpdatePowerOfPowerPlant() a
 
 #### Pour Robin ####
 
+J'ai ajouté Interface qui reprend les fonctions pour communiquer avec la console, pour liberer le Manager
+
 Mes remarques sous forme de commentaires dans le code sont de la forme	 // D : ..... (tu peux faire pareil // R : ..... )
 
 proposition Line.cs --> passer maxPower en paramètre de la ligne pour pouvoir avoir des lignes de differentes maxPower
