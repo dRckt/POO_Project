@@ -41,7 +41,7 @@ namespace POO_Project
         public void SetInputLine(Line newInputLine) { inputLine = newInputLine; }
 
         // générer une demande de puissance
-        public virtual void LaunchClaimingPower()
+        public virtual void UpdateClaimingPower()
         {
             SetMissingPower();
         }
@@ -95,7 +95,7 @@ namespace POO_Project
             this.nbr_hab = nbr_hab;
         }
 
-        public override void LaunchClaimingPower()
+        public override void UpdateClaimingPower()
         {
             // température peut prendre une valeur entre -5 et +35°C
             if (temperature < 10)
@@ -124,7 +124,7 @@ namespace POO_Project
         {
             this.nbr_machines = nbr_machines;
         }
-        public override void LaunchClaimingPower()
+        public override void UpdateClaimingPower()
         {
             claimingPower = nbr_machines * 10000; // chaque machine consomme 10000W
             SetMissingPower();
@@ -140,7 +140,7 @@ namespace POO_Project
         {
             this.market = market;
         }
-        public override void LaunchClaimingPower()
+        public override void UpdateClaimingPower()
         {
             wattPrice = market.GetWattPrice;
             claimingPower = inputLine.GetCurrentPower;
@@ -155,7 +155,7 @@ namespace POO_Project
         {
             isConsuming = false;
         }
-        public override void LaunchClaimingPower()
+        public override void UpdateClaimingPower()
         {
             claimingPower = inputLine.GetCurrentPower;
             SetMissingPower();
