@@ -26,7 +26,7 @@ namespace POO_Project
         public Line(string name)
         {
             this.name = name;
-            MaxPower = 142;
+            MaxPower = 75000;
             PowerClaimed = 0;
             SetCurrentPower(0);
 
@@ -44,28 +44,36 @@ namespace POO_Project
 
 
 
-        public double GetPowerClaimed { get { return PowerClaimed; } }                        // D : inutile ici //R: utile dans manager
+        public double GetPowerClaimed { get { return PowerClaimed; } }                 
         public string GetAlertMessage { get { return alertMessage; } }
 
         public bool GetIsConsumerLine { get { return IsConsumerLine; } }
-        public bool GetIsPowerPlantLine { get { return IsPowerPlantLine; } }
-        public PowerPlant GetMyPowerPlant { get { return myPowerPlant;  } }
         public bool GetIsDissipatorLine { get { return IsDissipatorLine; } }
+        public bool GetIsPowerPlantLine { get { return IsPowerPlantLine; } }
+        public PowerPlant GetMyPowerPlant { get { return myPowerPlant; } }
 
         /// Methodes SET
         public void SetInputNode(Node inputNode) { this.inputNode = inputNode; }
         public void SetOutputNode(Node OutputNode) { this.OutputNode = OutputNode; }
-
-
         public void SetIsConsumerLine(bool b) { IsConsumerLine = b; }
         public void SetIsDissipatorLine(bool b) { IsDissipatorLine = b; }
-        public void SetIsPowerPlantLine(bool b) { IsPowerPlantLine = b; }
+        public void SetIsPowerPlantLine(bool b) 
+        { 
+            IsPowerPlantLine = b;
+            if (b)
+            {
+                SetMaxPower(250000); //Les lignes des centrales sont plus grosses par défaut
+            }
+        }
         public void SetMyPowerPlant(PowerPlant p) { myPowerPlant = p; }
+
+        public void SetMaxPower(double newMaxPower) { MaxPower = newMaxPower; }
         public void SetCurrentPower(double newCurrentPower)
         {
             if (newCurrentPower > MaxPower)
             {
                 alertMessage = String.Format("Required power on {0} is too high", name);
+                currentPower = MaxPower;    
             }
             else
             {
@@ -120,7 +128,7 @@ namespace POO_Project
 
             if (GetIsConsumerLine)
             {
-                
+                ///MESSAGE DE NOTIF? changement de puissance d'entrée pour le consumer
             }
             else
             {
