@@ -32,7 +32,8 @@ namespace POO_Project
         public PowerPlant CreateNewPowerPlant()
         {
             // Communication avec la console pour créer la centrale
-            PowerPlant NewPowerPlant = i.CreateNewPowerPlant(weather_manager, clock, market);
+            PowerPlant NewPowerPlant = i.CreateNewPowerPlant(weather_manager, market);
+            NewPowerPlant.GetOutPutLine.SetMyPowerPlant(NewPowerPlant);
 
             PowerPlantList.Add(NewPowerPlant);
             Console.WriteLine(String.Format("La centrale {0} a bien été créée.", NewPowerPlant.GetName));
@@ -182,31 +183,14 @@ namespace POO_Project
             return sum;
         }
 
-        public void PropagatePowerClaimed()
+        public void PropagatePowerClaimed(Consumer consumer)
         {
+            Line inputLine = consumer.GetInputNode.GetOutputLine;
+            double DisponiblePower = inputLine.AskDisponiblePower();
 
+            consumer.GetInputNode.DividePowerClaimed();
         }
 
-        public void DividePowerClaimedOnConcentrationNode(ConcentrationNode concentrationNode)
-        {
-            Line OutputLine = concentrationNode.GetOutputLine;
-            List<Line> InputLineList = concentrationNode.GetInputLineList;
-            double PowerClaimed = OutputLine.GetPowerClaimed;
 
-            //Dictionnaire clé=Line valeur=% de powerClaimed
-            Dictionary<Line, double> DictLineCoef = new Dictionary<Line, double>();
-
-            double FoundPower = 0;
-
-            foreach (Line line in InputLineList)
-            {
-                double DisponiblePower = line.AskDisponiblePower();
-                double NeedOntThisLine = DisponiblePower - FoundPower;
-                double coef = (NeedOntThisLine) / PowerClaimed;
-                FoundPower += NeedOntThisLine;
-
-                DictLineCoef.Add(line, coef);
-            }
-        }
     }
 }

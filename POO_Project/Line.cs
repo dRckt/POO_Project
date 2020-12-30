@@ -21,7 +21,7 @@ namespace POO_Project
         private bool IsPowerPlantLine;
         private bool IsDissipatorLine;
 
-        private PowerPlant powerPlant;
+        private PowerPlant myPowerPlant;
 
         public Line(string name)
         {
@@ -49,7 +49,7 @@ namespace POO_Project
 
         public bool GetIsConsumerLine { get { return IsConsumerLine; } }
         public bool GetIsPowerPlantLine { get { return IsPowerPlantLine; } }
-        public PowerPlant GetPowerPlant { get { return powerPlant;  } }
+        public PowerPlant GetMyPowerPlant { get { return myPowerPlant;  } }
         public bool GetIsDissipatorLine { get { return IsDissipatorLine; } }
 
         /// Methodes SET
@@ -58,11 +58,15 @@ namespace POO_Project
         public void SetPowerClaimed(double newPowerClaimed) { PowerClaimed = newPowerClaimed; }
         public void SetIsConsumerLine(bool b) { IsConsumerLine = b; }
         public void SetIsDissipatorLine(bool b) { IsDissipatorLine = b; }
-        public void SetIsPowerPlantLine(bool b, PowerPlant p)
+        public void SetIsPowerPlantLine(bool b)
         {
             IsPowerPlantLine = b;
+            GetOutputNode.SetIsPowerPlantNode(b);
+        }
+        public void SetMyPowerPlant(PowerPlant p)
+        {
             powerPlant = p;
-            GetOutputNode.SetIsPowerPlantNode(true, p);
+            GetOutputNode.SetMyPowerPlant(p);
         }
         public void SetCurrentPower(double newCurrentPower)
         {
@@ -83,15 +87,13 @@ namespace POO_Project
             if (IsPowerPlantLine)
             {
                 //////Demander a la centrale combien elle peut me fournir (Damien)
-                ///double DisponiblePower = powerPlant.AskDisponiblePower();
+                ///double DisponiblePower = myPowerPlant.AskDisponiblePower();
                 DisponiblePower = 0; // stocjer la réponser dans cette variable
-                //return DisponiblePower;
             }
             else
             {
                 Node InputNode = GetInputNode;
-                DisponiblePower = InputNode.AskDisponiblePower();
-                //return DisponiblePower;
+                DisponiblePower = InputNode.AskDisponiblePower(); 
             }
             
             return DisponiblePower;

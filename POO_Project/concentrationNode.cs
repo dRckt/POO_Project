@@ -12,6 +12,8 @@ namespace POO_Project
         private double MaxPower;
         private List<string> AlertMessageList;
 
+        private Dictionary<Line, double> DivisionOfPowerClaimed;
+
 
         public ConcentrationNode(string name) : base(name)
         {
@@ -63,6 +65,45 @@ namespace POO_Project
             }
             
         }
+
+
+        public Dictionary<Line, double> DividePowerClaimed()
+        {
+            //Line OutputLine = GetOutputLine;
+            List<Line> InputLineList = GetInputLineList;
+            double PowerClaimed = GetPowerClaimed();
+
+            //Dictionnaire clé=Line valeur=% de powerClaimed
+            Dictionary<Line, double> NewDictLineCoef = new Dictionary<Line, double>();
+
+            double FoundPower = 0;
+
+            foreach (Line line in InputLineList)
+            {
+                double DisponiblePower;
+                if (line.GetIsPowerPlantLine)
+                {
+                    DisponiblePower = line.GetMyPowerPlant.DisponibleProduction();
+                }
+                else
+                {
+
+                }
+                DisponiblePower = line.AskDisponiblePower();
+                double NeedOntThisLine = DisponiblePower - FoundPower;
+                double coef = (NeedOntThisLine) / PowerClaimed;
+                FoundPower += NeedOntThisLine;
+
+                NewDictLineCoef.Add(line, coef);
+
+                line.SetPowerClaimed(PowerClaimed * coef);
+            }
+            DivisionOfPowerClaimed = NewDictLineCoef;
+            return NewDictLineCoef;
+        }
+
+
+
 
     }
 }
