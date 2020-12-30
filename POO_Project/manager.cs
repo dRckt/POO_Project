@@ -13,6 +13,7 @@ namespace POO_Project
         private Interface i;
         private Market market;
         private WeatherManager weather_manager;
+        private Clock clock;
               
         public Manager()
         {
@@ -23,13 +24,15 @@ namespace POO_Project
             i = new Interface();
             weather_manager = new WeatherManager();
             market = new Market();
+            clock = new Clock();
+
         }
         
         // creation d'une centrale
         public PowerPlant CreateNewPowerPlant()
         {
             // Communication avec la console pour créer la centrale
-            PowerPlant NewPowerPlant = i.CreateNewPowerPlant(weather_manager, market);
+            PowerPlant NewPowerPlant = i.CreateNewPowerPlant(weather_manager, clock, market);
 
             PowerPlantList.Add(NewPowerPlant);
             Console.WriteLine(String.Format("La centrale {0} a bien été créée.", NewPowerPlant.GetName));
@@ -41,7 +44,7 @@ namespace POO_Project
         {
             // Communication avec la console pour créer le consomateur
             Consumer NewConsumer;
-            NewConsumer = i.CreateNewConsumer(weather_manager);
+            NewConsumer = i.CreateNewConsumer(weather_manager, clock);
 
             Console.WriteLine(String.Format("Le consommateur {0} a bien été créée.", NewConsumer.GetName));
             ConsumerList.Add(NewConsumer);

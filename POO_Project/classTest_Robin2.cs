@@ -8,6 +8,7 @@ namespace POO_Project
     {
         public classTest_Robin2()
         {
+            /*
             Consumer consumer1 = new Consumer("consumer1");
             Consumer consumer2 = new Consumer("consumer2");
             Consumer consumer3 = new Consumer("consumer3");
@@ -31,6 +32,8 @@ namespace POO_Project
             consumerLine1[0].SetPowerClaimed(5);
             consumerLine1[0].SetInputNode(consumerNode1);
             */
+
+            /*
 
             Line consumerLine1 = consumerNode1.GetOutputLine;
             consumerLine1.SetPowerClaimed(5);
@@ -97,7 +100,7 @@ namespace POO_Project
             //Console.WriteLine(consumerLine1[0].GetPowerClaimed);
             Console.WriteLine("________");
             Console.WriteLine(String.Format("Resultat de la requete :: {0}", outsider.GetPowerClaimed(centralLineList)));
-
+            */
 
 
         }

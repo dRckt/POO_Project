@@ -79,16 +79,19 @@ namespace POO_Project
 
         public double AskDisponiblePower()
         {
+            double DisponiblePower;
             if (IsPowerPlantLine)
             {
                 //////Demander a la centrale combien elle peut me fournir (Damien)
                 ///double DisponiblePower = powerPlant.AskDisponiblePower();
-                double DisponiblePower = 0; // stocjer la réponser dans cette variable
+                DisponiblePower = 0; // stocjer la réponser dans cette variable
+                //return DisponiblePower;
             }
             else
             {
                 Node InputNode = GetInputNode;
-                double DisponiblePower = InputNode.AskDisponiblePower(); 
+                DisponiblePower = InputNode.AskDisponiblePower();
+                //return DisponiblePower;
             }
             
             return DisponiblePower;

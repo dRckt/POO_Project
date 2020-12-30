@@ -8,10 +8,10 @@ namespace POO_Project
     {
         double StartTime;
         double hour;
-        public Clock(double StartTime)
+        public Clock()
         {
-            this.StartTime = StartTime;
-            hour = StartTime;
+            StartTime = 0 ;
+            hour = StartTime ;
         }
         public void UpdateClock(double pas)
         {
