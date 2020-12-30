@@ -58,11 +58,15 @@ namespace POO_Project
         public void SetPowerClaimed(double newPowerClaimed) { PowerClaimed = newPowerClaimed; }
         public void SetIsConsumerLine(bool b) { IsConsumerLine = b; }
         public void SetIsDissipatorLine(bool b) { IsDissipatorLine = b; }
-        public void SetIsPowerPlantLine(bool b, PowerPlant p)
+        public void SetIsPowerPlantLine(bool b)
         {
             IsPowerPlantLine = b;
+            GetOutputNode.SetIsPowerPlantNode(b);
+        }
+        public void SetMyPowerPlant(PowerPlant p)
+        {
             powerPlant = p;
-            GetOutputNode.SetIsPowerPlantNode(true, p);
+            GetOutputNode.SetMyPowerPlant(p);
         }
         public void SetCurrentPower(double newCurrentPower)
         {
@@ -79,16 +83,17 @@ namespace POO_Project
 
         public double AskDisponiblePower()
         {
+            double DisponiblePower;
             if (IsPowerPlantLine)
             {
                 //////Demander a la centrale combien elle peut me fournir (Damien)
-                ///double DisponiblePower = powerPlant.AskDisponiblePower();
-                double DisponiblePower = 0; // stocjer la réponser dans cette variable
+                ///double DisponiblePower = myPowerPlant.AskDisponiblePower();
+                DisponiblePower = 0; // stocjer la réponser dans cette variable
             }
             else
             {
                 Node InputNode = GetInputNode;
-                double DisponiblePower = InputNode.AskDisponiblePower(); 
+                DisponiblePower = InputNode.AskDisponiblePower(); 
             }
             
             return DisponiblePower;

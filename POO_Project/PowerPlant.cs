@@ -35,7 +35,10 @@ namespace POO_Project
             OutputLine.SetIsPowerPlantLine(true);  //je précise que cette ligne est reliée a une centrale
             OutputLine.SetOutputNode(OutputNode);  //je précise à la ligne qui est mon noeud de sortie (pour pouvoir le récupérer par après)
         }
+
+        //A chaque création d'une centrale, appeler juste après: <Centrale>.GetOutputLine.SetMyPowerPlant(<centrale>);
         public Line GetOutPutLine { get { return this.OutputLine; } }
+
         public DistributionNode GetOutputNode{get {return this.OutputNode; } } 
         public string GetName { get { return name; } }
 

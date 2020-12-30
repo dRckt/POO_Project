@@ -12,6 +12,8 @@ namespace POO_Project
 
         private bool IsPowerPlantNode;
         private PowerPlant myPowerPlant;
+
+        
         public Node(string name)
         {
             Name = name;
@@ -28,9 +30,12 @@ namespace POO_Project
         // recupere la liste des lignes de sorties
         public List<Line> GetOutputLineList { get { return OutputLineList; } }
 
-        public void SetIsPowerPlantNode(bool b, PowerPlant p)
+        public void SetIsPowerPlantNode(bool b)
         {
             IsPowerPlantNode = b;
+        }
+        public void SetMyPowerPlant(PowerPlant p)
+        {
             myPowerPlant = p;
         }
         public PowerPlant GetPowerPlant { get { return myPowerPlant; } }
@@ -88,5 +93,8 @@ namespace POO_Project
                 line.SetPowerClaimed(OutputLineList[0].GetPowerClaimed / InputLineList.Count);  //COEFF ?????
             }
         }
+
+
+
     }
 }
