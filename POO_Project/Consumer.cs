@@ -18,10 +18,9 @@ namespace POO_Project
 
         protected ConcentrationNode inputNode;
 
-        public Consumer(string name)//, Line inputLine)
+        public Consumer(string name)
         {            
             this.name = name;
-            //this.inputLine = inputLine;
 
             inputNode = new ConcentrationNode(name + "_inputNode");
             inputLine = inputNode.GetOutputLine; //ligne d'entrée du consumer = ligne de sortie du noeud de concentration
@@ -31,9 +30,7 @@ namespace POO_Project
             alertMessage = "";
         }
 
-        // permet de récupérer le nom du consommateur
         public string GetName { get { return name; } }
-        // permet de récupérer la ligne d'entrée
         public Line getInputLine { get { return inputLine; } }
         public ConcentrationNode GetInputNode { get { return inputNode; } }
 
@@ -46,7 +43,6 @@ namespace POO_Project
             SetMissingPower();
         }
 
-        // permet de récupérer la demande de puissance actuelle
         public double GetClaimingPower { get { return claimingPower; } }
 
         // va chercher la puissance sur inputLine
@@ -113,6 +109,8 @@ namespace POO_Project
 
             claimingPower *= nbr_hab;   // * le nombre d'habitant de la ville
 
+            inputLine.SetPowerClaimed(claimingPower);
+
             SetMissingPower();
         }
     }
@@ -127,6 +125,9 @@ namespace POO_Project
         public override void UpdateClaimingPower()
         {
             claimingPower = nbr_machines * 10000; // chaque machine consomme 10000W
+
+            inputLine.SetPowerClaimed(claimingPower);
+
             SetMissingPower();
         }
     }
@@ -145,6 +146,9 @@ namespace POO_Project
             wattPrice = market.GetWattPrice;
             claimingPower = inputLine.GetCurrentPower;
             benefices = claimingPower * wattPrice;
+
+            inputLine.SetPowerClaimed(claimingPower);
+
             SetMissingPower();
         }
     }
@@ -158,6 +162,7 @@ namespace POO_Project
         public override void UpdateClaimingPower()
         {
             claimingPower = inputLine.GetCurrentPower;
+
             SetMissingPower();
         }
 
