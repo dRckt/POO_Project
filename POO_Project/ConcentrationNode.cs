@@ -16,14 +16,14 @@ namespace POO_Project
         public ConcentrationNode(string name) : base(name)
         {
             string OutputLineName = name+"_OutputLine";
-            OutputLine = new Line(OutputLineName);
+            this.OutputLine = new Line(OutputLineName);
             base.AddOutputLineToList(OutputLine);
 
-            OutputPower = GetOutputPower(); //voir commentaire dans header
-            PowerClaimed = GetPowerClaimed();
+            this.OutputPower = this.GetOutputPower(); //voir commentaire dans header
+            this.PowerClaimed = this.GetPowerClaimed();
             //déclarer quelque chose qui décide sur quelle ligne il réclame combien dans ses entrées
 
-            MaxPower = OutputLine.GetMaxPower; 
+            this.MaxPower = this.OutputLine.GetMaxPower; 
             Console.WriteLine(String.Format("Une noeud de concentration nommé {0} a été créé.", name));
         }
 

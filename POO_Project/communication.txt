@@ -16,7 +16,14 @@ proposition Line.cs --> passer maxPower en paramètre de la ligne pour pouvoir a
 					--> ne pas utiliser isDissipatorLine alors qu'on peut simplement brancher la ligne sur un dissipateur en sortie
 					--> Supprimer PowerClaimed, on ne l'utilise pas et ce n'est pas une caractéristique de la ligne de savoir ce qu'on va lui demander de fournir, elle est juste caractérisée par sa puissance actuelle, et c'est le conomateur qui va venir modifier cette valeur
 					--> On pourrait se passer des methodes SetInputNode() et SetOutPutNode() en passant en paramètres les noeuds 
-	Reponse :
+	Reponse : Pour SetInputNode(), SetOutputNode() et PowerClaimed, je ne sais pas encore si j'en ai besoin car je ne sais pas encore comment faire pour répartir le courant dans les noeud (on en parlera pendant la réunion du 30/12)
+				-> sera peut etre supprimé quand jaurai trouvé comment faire
+			Pour maxPower, l'idée c'est qu'une ligne à une puissance max par défaut mais qu'on peut la changer direct après création avec SetMaxPower, en soit comme ca ou avec un parametre ca revient au meme d'après moi, donc comme tu préfères
+			Pour IsDissipatorLine, pour l'instant c'est une ligne qui es créé en meme temps qu'un noeud de distribution ->tous les noeuds de distribution n on une, on en parle pendant la réunion
 
 Dans le manager, quel est l'interet de differencier les deux fonctions qui permettent de relier un noeud de concentration et un noeud de distribution ?
-	Reponse :
+	Reponse : parce qu'on ne les branche pas ensemble de la meme manière. Un noeud de concentration a par défaut une ligne de sortie dès sa création, et un noeud de distribution une ligne d'entrée
+				pour brancher un noeud de distribution à un noeuc de concentration, on créé une nouvelle ligne qu'on ajoute en sortie de la distribution et en entrée de la concentration (d'ou le besoin de donner un nouveau nom en param)
+				tandis que pour brancher concentration à distribution, la ligne qui doit relier les 2 existe déjà
+				on pourrai évantuellement mettre une if/else ou switch case en début de fonction pour savoir on branche quel type de noeud à quel type de noeud, de sorte a n'avoir qu'une fonction a appeler quand on souhaite brancher 2 noeuds
+				mais ca ne changerait pas le fait qu'on les branche ensemble différemment
