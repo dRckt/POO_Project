@@ -26,7 +26,7 @@ namespace POO_Project
             string name = Console.ReadLine();
             return name;
         }
-        private Weather ChooseWeather(WeatherManager weather_manager)
+        private Weather ChooseWeather(WeatherManager weather_manager, Clock clock)
         {
             Console.WriteLine("Creer une nouvelle meteo (0) ou utiliser une meteo disponnible ? (1)");
             string reponse = Console.ReadLine();
@@ -35,7 +35,7 @@ namespace POO_Project
             {
                 Console.WriteLine("Quelle est la localisation de la nouvelle meteo ?");
                 string localisation = Console.ReadLine();
-                Weather new_weather = new Weather(localisation, new Clock(1));
+                Weather new_weather = new Weather(localisation, clock);
                 weather_manager.AddWeather(new_weather);
                 return new_weather;
             }
@@ -44,7 +44,7 @@ namespace POO_Project
                 if (weather_manager.GetWeatherListCount == 0)
                 {
                     Console.WriteLine("erreur : La liste est vide");
-                    return ChooseWeather(weather_manager);
+                    return ChooseWeather(weather_manager, clock);
                 }
                 else
                 {
@@ -70,18 +70,18 @@ namespace POO_Project
                     catch
                     {
                         Console.WriteLine("error : id mauvais");
-                        return ChooseWeather(weather_manager);
+                        return ChooseWeather(weather_manager, clock);
                     }
                 }
             }
             else
             {
                 Console.WriteLine("erreur : entrée incorrecte");
-                return ChooseWeather(weather_manager);
+                return ChooseWeather(weather_manager, clock);
             }
         }
 
-        public PowerPlant CreateNewPowerPlant(WeatherManager weather_manager, Market market)
+        public PowerPlant CreateNewPowerPlant(WeatherManager weather_manager, Clock clock, Market market)
         {
             Console.WriteLine(String.Format("------------------------------CREATION CENTRALE n°{0}------------------------------", centrale_count));
             Console.WriteLine("Quelle genre de centrale voulez vous créer ? Entrez :");
@@ -107,18 +107,18 @@ namespace POO_Project
                     }
                 case "w":
                     {
-                        NewPowerPlant = new WindFarm(ChooseName("wind farm"), ChooseWeather(weather_manager));
+                        NewPowerPlant = new WindFarm(ChooseName("wind farm"), ChooseWeather(weather_manager, clock));
                         break;
                     }
                 case "s":
                     {
-                        NewPowerPlant = new SolarPowerPlant(ChooseName("solar power plant"), ChooseWeather(weather_manager));
+                        NewPowerPlant = new SolarPowerPlant(ChooseName("solar power plant"), ChooseWeather(weather_manager, clock));
                         break;
                     }
                 default:
                     {
                         Console.WriteLine("Entrée incorrecte");
-                        return CreateNewPowerPlant(weather_manager, market);
+                        return CreateNewPowerPlant(weather_manager, clock, market);
                     }
             }
 
@@ -126,7 +126,7 @@ namespace POO_Project
             return NewPowerPlant;
         }
 
-        public Consumer CreateNewConsumer(WeatherManager weather_manager)
+        public Consumer CreateNewConsumer(WeatherManager weather_manager, Clock clock)
         {
             Console.WriteLine(String.Format("------------------------------CREATION CONSOMMATEUR n°{0}------------------------------", consom_count));
             Console.WriteLine("Quelle genre de centrale voulez vous créer ? Entrez :");
@@ -141,7 +141,7 @@ namespace POO_Project
             {
                 case "c":
                     {
-                        NewConsumer = new City(ChooseName("city"), ChooseNbr("habitants"), ChooseWeather(weather_manager));
+                        NewConsumer = new City(ChooseName("city"), ChooseNbr("habitants"), ChooseWeather(weather_manager, clock));
                         break;
                     }
                 case "e":
@@ -157,7 +157,7 @@ namespace POO_Project
                 default:
                     {
                         Console.WriteLine("ERROR : input invalide");
-                        return CreateNewConsumer(weather_manager);
+                        return CreateNewConsumer(weather_manager, clock);
                     }
             }
 

@@ -18,23 +18,23 @@ namespace POO_Project
         {
             this.localisation = localisation;
             this.clock = clock;
-            changeWeather();        // initialise à des valeurs aléatoires
+            changeWeather();        // initialisation
         }
 
         public void changeWeather() 
         {
-            /*
-            var random = new Random();
-            sunlight = random.Next(0, 10);
-            windSpeed = random.Next(0, 10);
-            temperature = random.Next(-5, 35);  // varie entre -5 et +35°C
-            */
-
             double hour = clock.GetHour;
-
-            sunlight = Math.Sin((Math.PI/24)) ;
-            //windSpeed = ;
-            //temperature = ;
+            
+            if (6 < hour & hour < 22 )
+            {
+                sunlight = 2*Math.Sin((Math.PI / 24) * (hour - 2)) - 1;
+            }
+            else
+            {
+                sunlight = 0;
+            }
+            windSpeed = 0.5*Math.Sin((Math.PI/12)*hour)+0.5 ;
+            temperature = 20*Math.Sin((Math.PI/24)*hour)+3 ;
 
         }
 
@@ -60,10 +60,10 @@ namespace POO_Project
             WeatherList = new List<Weather>();
         }
 
-        public void CreateWeather(string localisation)
+        public void CreateWeather(string localisation, Clock clock)
         {
-            //Weather weather = new Weather(localisation);
-            //AddWeather(weather);
+            Weather weather = new Weather(localisation, clock);
+            AddWeather(weather);
         }
 
         public void AddWeather(Weather weather)
