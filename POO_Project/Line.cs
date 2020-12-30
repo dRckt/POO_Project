@@ -21,7 +21,7 @@ namespace POO_Project
         private bool IsPowerPlantLine;
         private bool IsDissipatorLine;
 
-        private PowerPlant powerPlant;
+        private PowerPlant myPowerPlant;
 
         public Line(string name)
         {
@@ -49,7 +49,7 @@ namespace POO_Project
 
         public bool GetIsConsumerLine { get { return IsConsumerLine; } }
         public bool GetIsPowerPlantLine { get { return IsPowerPlantLine; } }
-        public PowerPlant GetPowerPlant { get { return powerPlant;  } }
+        public PowerPlant GetMyPowerPlant { get { return myPowerPlant;  } }
         public bool GetIsDissipatorLine { get { return IsDissipatorLine; } }
 
         /// Methodes SET

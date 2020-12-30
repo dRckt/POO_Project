@@ -184,6 +184,8 @@ namespace POO_Project
         {
             Line inputLine = consumer.GetInputNode.GetOutputLine;
             double DisponiblePower = inputLine.AskDisponiblePower();
+
+            consumer.GetInputNode.DividePowerClaimed();
         }
 
 
