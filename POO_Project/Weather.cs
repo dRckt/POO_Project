@@ -33,8 +33,8 @@ namespace POO_Project
             double hour = clock.GetHour;
 
             sunlight = Math.Sin((Math.PI/24)) ;
-            windSpeed = ;
-            temperature = ;
+            //windSpeed = ;
+            //temperature = ;
 
         }
 
@@ -62,8 +62,8 @@ namespace POO_Project
 
         public void CreateWeather(string localisation)
         {
-            Weather weather = new Weather(localisation);
-            AddWeather(weather);
+            //Weather weather = new Weather(localisation);
+            //AddWeather(weather);
         }
 
         public void AddWeather(Weather weather)

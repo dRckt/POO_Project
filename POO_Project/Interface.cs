@@ -35,7 +35,7 @@ namespace POO_Project
             {
                 Console.WriteLine("Quelle est la localisation de la nouvelle meteo ?");
                 string localisation = Console.ReadLine();
-                Weather new_weather = new Weather(localisation);
+                Weather new_weather = new Weather(localisation, new Clock(1));
                 weather_manager.AddWeather(new_weather);
                 return new_weather;
             }

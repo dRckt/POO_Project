@@ -25,7 +25,7 @@ namespace POO_Project
 
         public void TestWeatherClock()
         {
-            Weather weather = 
+            //Weather weather = 
         }
 
     }
