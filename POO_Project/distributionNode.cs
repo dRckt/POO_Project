@@ -26,7 +26,7 @@ namespace POO_Project
             DissipatorLine.SetIsDissipatorLine(true);
 
             this.InputPower = this.GetInputPower;
-            this.PowerClaimed = this.GetPowerClaimed();
+            this.PowerClaimed = 0; // this.GetPowerClaimed();
 
             this.MaxPower = this.InputLine.GetMaxPower;
             Console.WriteLine(String.Format("Un noeud de distribution nommé {0} a été créé", name));

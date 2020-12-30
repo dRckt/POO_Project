@@ -10,7 +10,6 @@ namespace POO_Project
         protected List<Line> OutputLineList;
         private string Name;
 
-        private bool IsPowerPlantNode;
         private PowerPlant myPowerPlant;
 
         
@@ -20,7 +19,7 @@ namespace POO_Project
             Console.WriteLine("");
             InputLineList = new List<Line> { };
             OutputLineList = new List<Line> { };
-            IsPowerPlantNode = false;
+
 
         }
 
@@ -30,15 +29,6 @@ namespace POO_Project
         // recupere la liste des lignes de sorties
         public List<Line> GetOutputLineList { get { return OutputLineList; } }
 
-        public void SetIsPowerPlantNode(bool b)
-        {
-            IsPowerPlantNode = b;
-        }
-        public void SetMyPowerPlant(PowerPlant p)
-        {
-            myPowerPlant = p;
-        }
-        public PowerPlant GetPowerPlant { get { return myPowerPlant; } }
         
         // recupere le nom du noeud
         public string GetName { get { return Name; } }
@@ -69,32 +59,92 @@ namespace POO_Project
 
 
 
-        public double AskDisponiblePower()
+        /////////////////////////////////////////////////////
+
+        public void UpdatePowerClaimed()
         {
-            double DisponiblePower = 0;
+            double PowerClaimedOnNode = 0;
+            foreach (Line line in OutputLineList)
+            {
+                PowerClaimedOnNode += line.GetPowerClaimed;
+            }
+            Dictionary<Line, double> n_set = new Dictionary<Line, double> { };
             foreach (Line line in InputLineList)
             {
-
-                DisponiblePower += line.AskDisponiblePower();
+                n_set.Add(line, line.GetDisponiblePower());
             }
-            return DisponiblePower;
-        }
 
-
-        ////////////////////////////////////// UNIQUEMENT POUR LES NOEUDS DE CONCENTRATION ? //////////////////////////////////////
-
-        // permet de faire une demande aux lignes d'entrées
-        public void SetClaimedPowerOfInputLines_Concentration()
-        {
-            Console.WriteLine("PROGRAMME EN CONSTRUCTION :: doit décider où est ce qu'il réclame du courant");
-            foreach (Line line in this.InputLineList)
+            foreach (Line line in InputLineList)
             {
-                // pour chaque ligne d'entrée, declare la demande en prenant la demande de puissance de la premiere ligne de sortie de la liste "ligne de sortie" et la divise par le nombre de ligne d'entrées
-                line.SetPowerClaimed(OutputLineList[0].GetPowerClaimed / InputLineList.Count);  //COEFF ?????
+                if (PowerClaimedOnNode > n_set[line])
+                {
+                    line.SetPowerClaimed(n_set[line]);
+                    PowerClaimedOnNode -= n_set[line];
+                    ///MESSAGE :: cette ligne prend tout ce qu'elle peut
+                }
+                else
+                {
+                    line.SetPowerClaimed(PowerClaimedOnNode);
+                    PowerClaimedOnNode = 0;
+                }
             }
+            //après ce dernier foreach, si PowerClaimedOnNode != 0 => il manque une centrale
         }
 
+        public double GetDisponiblePower(Line avalLine)
+        {
+            double disponiblePower = 0;
+            foreach (Line line in InputLineList)
+            {
+                disponiblePower += line.GetDisponiblePower();
+            }
+            foreach (Line line in InputLineList)
+            {
+                if (line == avalLine)
+                {
+                    Console.WriteLine(""); //pass
+                }
+                else
+                {
+                    disponiblePower -= line.GetPowerClaimed;
+                }
+            }
+            return disponiblePower;
+        }
 
+        /////////////////////////////////////////////////////
 
+        public void UpdateCurrentPower()
+        {
+            double CurrentPowerOfNode = 0;
+            foreach (Line line in InputLineList){ CurrentPowerOfNode += line.GetCurrentPower;}
+            foreach (Line line in OutputLineList)
+            {
+                if (line.GetIsDissipatorLine) { Console.WriteLine(""); } //pass
+                else
+                {
+                    if (line.GetPowerClaimed <= CurrentPowerOfNode)
+                    {
+                        line.UpdateCurrentPower(line.GetPowerClaimed);
+                        CurrentPowerOfNode -= line.GetPowerClaimed;
+                    }
+                    else
+                    {
+                        line.UpdateCurrentPower(CurrentPowerOfNode);
+                        ////MESSAGE D'ALERTE:: il manque du courant sur une des lignes
+                    }
+
+                }
+            }
+
+            //S'il y a une ligne de dissipation on lui envoie ce qu'il reste de courant non-distribué (normalement 0)
+            foreach (Line line in OutputLineList)
+            {
+                if (line.GetIsDissipatorLine){line.SetCurrentPower(CurrentPowerOfNode);}
+            }
+
+        }
+
+        /////////////////////////////////////////////////////
     }
 }

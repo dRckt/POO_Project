@@ -18,14 +18,14 @@ namespace POO_Project
         public ConcentrationNode(string name) : base(name)
         {
             string OutputLineName = name+"_OutputLine";
-            this.OutputLine = new Line(OutputLineName);
+            OutputLine = new Line(OutputLineName);
+            
             base.AddOutputLineToList(OutputLine);
 
-            this.OutputPower = this.GetOutputPower(); //voir commentaire dans header
-            this.PowerClaimed = this.GetPowerClaimed();
+            OutputPower = GetOutputPower(); //voir commentaire dans header
             //déclarer quelque chose qui décide sur quelle ligne il réclame combien dans ses entrées
 
-            this.MaxPower = this.OutputLine.GetMaxPower; 
+            MaxPower = this.OutputLine.GetMaxPower; 
             Console.WriteLine(String.Format("Une noeud de concentration nommé {0} a été créé.", name));
         }
 
@@ -40,20 +40,9 @@ namespace POO_Project
             return sum;
         }
         
-        //inutile? 
-        public double GetPowerClaimed() { return OutputLine.GetPowerClaimed; }
-
         public Line GetOutputLine{ get { return OutputLine; }  }
  
-        public void SetClaimedPowerOfInputLines() 
-        { 
-            Console.WriteLine("PROGRAMME EN CONSTRUCTION :: doit décider où est ce qu'il réclame du courant"); 
-            foreach (Line line in base.InputLineList)
-            {
-                line.SetPowerClaimed(OutputLine.GetPowerClaimed/InputLineList.Count);  //COEFF ?????
-            }
-        }
-
+       
         public void ShowState()
         {
             string nodeStateMessage = String.Format("Noeud de concentration {0}:: Nombre d'entrées: {1}  ;  Puissance de sortie: {2}W /// claimed on output {3} ", base.GetName, base.InputLineList.Count, this.GetOutputPower(), base.OutputLineList[0].GetPowerClaimed);
@@ -66,7 +55,7 @@ namespace POO_Project
             
         }
 
-
+        /*
         public Dictionary<Line, double> DividePowerClaimed()
         {
             //Line OutputLine = GetOutputLine;
@@ -81,17 +70,6 @@ namespace POO_Project
             foreach (Line line in InputLineList)
             {
                 double DisponiblePower;
-                /*
-                if (line.GetIsPowerPlantLine)
-                {
-                    DisponiblePower = line.GetMyPowerPlant.DisponibleProduction();
-                    NewDictLineCoef()
-                }
-                else
-                {
-
-                }
-                */
                 DisponiblePower = line.AskDisponiblePower();
                 double NeedOntThisLine = DisponiblePower - FoundPower;
                 double coef = (NeedOntThisLine) / PowerClaimed;
@@ -104,7 +82,7 @@ namespace POO_Project
             DivisionOfPowerClaimed = NewDictLineCoef;
             return NewDictLineCoef;
         }
-
+        */
 
 
 

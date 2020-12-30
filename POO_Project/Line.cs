@@ -27,7 +27,7 @@ namespace POO_Project
         {
             this.name = name;
             MaxPower = 142;
-            SetPowerClaimed(0);
+            PowerClaimed = 0;
             SetCurrentPower(0);
 
             IsConsumerLine = false;
@@ -55,19 +55,12 @@ namespace POO_Project
         /// Methodes SET
         public void SetInputNode(Node inputNode) { this.inputNode = inputNode; }
         public void SetOutputNode(Node OutputNode) { this.OutputNode = OutputNode; }
-        public void SetPowerClaimed(double newPowerClaimed) { PowerClaimed = newPowerClaimed; }
+
+
         public void SetIsConsumerLine(bool b) { IsConsumerLine = b; }
         public void SetIsDissipatorLine(bool b) { IsDissipatorLine = b; }
-        public void SetIsPowerPlantLine(bool b)
-        {
-            IsPowerPlantLine = b;
-            //GetOutputNode.SetIsPowerPlantNode(b);
-        }
-        public void SetMyPowerPlant(PowerPlant p)
-        {
-            myPowerPlant = p;
-            GetOutputNode.SetMyPowerPlant(p);
-        }
+        public void SetIsPowerPlantLine(bool b) { IsPowerPlantLine = b; }
+        public void SetMyPowerPlant(PowerPlant p) { myPowerPlant = p; }
         public void SetCurrentPower(double newCurrentPower)
         {
             if (newCurrentPower > MaxPower)
@@ -79,26 +72,66 @@ namespace POO_Project
                 currentPower = newCurrentPower;
             }
         }
-
-
-        public double AskDisponiblePower()
-        {
-            double DisponiblePower;
-            if (IsPowerPlantLine)
+        /////////////////////////////////////////////////////
+        public void SetPowerClaimed(double newPowerClaimed)  //ne doit etre appellé que depuis les lignes qui rentrent dans consumer
+        { 
+            PowerClaimed = newPowerClaimed;
+            if (GetIsPowerPlantLine)
             {
-                //////Demander a la centrale combien elle peut me fournir (Damien)
-                DisponiblePower = myPowerPlant.DisponibleProduction();
-                DisponiblePower = 0; // stocjer la réponser dans cette variable
+                Console.WriteLine(""); //pass
             }
             else
             {
-          
-                DisponiblePower = GetInputNode.AskDisponiblePower();
-                //GetInputNode.DividePowerClaimed();
+                GetInputNode.UpdatePowerClaimed();
+            }   
+            if (GetIsConsumerLine)
+            {
+                //MESSAGE DE NOTIF:: UN UTILISATEUR A CHANGE DE CLAIMING
+            }
+        }     
+        public double GetDisponiblePower()
+        {
+            if (GetIsPowerPlantLine)
+            {
+                return 1000;  //POUR TEST
+                //return GetMyPowerPlant.DisponibleProduction();
 
             }
+            else
+            {
+                return GetInputNode.GetDisponiblePower(this);
+            }
             
-            return DisponiblePower;
         }
+
+        /////////////////////////////////////////////////////
+      
+        public void UpdateCurrentPower(double newCurrentPower)  //ne doit etre appellée que pour les lignes qui sortent de central
+        {
+            if (GetDisponiblePower() > newCurrentPower)
+            {
+                SetCurrentPower(newCurrentPower);
+            }
+            else
+            {
+                SetCurrentPower(GetDisponiblePower());
+                ////MESSAGE D'ALERTE :: Il manque du courant sur une des lignes
+            }
+
+            if (GetIsConsumerLine)
+            {
+                
+            }
+            else
+            {
+                GetOutputNode.UpdateCurrentPower();
+            }
+            
+
+        }
+
+        /////////////////////////////////////////////////////
+
+
     }
 }

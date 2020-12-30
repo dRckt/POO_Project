@@ -29,3 +29,27 @@ Dans le manager, quel est l'interet de differencier les deux fonctions qui perme
 				tandis que pour brancher concentration à distribution, la ligne qui doit relier les 2 existe déjà
 				on pourrai évantuellement mettre une if/else ou switch case en début de fonction pour savoir on branche quel type de noeud à quel type de noeud, de sorte a n'avoir qu'une fonction a appeler quand on souhaite brancher 2 noeuds
 				mais ca ne changerait pas le fait qu'on les branche ensemble différemment
+
+
+
+
+//Commentaire sur le fonctionnement des lignes/noeuds:
+Quand on change le PowerClaimed d'un Consumer:
+	appeler directement après la fonction Line.SetPowerClaimed(<nouveau powerClaimed>)
+
+		=> cette fonction met a jour la puissance réclamée sur elle
+		=> ET sur son noeud! (s'il y en a un, pass quand celui de central)
+		     avec la fonction Node.UpdatePowerClaimed(Line)
+	   Les 2 méthodes s'appellent entre elle jusqu'a ce que toutes les lignes jusqu'a la centrale aient été mise a jour
+
+	   Pour mettre a jour les centrales elles n'ont plus qu'a lire la demande sur leur ligne de sortie
+
+
+Quand un consumer change sa demande:
+	appeller la fonction (sur sa ligne) GetInputLine.SetPowerClaimed(<newPowerClaimed);
+	 ->tout le reste se met a jour
+Quand une centrale change sa production:
+	appeller la fonction (sur sa ligne) GetOutputLine.UpdateCurrentPower(<newCurrentPower>);
+	-> tout le reste se met a jour
+
+

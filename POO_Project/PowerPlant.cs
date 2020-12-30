@@ -29,9 +29,9 @@ namespace POO_Project
         public PowerPlant(string name)
         {
             this.name = name;
-            //this.OutputLine = OutputLine;
 
             this.OutPutNode = new DistributionNode(String.Format(name + "_OutPutNode"));
+            //OutPutLine.SetMyPowerPlant(this); //a faire hors du constructeur
             this.OutputLine = this.OutPutNode.GetInputLine; //ligne de sortie de la centrale = ligne d'entrée de son noeud de distribution
             OutputLine.SetIsPowerPlantLine(true);  //je précise que cette ligne est reliée a une centrale
             OutputLine.SetOutputNode(OutPutNode);  //je précise à la ligne qui est mon noeud de sortie (pour pouvoir le récupérer par après)

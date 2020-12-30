@@ -32,9 +32,8 @@ namespace POO_Project
         public PowerPlant CreateNewPowerPlant()
         {
             // Communication avec la console pour créer la centrale
-            PowerPlant NewPowerPlant = i.CreateNewPowerPlant(weather_manager, market);
+            PowerPlant NewPowerPlant = i.CreateNewPowerPlant(weather_manager, new Clock(), market);
             NewPowerPlant.GetOutPutLine.SetMyPowerPlant(NewPowerPlant);
-            NewPowerPlant.GetOutputNode.SetIsPowerPlantNode(true);
             //NewPowerPlant.
 
             PowerPlantList.Add(NewPowerPlant);
@@ -112,16 +111,6 @@ namespace POO_Project
 
 
 
-
-        public void UpdateClaimingOfConsumer() //devra probablement prendre un dictionnaire en param, voir interaction avec terminal pour récupérer ce dict
-        {
-            //parcourir tous les consumer (clé) du dict et leur attribuer un nouveau claimingPower (valeur)
-            foreach (Consumer consumer in ConsumerList)
-            {
-                consumer.getInputLine.GetInputNode.SetClaimedPowerOfInputLines_Concentration();
-            }
-            //
-        }
         public void UpdatePowerOfPowerPlant()
         {
             //(éventuellement d'abord appel de la mise a jour des puissances réclamées par les clients (UpdateClaimingOfConsumer), voir interactions avc terminal)
@@ -190,13 +179,6 @@ namespace POO_Project
 
 
        
-        public void PropagatePowerClaimed(Consumer consumer)
-        {
-            Line inputLine = consumer.GetInputNode.GetOutputLine;
-            double DisponiblePower = inputLine.AskDisponiblePower();
-
-            consumer.GetInputNode.DividePowerClaimed();
-        }
 
 
     }
