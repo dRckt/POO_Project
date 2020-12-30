@@ -17,26 +17,27 @@ namespace POO_Project
         protected double CO2emission;
         protected double powerProduction;
 
-        //protected bool constantProduction;
-        //protected bool adjustableProduction;
+        protected bool constantProduction;
+        protected bool adjustableProduction;
 
         //protected double startTime;
         //protected double stopTime;
 
         protected DistributionNode OutputNode;
 
-        public PowerPlant(string name)//, Line OutputLine)
+        public PowerPlant(string name)
         {
             this.name = name;
             //this.OutputLine = OutputLine;
 
-            this.OutputNode = new DistributionNode(String.Format(name + "_OutputNode"));
-            this.OutputLine = this.OutputNode.GetInputLine; //ligne de sortie de la centrale = ligne d'entrée de son noeud de distribution
+            this.OutPutNode = new DistributionNode(String.Format(name + "_OutPutNode"));
+            this.OutputLine = this.OutPutNode.GetInputLine; //ligne de sortie de la centrale = ligne d'entrée de son noeud de distribution
             OutputLine.SetIsPowerPlantLine(true);  //je précise que cette ligne est reliée a une centrale
-            OutputLine.SetOutputNode(OutputNode);  //je précise à la ligne qui est mon noeud de sortie (pour pouvoir le récupérer par après)
+            OutputLine.SetOutPutNode(OutPutNode);  //je précise à la ligne qui est mon noeud de sortie (pour pouvoir le récupérer par après)
         }
 
         //A chaque création d'une centrale, appeler juste après: <Centrale>.GetOutputLine.SetMyPowerPlant(<centrale>);
+
         public Line GetOutPutLine { get { return this.OutputLine; } }
 
         public DistributionNode GetOutputNode{get {return this.OutputNode; } } 
@@ -69,10 +70,12 @@ namespace POO_Project
     public class GasPowerPlant : PowerPlant
     {
         Market market;
-        //public GasPowerPlant(string name, Line OutputLine, Market market) : base(name, OutputLine)
+
         public GasPowerPlant(string name, Market market) : base(name)
         {
             this.market = market;
+            constantProduction = true;
+            adjustableProduction = false;
         }
 
         public override double Production()
@@ -101,10 +104,12 @@ namespace POO_Project
         private double count_marche = 1;
         private double count_arret = 10;
         Market market;
-        //public NuclearPowerPlant(string name, Line OutputLine, Market market) : base(name, OutputLine)
+
         public NuclearPowerPlant(string name, Market market) : base(name)
         {
             this.market = market;
+            constantProduction = true;
+            adjustableProduction = false;
             Start();                // mise en marche automatique au moment de la création de la centrale
         }
         public override void Start() { productionState = 2; IsWorking = true; }
@@ -176,10 +181,12 @@ namespace POO_Project
         Weather meteo;
         double windspeed;
         bool reduceProduction = false;
-        //public WindFarm(string name, Line OutputLine, Weather meteo) : base(name, OutputLine)
+   
         public WindFarm(string name, Weather meteo) : base(name)
         {
             this.meteo = meteo;
+            constantProduction = false;
+            adjustableProduction = true;
         }
         public override double Production()
         {
@@ -204,10 +211,12 @@ namespace POO_Project
     {
         Weather meteo;
         double sunlight;
-        //public SolarPowerPlant(string name, Line OutputLine, Weather meteo) : base(name, OutputLine)
+
         public SolarPowerPlant(string name, Weather meteo) : base(name)
         {
             this.meteo = meteo;
+            constantProduction = false;
+            adjustableProduction = false;
         }
         public override double Production()
         {
@@ -221,7 +230,7 @@ namespace POO_Project
     {
         double purchasedPower;
         Market market;
-        //public PurchaseAbroad(string name, Line OutputLine, double purchasedPower, Market market) : base(name, OutputLine)
+        
         public PurchaseAbroad(string name, double purchasedPower, Market market) : base(name)
         {
             this.purchasedPower = purchasedPower;

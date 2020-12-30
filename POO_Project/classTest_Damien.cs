@@ -13,8 +13,19 @@ namespace POO_Project
             Manager reseaux = new Manager();
 
             //reseaux.CreateNewPowerPlant();
-            reseaux.CreateNewConsumer();
+            //reseaux.CreateNewConsumer();
 
+            Market market = new Market();
+
+            PowerPlant centrale = new NuclearPowerPlant("doel", market);
+
+            Console.WriteLine(centrale.GetType());
+
+        }
+
+        public void TestWeatherClock()
+        {
+            Weather weather = 
         }
 
     }
