@@ -61,11 +61,11 @@ namespace POO_Project
         public void SetIsPowerPlantLine(bool b)
         {
             IsPowerPlantLine = b;
-            GetOutputNode.SetIsPowerPlantNode(b);
+            //GetOutputNode.SetIsPowerPlantNode(b);
         }
         public void SetMyPowerPlant(PowerPlant p)
         {
-            powerPlant = p;
+            myPowerPlant = p;
             GetOutputNode.SetMyPowerPlant(p);
         }
         public void SetCurrentPower(double newCurrentPower)
@@ -87,13 +87,15 @@ namespace POO_Project
             if (IsPowerPlantLine)
             {
                 //////Demander a la centrale combien elle peut me fournir (Damien)
-                ///double DisponiblePower = myPowerPlant.AskDisponiblePower();
+                DisponiblePower = myPowerPlant.DisponibleProduction();
                 DisponiblePower = 0; // stocjer la réponser dans cette variable
             }
             else
             {
-                Node InputNode = GetInputNode;
-                DisponiblePower = InputNode.AskDisponiblePower(); 
+          
+                DisponiblePower = GetInputNode.AskDisponiblePower();
+                //GetInputNode.DividePowerClaimed();
+
             }
             
             return DisponiblePower;

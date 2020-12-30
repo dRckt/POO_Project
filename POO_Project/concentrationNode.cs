@@ -81,14 +81,17 @@ namespace POO_Project
             foreach (Line line in InputLineList)
             {
                 double DisponiblePower;
+                /*
                 if (line.GetIsPowerPlantLine)
                 {
                     DisponiblePower = line.GetMyPowerPlant.DisponibleProduction();
+                    NewDictLineCoef()
                 }
                 else
                 {
 
                 }
+                */
                 DisponiblePower = line.AskDisponiblePower();
                 double NeedOntThisLine = DisponiblePower - FoundPower;
                 double coef = (NeedOntThisLine) / PowerClaimed;

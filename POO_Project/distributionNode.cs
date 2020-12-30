@@ -84,10 +84,17 @@ namespace POO_Project
 
         }
 
-        //public bool GetIsCentralNode { get { return this.IsCentralNode; } }
-        //public void SetIsCentralNode(bool b) { this.IsCentralNode = b; }
+        public Dictionary<Line, double> DividePowerClaimed()
+        {
+            Dictionary<Line, double> NewDictLineCoef = new Dictionary<Line, double>();
+            NewDictLineCoef.Add(GetInputLine, 1);
+            return NewDictLineCoef;
+        }
 
-       
+            //public bool GetIsCentralNode { get { return this.IsCentralNode; } }
+            //public void SetIsCentralNode(bool b) { this.IsCentralNode = b; }
 
+
+
+        }
     }
-}

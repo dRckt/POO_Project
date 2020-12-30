@@ -34,12 +34,17 @@ namespace POO_Project
             // Communication avec la console pour créer la centrale
             PowerPlant NewPowerPlant = i.CreateNewPowerPlant(weather_manager, clock, market);
             NewPowerPlant.GetOutPutLine.SetMyPowerPlant(NewPowerPlant);
+            NewPowerPlant.GetOutputNode.SetIsPowerPlantNode(true);
+            //NewPowerPlant.
 
             PowerPlantList.Add(NewPowerPlant);
             Console.WriteLine(String.Format("La centrale {0} a bien été créée.", NewPowerPlant.GetName));
 
             return NewPowerPlant;
         }
+
+        public List<PowerPlant> GetPowerPlantList { get { return PowerPlantList; } }
+        public List<Consumer> GetConsumerList { get { return ConsumerList; } }
        
         public Consumer CreateNewConsumer()
         {
@@ -183,6 +188,8 @@ namespace POO_Project
             return sum;
         }
 
+
+       
         public void PropagatePowerClaimed(Consumer consumer)
         {
             Line inputLine = consumer.GetInputNode.GetOutputLine;
