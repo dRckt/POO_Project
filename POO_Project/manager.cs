@@ -32,7 +32,6 @@ namespace POO_Project
             // Communication avec la console pour créer la centrale
             PowerPlant NewPowerPlant = i.CreateNewPowerPlant(weather_manager, clock, market);
             NewPowerPlant.GetOutPutLine.SetMyPowerPlant(NewPowerPlant);
-            NewPowerPlant.GetOutputNode.SetIsPowerPlantNode(true);
             //NewPowerPlant.
 
             PowerPlantList.Add(NewPowerPlant);
@@ -108,81 +107,40 @@ namespace POO_Project
 
 
 
-
-        public void UpdateClaimingOfConsumer() //devra probablement prendre un dictionnaire en param, voir interaction avec terminal pour récupérer ce dict
-        {
-            //parcourir tous les consumer (clé) du dict et leur attribuer un nouveau claimingPower (valeur)
-            foreach (Consumer consumer in ConsumerList)
-            {
-                consumer.getInputLine.GetInputNode.SetClaimedPowerOfInputLines_Concentration();
-            }
-            //
-        }
         public void UpdatePowerOfPowerPlant()
         {
-            //(éventuellement d'abord appel de la mise a jour des puissances réclamées par les clients (UpdateClaimingOfConsumer), voir interactions avc terminal)
-            //UpdateClaimingOfConsumer();
-
             foreach (PowerPlant PowerPlant in PowerPlantList)
             {
-
+                if (PowerPlant.GetOutPutLine.GetPowerClaimed < PowerPlant.DisponibleProduction())
+                {
+                    ///// -- DAMIEN -- /////
+                    ///// -- DAMIEN -- /////
+                    ///
+                    ///  ici augmenter/diminuer la puissance de la centrale
+                    ///  la central devrait produire:  PowerPlant.GetOutPutLine.GetPowerClaimed
+                    ///  
+                    ///  +/MESSAGE DE NOTIF si la production de la centrale change
+                    ///  
+                    ///// -- DAMIEN -- /////
+                    ///// -- DAMIEN -- /////
+                    PowerPlant.GetOutPutLine.SetCurrentPower(PowerPlant.Production());
+                   
+                }
                 List<Line> LineList = new List<Line> { PowerPlant.GetOutPutLine };
-                double NewPowerClaimed = GetPowerClaimed(LineList);
-                //double MissingPower = NewPowerClaimed - PowerPlant.Production(); //Ca va puer???
-
-                                
+    
                 
-                ///// -- DAMIEN -- /////
-                ///// -- DAMIEN -- /////
-                ///
-                ///  ici mettre a jour la puissance de la centrale
-                ///
-                ///// -- DAMIEN -- /////
-                ///// -- DAMIEN -- /////
+                
                 ///
                 /// MESSAGE NOTIFICATION
                 /// message de modification de production à une centrale,
                 /// message d'arrêt d'une centrale
                 /// message de démarrage d'une centrale,  (missing power trop élevé = démarrage d'une centrale?)
                 
-                UpdateClaimingOfConsumer();
             }
 
         }
 
         
-        public double GetPowerClaimed(List<Line> LineList)
-        {
-            /* !!! Pour l'instant récupère la somme de toutes les puissances demandées sur une liste de ligne
-             *  si plusieurs centrales alimentent un meme consommateur, ca pourrait poser probleme 
-             *  =>demander au max a une centrale
-             *  
-             * 
-             */
-            double sum = 0;
-            foreach (Line line in LineList)
-            {
-                if (line.GetIsConsumerLine )
-                {
-                    sum += line.GetPowerClaimed;
-                    Console.WriteLine("LineConsumer ::: {0}, {1}", line, line.GetName);
-                }
-                else if (line.GetIsDissipatorLine) 
-                {
-                    Console.WriteLine(""); //pass
-                }
-                else
-                {
-                    Console.WriteLine("Line ::: {0}, {1}", line, line.GetName);
-                    Node node = line.GetOutputNode;
-                    Console.WriteLine("Node ::: {0}", node, node.GetName);
-                    sum += GetPowerClaimed(node.GetOutputLineList);  
-                    //probleme?? un ligne n'a pas de OutputNode?!
-                    // OU un noeud n'a pas de outputlineList
-                }
-            }
-            return sum;
-        }
 
         public void PropagatePowerClaimed(Consumer consumer)
         {

@@ -26,15 +26,16 @@ namespace POO_Project
 
         protected DistributionNode OutPutNode;
 
-        public PowerPlant(string name)
+        public PowerPlant(string Name)
         {
-            this.name = name;
-            //this.OutputLine = OutputLine;
+            name = Name;
 
-            this.OutPutNode = new DistributionNode(String.Format(name + "_OutPutNode"));
-            this.OutputLine = this.OutPutNode.GetInputLine; //ligne de sortie de la centrale = ligne d'entrée de son noeud de distribution
+            OutPutNode = new DistributionNode(String.Format(name + "_OutPutNode"));
+            //OutPutLine.SetMyPowerPlant(this); //a faire hors du constructeur
+            OutputLine = OutPutNode.GetInputLine; //ligne de sortie de la centrale = ligne d'entrée de son noeud de distribution
             OutputLine.SetIsPowerPlantLine(true);  //je précise que cette ligne est reliée a une centrale
             OutputLine.SetOutputNode(OutPutNode);  //je précise à la ligne qui est mon noeud de sortie (pour pouvoir le récupérer par après)
+            
         }
 
         //A chaque création d'une centrale, appeler juste après: <Centrale>.GetOutputLine.SetMyPowerPlant(<centrale>);
