@@ -15,7 +15,7 @@ namespace POO_Project
             //classTest_Damien test_Damien = new classTest_Damien();
             //test_Damien.TestWeatherClock();
 
-            thisIsATest test = new thisIsATest();
+            //thisIsATest test = new thisIsATest();
 
 
 
