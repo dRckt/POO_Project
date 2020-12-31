@@ -14,7 +14,7 @@ namespace POO_Project
         private Market market;
         private WeatherManager weather_manager;
         private Clock clock;
-              
+
         public Manager()
         {
             PowerPlantList = new List<PowerPlant> { };
@@ -25,7 +25,7 @@ namespace POO_Project
             market = new Market();
             clock = new Clock();
         }
-        
+
         // creation d'une centrale
         public PowerPlant CreateNewPowerPlant()
         {
@@ -39,7 +39,7 @@ namespace POO_Project
 
             return NewPowerPlant;
         }
-       
+
         public Consumer CreateNewConsumer()
         {
             // Communication avec la console pour créer le consomateur
@@ -47,7 +47,7 @@ namespace POO_Project
 
             Console.WriteLine(String.Format("Le consommateur {0} a bien été créée.", NewConsumer.GetName));
             ConsumerList.Add(NewConsumer);
-            
+
             return NewConsumer;
         }
 
@@ -124,35 +124,24 @@ namespace POO_Project
                     ///// -- DAMIEN -- /////
                     ///// -- DAMIEN -- /////
                     PowerPlant.GetOutPutLine.SetCurrentPower(PowerPlant.Production());
-                   
+
                 }
                 List<Line> LineList = new List<Line> { PowerPlant.GetOutPutLine };
-    
-                
-                
+
+
+
                 ///
                 /// MESSAGE NOTIFICATION
                 /// message de modification de production à une centrale,
                 /// message d'arrêt d'une centrale
                 /// message de démarrage d'une centrale,  (missing power trop élevé = démarrage d'une centrale?)
-                
+
             }
 
         }
 
 
-        }
-
-        
-
-        public void PropagatePowerClaimed(Consumer consumer)
-        {
-            Line inputLine = consumer.GetInputNode.GetOutputLine;
-            double DisponiblePower = inputLine.AskDisponiblePower();
-
-            consumer.GetInputNode.DividePowerClaimed();
-        }
-
+    
         public  void Menu()
         {
             string instruction = i.Menu();
@@ -178,6 +167,7 @@ namespace POO_Project
             Menu();
             
         }
+    
 
     }
 }
