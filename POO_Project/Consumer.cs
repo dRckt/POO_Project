@@ -155,9 +155,9 @@ namespace POO_Project
         }
     }
 
-    public class dissipator : Consumer
+    public class Dissipator : Consumer
     {
-        public dissipator(string name) : base(name)
+        public Dissipator(string name) : base(name)
         {
             isConsuming = false;
         }
