@@ -6,19 +6,23 @@ namespace POO_Project
 {
     public class Interface
     {
-        double centrale_count;
-        double consom_count;
+        double centrale_count; 
+        double consom_count;  
 
-        public Interface()
+        private Manager Reseau;
+
+        public Interface(Manager reseau) 
         {
-
+            Reseau = reseau;
+            consom_count = reseau.GetConsumerList.Count;
+            centrale_count = reseau.GetPowerPlantList.Count;
         }
         private void p(string value)
         {
             Console.WriteLine(value);
         }
 
-        private double ChooseNbr(string obj)
+        private double ChooseNbr(string obj) 
         {
             Console.WriteLine(String.Format("Number of {0} :", obj));
             double nbr_obj = Convert.ToDouble(Console.ReadLine());
@@ -85,7 +89,7 @@ namespace POO_Project
             }
         }
 
-        public PowerPlant CreateNewPowerPlant(WeatherManager weather_manager, Clock clock, Market market)
+        public void CreateNewPowerPlant(WeatherManager weather_manager, Clock clock, Market market)
         {
             Console.WriteLine(String.Format("------------------------------CREATION CENTRALE n°{0}------------------------------", centrale_count));
             Console.WriteLine("Quelle genre de centrale voulez vous créer ? Entrez :");
@@ -101,42 +105,42 @@ namespace POO_Project
             {
                 case "g":
                     {
-                        NewPowerPlant = new GasPowerPlant(ChooseName("gaz station"), market);
+                        NewPowerPlant = Reseau.CreateNewGasPowerPlant(ChooseName("gaz station"), market);
+                        
                         break;
                     }
                 case "n":
                     {
-                        NewPowerPlant = new NuclearPowerPlant(ChooseName("nuclear power plant"), market);
+                        NewPowerPlant = Reseau.CreateNewNuclearPowerPlant(ChooseName("nuclear power plant"), market);
                         break;
                     }
                 case "w":
                     {
-                        NewPowerPlant = new WindFarm(ChooseName("wind farm"), ChooseWeather(weather_manager, clock));
+                        NewPowerPlant = Reseau.CreateNewWindFarm(ChooseName("wind farm"), ChooseWeather(weather_manager, clock));
                         break;
                     }
                 case "s":
                     {
-                        NewPowerPlant = new SolarPowerPlant(ChooseName("solar power plant"), ChooseWeather(weather_manager, clock));
+                        NewPowerPlant = Reseau.CreateNewSolarPowerPlant(ChooseName("solar power plant"), ChooseWeather(weather_manager, clock));
                         break;
                     }
                 default:
                     {
-                        InvalideInput();
-                        return CreateNewPowerPlant(weather_manager, clock, market);
+                        p("Erreur : Invalid Input");
+                        CreateNewPowerPlant(weather_manager, clock, market);
+                        break;
                     }
             }
 
-            centrale_count++;
-            return NewPowerPlant;
+            
         }
-
-        public Consumer CreateNewConsumer(WeatherManager weather_manager, Clock clock)
+        public void CreateNewConsumer(WeatherManager weather_manager, Clock clock)
         {
             Console.WriteLine(String.Format("------------------------------CREATION CONSOMMATEUR n°{0}------------------------------", consom_count));
             Console.WriteLine("Quelle genre de centrale voulez vous créer ? Entrez :");
             Console.WriteLine("    c - city");
             Console.WriteLine("    e - entreprise");
-            Console.WriteLine("    d - dissipator");
+            Console.WriteLine("    d - dissipator");   //inutile de proposer d'ajouter un dissipateur au réseau puisque chaque noeud de distribution en a déja un
 
             string type_centrale = Console.ReadLine();
             Consumer NewConsumer;
@@ -145,14 +149,16 @@ namespace POO_Project
             {
                 case "c":
                     {
-                        NewConsumer = new City(ChooseName("city"), ChooseNbr("habitants"), ChooseWeather(weather_manager, clock));
+                        NewConsumer = Reseau.CreateNewCity(ChooseName("city"), ChooseNbr("habitants"), ChooseWeather(weather_manager, clock));
                         break;
                     }
                 case "e":
                     {
-                        NewConsumer = new Entreprise(ChooseName("entreprise"), ChooseNbr("machines"));
+                        NewConsumer = Reseau.CreateNewEntreprise(ChooseName("entreprise"), ChooseNbr("machines"));
                         break;
                     }
+
+                ///A retirer
                 case "d":
                     {
                         NewConsumer = new Dissipator(ChooseName("dissipator"));
@@ -160,24 +166,198 @@ namespace POO_Project
                     }
                 default:
                     {
-                        InvalideInput();
-                        return CreateNewConsumer(weather_manager, clock);
+                        p("Erreur : Invalid Input");
+
+                        CreateNewConsumer(weather_manager, clock);
+                        break;
                     }
             }
+        }
+        public void CreateNewNode()
+        {
+            Console.WriteLine(String.Format("------------------------------CREATION NOEUD n°{0}------------------------------", Reseau.GetNodeList.Count));
+            Console.WriteLine("Quel genre de noeud voulez-vous créer? Entrez :");
+            Console.WriteLine("    d - Noeud de distribution");
+            Console.WriteLine("    c - Noeud de concentration");
+            string type_node = Console.ReadLine();
+            Node NewNode;
+            switch (type_node)
+            {
+                case "d":
+                {
+                    NewNode = Reseau.CreateNewDistributionNode(ChooseName("Distribution Node"));
+                    break;
+                }
+                case "c":
+                {
+                    NewNode = Reseau.CreateNewConcentrationNode(ChooseName("Concentration Node"));
+                    break;
+                }
+                default:
+                {
+                    p("Erreur : Invalid Input");
+                    CreateNewNode();
+                    break;
+                }
 
-            consom_count++;
-            return NewConsumer;
+            }
+            
         }
 
-        public string Menu()
+        public void ShowManager()
+        {
+            Console.WriteLine("CENTRALES ::");
+            foreach (PowerPlant pp in Reseau.GetPowerPlantList)
+            {
+                Console.WriteLine("PROGRAM IS BUILDING ...");
+            }
+            Console.WriteLine("CONSOMMATEURS ::");
+            foreach (Consumer c in Reseau.GetConsumerList)
+            {
+                Console.WriteLine("PROGRAM IS BUILDING ...");
+            }
+            Console.WriteLine("NODES ::");
+            foreach (Node n in Reseau.GetNodeList)
+            {
+                Console.WriteLine("PROGRAM IS BUILDING ...");
+            }
+            Console.WriteLine("LINES ::");
+            foreach (Line l in Reseau.GetLineList)
+            {
+                Console.WriteLine("PROGRAM IS BUILDING ...");
+                Console.WriteLine("Line : {0}   ;   Current power : {1}   ;   Power claimed : {2}", l.GetName, l.GetCurrentPower, l.GetPowerClaimed);
+            }
+            ////AFFICHER AUSSI LES MESSAGES D ALERTE
+            exit();
+
+        }
+        public void exit()
+        {
+            Console.WriteLine("Appuyez sur la barre d'espace + enter pour revenir au menu.");
+            string enter = Console.ReadLine();
+            if (enter == " ")
+            {
+                Menu();
+            }
+            else
+            {
+                exit();
+            }
+
+        }
+
+        public void SetPowerClaimedByConsumer()
+        {
+            Console.WriteLine("PROGRAM IS BUILDING ...");
+
+            Console.WriteLine("Entrez le nom du consommateur dont il faut modifier la demande ou appuyez sur la barre d'espace + enter pour quitter:");
+            string rep = Console.ReadLine();
+            if (rep == " ") { Menu(); }
+            else
+            {
+                bool found = false;
+                foreach (Consumer c in Reseau.GetConsumerList)
+                {
+                    if (c.GetName == rep)
+                    {
+                        Console.WriteLine("PROGRAM IS BUILDING ...");
+                        Console.WriteLine("Le consommateur réclame actuellement {0}W, entrez la nouvelle puissance réclamée:", c.getInputLine.GetPowerClaimed);
+                        double reponse = Convert.ToDouble(Console.ReadLine());
+                        ///
+                        ////// ICI MODIFIER POWER CLAIMED DU CONSUMER EN reponse
+                        c.getInputLine.SetPowerClaimed(reponse);
+                        ///
+                        Console.WriteLine("La puissance réclamée par {0} à été mise à jour.", c.GetName);
+                        found = true;
+                        Menu();
+                        break;
+                    }
+                }
+                if (found == false)
+                {
+                     Console.WriteLine("Aucune correspondance trouvée.");
+                     SetPowerClaimedByConsumer();
+                }
+           
+            }
+            
+            
+        }
+
+        public void Menu()
         {
             p("______________________________________________________________________");   
             p("Instruction : ");
-            p("    p - Create new PowerPlant");
-            p("    c - Create new Consumer");
+            p("    p - Créer une nouvelle centrale");
+            p("    c - Créer un nouveau consommateur");
+            p("    n - Créer un nouveu noeud");
+            p("    w - Connecter 2 noeuds ensemble");
+            p("    a - Afficher l'état du réseaux");
+            p("    m - Modifier la demande d'un consommateur");
+            p("    u - Mettre à jour le réseau");
+
 
             string instruction = Console.ReadLine();
-            return instruction;            
+            switch (instruction)
+            {
+                case "p":
+                    {
+                        CreateNewPowerPlant(Reseau.GetWeatherManager, Reseau.GetClock, Reseau.GetMarket);
+                        p("Centrale ajoutée!");
+                        Menu();
+                        break;
+                    }
+                case "c":
+                    {
+                        CreateNewConsumer(Reseau.GetWeatherManager, Reseau.GetClock);
+                        p("Consommateur ajouté!");
+                        Menu();
+                        break;
+                    }
+                case "n":
+                    {
+                        CreateNewNode();
+                        p("Noeud ajouté!");
+                        Menu();
+                        break;
+                    }
+                case "u":
+                    {
+                        Console.WriteLine("PROGRAM IS BUILDING ...");
+                        foreach (PowerPlant pp in Reseau.GetPowerPlantList)
+                        {
+                            // ICI METTRE A JOUR LA PUISSANCE DE 'pp
+                            // pp.CurrentPower doit devenir égal à pp.GetOutputLine.GetPowerClaimed
+                        }
+                        Console.WriteLine("Le réseau a été mis à jour.");
+                        
+                        Menu();
+                        break;
+                    }
+                case "a":
+                    {
+                        ShowManager();
+                        break;
+                    }
+                case "m":
+                    {
+                        SetPowerClaimedByConsumer();
+                        break;
+                    }
+                case "w":
+                    {
+                        //////
+                        ///ICI interraction console pour lier 2 noeuds ensembles
+                        Menu();
+                        break;
+                    }
+                default:
+                    {
+                        p("Erreur : Invalid Input");
+                        Menu();
+                        break;
+                    }
+            }         
         }
         
         public void InvalideInput()

@@ -21,8 +21,10 @@ namespace POO_Project
 
             //classTest_Damien test_Damien = new classTest_Damien();
 
-            Test test = new Test();
-
+            RESEAUX_1 RESEAUX_1 = new RESEAUX_1();
+            //RESEAUX_1.funcTest();
+            Interface Interface = new Interface(RESEAUX_1.GetManagerInstance());
+            Interface.Menu();
         }
     }
 }

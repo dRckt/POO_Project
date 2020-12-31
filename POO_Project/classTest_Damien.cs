@@ -11,7 +11,7 @@ namespace POO_Project
 
         public classTest_Damien()
         {
-            m.Menu();
+            //m.Menu();
         }
 
     }

@@ -10,7 +10,9 @@ namespace POO_Project
         protected List<PowerPlant> PowerPlantList;
         protected List<Consumer> ConsumerList;
 
-        private Interface i;
+        protected List<Line> LineList;
+        protected List<Node> NodeList;
+
         private Market market;
         private WeatherManager weather_manager;
         private Clock clock;
@@ -20,43 +22,206 @@ namespace POO_Project
             PowerPlantList = new List<PowerPlant> { };
             ConsumerList = new List<Consumer> { };
 
-            i = new Interface();
+            LineList = new List<Line> { };
+            NodeList = new List<Node> { };
+
+            //i = new Interface();  //a retirer
             weather_manager = new WeatherManager();
             market = new Market();
             clock = new Clock();
         }
 
-        // creation d'une centrale
-        public PowerPlant CreateNewPowerPlant()
+        ///RECUPERATION DES OBJETS/LISTES D'OBJETS DU RESEAU
+        public  WeatherManager GetWeatherManager { get { return weather_manager; } }
+        public Market GetMarket { get { return market; } }
+        public Clock GetClock { get { return clock; } }
+        public List<PowerPlant> GetPowerPlantList { get { return PowerPlantList; } }
+        public List<Consumer> GetConsumerList { get { return ConsumerList; } }
+        public List<Line> GetLineList { get { return LineList; } }
+        public List<Node> GetNodeList { get { return NodeList; } }
+
+
+        ///CREATION DE NOUVELLE CENTRALE
+        public PowerPlant CreateNewPowerPlant(string name)
         {
-            // Communication avec la console pour créer la centrale
-            PowerPlant NewPowerPlant = i.CreateNewPowerPlant(weather_manager, clock, market);
-            //NewPowerPlant.GetOutPutLine.SetMyPowerPlant(NewPowerPlant);
-            //NewPowerPlant.
-
+            foreach (PowerPlant pp in PowerPlantList)
+            {
+                if (pp.GetName == name)
+                {
+                    Console.WriteLine("La centrale nommée {0} existe déjà. Entrez un nouveau nom :", name);
+                    string newName = Console.ReadLine();
+                    return CreateNewPowerPlant(newName);
+                }
+            }
+            PowerPlant NewPowerPlant = new PowerPlant(name);
             PowerPlantList.Add(NewPowerPlant);
-            Console.WriteLine(String.Format("La centrale {0} a bien été créée.", NewPowerPlant.GetName));
-
+            NodeList.Add(NewPowerPlant.GetOutputNode);
+            LineList.Add(NewPowerPlant.GetOutPutLine);
+            return NewPowerPlant;
+        }
+        public PowerPlant CreateNewGasPowerPlant(string name, Market market)
+        {
+            
+            foreach (PowerPlant pp in PowerPlantList)
+            {
+                if (pp.GetName == name)
+                {
+                    Console.WriteLine("La centrale nommée {0} existe déjà. Entrez un nouveau nom :", name);
+                    string newName = Console.ReadLine();
+                    return CreateNewGasPowerPlant(newName, market);
+                }
+            }
+            PowerPlant NewPowerPlant = new GasPowerPlant(name, market);
+            PowerPlantList.Add(NewPowerPlant);
+            NodeList.Add(NewPowerPlant.GetOutputNode);
+            LineList.Add(NewPowerPlant.GetOutPutLine);
+            return NewPowerPlant;
+        }
+        public PowerPlant CreateNewNuclearPowerPlant(string name, Market market)
+        {
+            foreach (PowerPlant pp in PowerPlantList)
+            {
+                if (pp.GetName == name)
+                {
+                    Console.WriteLine("La centrale nommée {0} existe déjà. Entrez un nouveau nom :", name);
+                    string newName = Console.ReadLine();
+                    return CreateNewNuclearPowerPlant(newName, market);
+                }
+            }
+            PowerPlant NewPowerPlant = new NuclearPowerPlant(name, market);
+            PowerPlantList.Add(NewPowerPlant);
+            NodeList.Add(NewPowerPlant.GetOutputNode);
+            LineList.Add(NewPowerPlant.GetOutPutLine);
+            return NewPowerPlant;
+        }
+        public PowerPlant CreateNewWindFarm(string name, Weather meteo)
+        {
+            foreach (PowerPlant pp in PowerPlantList)
+            {
+                if (pp.GetName == name)
+                {
+                    Console.WriteLine("La centrale nommée {0} existe déjà. Entrez un nouveau nom :", name);
+                    string newName = Console.ReadLine();
+                    return CreateNewWindFarm(newName, meteo);
+                }
+            }
+            PowerPlant NewPowerPlant = new WindFarm(name, meteo);
+            PowerPlantList.Add(NewPowerPlant);
+            NodeList.Add(NewPowerPlant.GetOutputNode);
+            LineList.Add(NewPowerPlant.GetOutPutLine);
+            return NewPowerPlant;
+        }
+        public PowerPlant CreateNewSolarPowerPlant(string name, Weather meteo)
+        {
+            foreach (PowerPlant pp in PowerPlantList)
+            {
+                if (pp.GetName == name)
+                {
+                    Console.WriteLine("La centrale nommée {0} existe déjà. Entrez un nouveau nom :", name);
+                    string newName = Console.ReadLine();
+                    return CreateNewSolarPowerPlant(newName, meteo);
+                }
+            }
+            PowerPlant NewPowerPlant = new SolarPowerPlant(name, meteo);
+            PowerPlantList.Add(NewPowerPlant);
+            NodeList.Add(NewPowerPlant.GetOutputNode);
+            LineList.Add(NewPowerPlant.GetOutPutLine);
             return NewPowerPlant;
         }
 
-        public Consumer CreateNewConsumer()
+        ///CREATION DE NOUVEAU CONSUMER
+        public Consumer CreateNewConsumer(string name)
         {
-            // Communication avec la console pour créer le consomateur
-            Consumer NewConsumer = i.CreateNewConsumer(weather_manager, clock);
-
-            Console.WriteLine(String.Format("Le consommateur {0} a bien été créée.", NewConsumer.GetName));
+            foreach (Consumer c in ConsumerList)
+            {
+                if (c.GetName == name)
+                {
+                    Console.WriteLine("Le consomateur nommée {0} existe déjà. Entrez un nouveau nom :", name);
+                    string newName = Console.ReadLine();
+                    return CreateNewConsumer(newName);
+                }
+            }
+            Consumer NewConsumer = new Consumer(name);
             ConsumerList.Add(NewConsumer);
+            NodeList.Add(NewConsumer.GetInputNode);
+            LineList.Add(NewConsumer.getInputLine);
 
             return NewConsumer;
         }
+        public Consumer CreateNewCity(string name, double nbr_hab, Weather meteo)
+        {
+            foreach (Consumer c in ConsumerList)
+            {
+                if (c.GetName == name)
+                {
+                    Console.WriteLine("La ville nommée {0} existe déjà. Entrez un nouveau nom :", name);
+                    string newName = Console.ReadLine();
+                    return CreateNewCity(newName, nbr_hab, meteo);
+                }
+            }
+            Consumer NewConsumer = new City(name, nbr_hab, meteo);
+            ConsumerList.Add(NewConsumer);
+            NodeList.Add(NewConsumer.GetInputNode);
+            LineList.Add(NewConsumer.getInputLine);
+            return NewConsumer;
+        }
+        public Consumer CreateNewEntreprise(string name, double nbr_machines)
+        {
+            foreach (Consumer c in ConsumerList)
+            {
+                if (c.GetName == name)
+                {
+                    Console.WriteLine("L'entreprise nommée {0} existe déjà. Entrez un nouveau nom :", name);
+                    string newName = Console.ReadLine();
+                    return CreateNewEntreprise(newName, nbr_machines);
+                }
+            }
+            Consumer NewConsumer = new Entreprise(name, nbr_machines);
+            ConsumerList.Add(NewConsumer);
+            NodeList.Add(NewConsumer.GetInputNode);
+            LineList.Add(NewConsumer.getInputLine);
+            return NewConsumer;
+        }
 
-        public List<PowerPlant> GetPowerPlantList { get { return PowerPlantList; } }
-        public List<Consumer> GetConsumerList { get { return ConsumerList; } }
+        ///CREATION DE NOUVEAU NOEUD
+        public DistributionNode CreateNewDistributionNode(string name)
+        {
+            foreach (Node n in NodeList)
+            {
+                if (n.GetName == name)
+                {
+                    Console.WriteLine("Le noeud nommé {0} existe déjà. Entrez un nouveau nom :", name);
+                    string newName = Console.ReadLine();
+                    return CreateNewDistributionNode(newName);
+                }
+            }
+            DistributionNode NewDistributionNode = new DistributionNode(name);
+            NodeList.Add(NewDistributionNode);
+            LineList.Add(NewDistributionNode.GetInputLine);
+            return NewDistributionNode;
+        }
+        public ConcentrationNode CreateNewConcentrationNode(string name)
+        {
+            foreach (Node n in NodeList)
+            {
+                if (n.GetName == name)
+                {
+                    Console.WriteLine("Le noeud nommé {0} existe déjà. Entrez un nouveau nom :", name);
+                    string newName = Console.ReadLine();
+                    return CreateNewConcentrationNode(newName);
+                }
+            }
+            ConcentrationNode NewConcentrationNode = new ConcentrationNode(name);
+            NodeList.Add(NewConcentrationNode);
+            LineList.Add(NewConcentrationNode.GetOutputLine);
+            return NewConcentrationNode;
+        }
 
 
 
-        // Connecter un noeud de concentration à un noeud de distribution
+        ///CONNEXION DE 2 NOEUDS
+        
+        // Connexion :: ConcentrationNode -> DistributionNode
         public void ConnectConcentrationToDistributionNode(ConcentrationNode ConcentrationNode, DistributionNode DistributionNode)
         {
             // crée la ligne de connexion qui va etre la premiere ligne de la liste des lignes de sortie du noeud de concentration (la seule)
@@ -68,12 +233,23 @@ namespace POO_Project
             ConnexionLine.SetInputNode(ConcentrationNode);
             ConnexionLine.SetOutputNode(DistributionNode);
         }
-
-        // Connecter un noeud de distribution à un noeud de concentration
+        
+        // Connexion :: DistributionNode -> ConcentrationNode
         public void ConnectDistributionToConcentrationNode(string ConnexionLineName, DistributionNode DistributionNode, ConcentrationNode ConcentrationNode)
         {
+            foreach (Line l in LineList)
+            {
+                if (l.GetName == ConnexionLineName)
+                {
+                    Console.WriteLine("Le noeud nommé {0} existe déjà. Entrez un nouveau nom :", ConnexionLineName);
+                    string newName = Console.ReadLine();
+                    ConnectDistributionToConcentrationNode(newName, DistributionNode, ConcentrationNode);
+                    break;
+                }
+            }
             // creation d'une nouvelle ligne
             Line ConnexionLine = new Line(ConnexionLineName);
+            LineList.Add(ConnexionLine);
 
             ConcentrationNode.AddInputLineToList(ConnexionLine);
             DistributionNode.AddOutputLineToList(ConnexionLine);
@@ -82,7 +258,8 @@ namespace POO_Project
             ConnexionLine.SetOutputNode(ConcentrationNode);
 
         }
-
+        
+        // Connexion :: DistributionNode -> DistributuonNode
         public void ConnectDistributionToDistributionNode(DistributionNode amontNode, DistributionNode avalNode)
         {
             Line ConnexionLine = avalNode.GetInputLine;
@@ -93,7 +270,8 @@ namespace POO_Project
             ConnexionLine.SetOutputNode(avalNode);
 
         }
-
+       
+        // Connexion :: ConcentrationNode -> ConcentrationNode
         public void ConnectConcentrationToConcentrationNode(ConcentrationNode amontNode, ConcentrationNode avalNode)
         {
             Line ConnexionLine = amontNode.GetOutputLine;
@@ -124,11 +302,7 @@ namespace POO_Project
                     ///// -- DAMIEN -- /////
                     ///// -- DAMIEN -- /////
                     PowerPlant.GetOutPutLine.SetCurrentPower(PowerPlant.Production());
-
                 }
-                List<Line> LineList = new List<Line> { PowerPlant.GetOutPutLine };
-
-
 
                 ///
                 /// MESSAGE NOTIFICATION
@@ -142,31 +316,7 @@ namespace POO_Project
 
 
     
-        public  void Menu()
-        {
-            string instruction = i.Menu();
-            switch (instruction)
-            {
-                case "p":
-                    {
-                        CreateNewPowerPlant();
-                        break;
-                    }
-                case "c":
-                    {
-                        CreateNewConsumer();
-                        break;
-                    }
-                default:
-                    {
-                        i.InvalideInput();
-                        break;
-                    }
-            }
-            
-            Menu();
-            
-        }
+
     
 
     }
