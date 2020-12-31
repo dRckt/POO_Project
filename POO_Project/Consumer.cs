@@ -26,6 +26,8 @@ namespace POO_Project
             inputLine = inputNode.GetOutputLine; //ligne d'entrée du consumer = ligne de sortie du noeud de concentration
             inputLine.SetIsConsumerLine(true);
             inputLine.SetInputNode(inputNode);
+            //SetInputLine(inputLine); //déja fait juste au dessus
+            inputLine.SetMyConsumer(this);
 
             alertMessage = "";
         }

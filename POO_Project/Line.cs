@@ -22,6 +22,7 @@ namespace POO_Project
         private bool IsDissipatorLine;
 
         private PowerPlant myPowerPlant;
+        private Consumer myConsumer;
 
         public Line(string name)
         {
@@ -51,6 +52,7 @@ namespace POO_Project
         public bool GetIsDissipatorLine { get { return IsDissipatorLine; } }
         public bool GetIsPowerPlantLine { get { return IsPowerPlantLine; } }
         public PowerPlant GetMyPowerPlant { get { return myPowerPlant; } }
+        public Consumer GetMyConsumer { get { return myConsumer; } }
 
         /// Methodes SET
         public void SetInputNode(Node inputNode) { this.inputNode = inputNode; }
@@ -66,6 +68,7 @@ namespace POO_Project
             }
         }
         public void SetMyPowerPlant(PowerPlant p) { myPowerPlant = p; }
+        public void SetMyConsumer(Consumer c) { myConsumer = c; }
 
         public void SetMaxPower(double newMaxPower) { MaxPower = newMaxPower; }
         public void SetCurrentPower(double newCurrentPower)
@@ -123,7 +126,7 @@ namespace POO_Project
             else
             {
                 SetCurrentPower(GetDisponiblePower());
-                ////MESSAGE D'ALERTE :: Il manque du courant sur une des lignes
+                ////MESSAGE D'ALERTE :: Il manque du courant (newCurrentPower-GetDisponiblePower()) sur une des lignes
             }
 
             if (GetIsConsumerLine)

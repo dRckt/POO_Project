@@ -33,7 +33,7 @@ namespace POO_Project
         {
             // Communication avec la console pour créer la centrale
             PowerPlant NewPowerPlant = i.CreateNewPowerPlant(weather_manager, clock, market);
-            NewPowerPlant.GetOutPutLine.SetMyPowerPlant(NewPowerPlant);
+            //NewPowerPlant.GetOutPutLine.SetMyPowerPlant(NewPowerPlant);
             //NewPowerPlant.
 
             PowerPlantList.Add(NewPowerPlant);
@@ -139,6 +139,9 @@ namespace POO_Project
                 /// message de démarrage d'une centrale,  (missing power trop élevé = démarrage d'une centrale?)
                 
             }
+
+        }
+
 
         }
 

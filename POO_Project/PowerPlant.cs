@@ -25,6 +25,7 @@ namespace POO_Project
         //protected double stopTime;
 
         protected DistributionNode OutPutNode;
+     
 
         public PowerPlant(string Name)
         {
@@ -35,7 +36,7 @@ namespace POO_Project
             OutputLine = OutPutNode.GetInputLine; //ligne de sortie de la centrale = ligne d'entrée de son noeud de distribution
             OutputLine.SetIsPowerPlantLine(true);  //je précise que cette ligne est reliée a une centrale
             OutputLine.SetOutputNode(OutPutNode);  //je précise à la ligne qui est mon noeud de sortie (pour pouvoir le récupérer par après)
-            
+            OutputLine.SetMyPowerPlant(this);
         }
 
         //A chaque création d'une centrale, appeler juste après: <Centrale>.GetOutputLine.SetMyPowerPlant(<centrale>);
@@ -48,6 +49,7 @@ namespace POO_Project
         public virtual void Start() { IsWorking = true; }
         public virtual void Stop() { IsWorking = false; }
         public bool GetIsWorking { get { return IsWorking; } } //j'ai ajouté le Get devant parce que build plantait sinon (ambiguité entre la methode et le bool)
+     
         public virtual double Production()
         {
             if (IsWorking)

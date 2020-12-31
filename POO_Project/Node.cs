@@ -131,7 +131,7 @@ namespace POO_Project
                     else
                     {
                         line.UpdateCurrentPower(CurrentPowerOfNode);
-                        ////MESSAGE D'ALERTE:: il manque du courant sur une des lignes
+                        ////MESSAGE D'ALERTE:: il manque du courant (line.GetPowerClaimed-CurrentPowerOfNode) sur une des lignes
                     }
 
                 }
