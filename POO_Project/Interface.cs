@@ -13,6 +13,10 @@ namespace POO_Project
         {
 
         }
+        private void p(string value)
+        {
+            Console.WriteLine(value);
+        }
 
         private double ChooseNbr(string obj)
         {
@@ -117,7 +121,7 @@ namespace POO_Project
                     }
                 default:
                     {
-                        Console.WriteLine("Entrée incorrecte");
+                        InvalideInput();
                         return CreateNewPowerPlant(weather_manager, clock, market);
                     }
             }
@@ -151,12 +155,12 @@ namespace POO_Project
                     }
                 case "d":
                     {
-                        NewConsumer = new dissipator(ChooseName("dissipator"));
+                        NewConsumer = new Dissipator(ChooseName("dissipator"));
                         break;
                     }
                 default:
                     {
-                        Console.WriteLine("ERROR : input invalide");
+                        InvalideInput();
                         return CreateNewConsumer(weather_manager, clock);
                     }
             }
@@ -165,5 +169,20 @@ namespace POO_Project
             return NewConsumer;
         }
 
+        public string Menu()
+        {
+            p("______________________________________________________________________");   
+            p("Instruction : ");
+            p("    p - Create new PowerPlant");
+            p("    c - Create new Consumer");
+
+            string instruction = Console.ReadLine();
+            return instruction;            
+        }
+        
+        public void InvalideInput()
+        {
+            p("Input invalide");
+        }
     }
 }

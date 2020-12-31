@@ -17,7 +17,6 @@ namespace POO_Project
               
         public Manager()
         {
-            Console.WriteLine("");
             PowerPlantList = new List<PowerPlant> { };
             ConsumerList = new List<Consumer> { };
 
@@ -25,7 +24,6 @@ namespace POO_Project
             weather_manager = new WeatherManager();
             market = new Market();
             clock = new Clock();
-
         }
         
         // creation d'une centrale
@@ -186,8 +184,6 @@ namespace POO_Project
             return sum;
         }
 
-
-       
         public void PropagatePowerClaimed(Consumer consumer)
         {
             Line inputLine = consumer.GetInputNode.GetOutputLine;
@@ -196,6 +192,31 @@ namespace POO_Project
             consumer.GetInputNode.DividePowerClaimed();
         }
 
+        public  void Menu()
+        {
+            string instruction = i.Menu();
+            switch (instruction)
+            {
+                case "p":
+                    {
+                        CreateNewPowerPlant();
+                        break;
+                    }
+                case "c":
+                    {
+                        CreateNewConsumer();
+                        break;
+                    }
+                default:
+                    {
+                        i.InvalideInput();
+                        break;
+                    }
+            }
+            
+            Menu();
+            
+        }
 
     }
 }
