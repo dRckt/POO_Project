@@ -26,6 +26,7 @@ namespace POO_Project
             DissipatorLine.SetIsDissipatorLine(true);
             DissipatorLine.SetInputNode(this);
 
+
             InputPower = GetInputPower;
 
             MaxPower = InputLine.GetMaxPower;
