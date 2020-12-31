@@ -10,7 +10,6 @@ namespace POO_Project
         private Line DissipatorLine;
 
         private double InputPower;
-        private double PowerClaimed;
         private double MaxPower;
         private List<string> AlertMessageList;
 
@@ -18,30 +17,23 @@ namespace POO_Project
         public DistributionNode(string name) : base(name)
         {
             string InputLineName = name + "_InputLine";
-            this.InputLine = new Line(InputLineName);
+            InputLine = new Line(InputLineName);
+
             base.AddInputLineToList(InputLine);
 
             string DissipatorLineName = name + "_DissipatorLine";
-            this.DissipatorLine = new Line(DissipatorLineName);
+            DissipatorLine = new Line(DissipatorLineName);
             DissipatorLine.SetIsDissipatorLine(true);
+            DissipatorLine.SetInputNode(this);
 
-            this.InputPower = this.GetInputPower;
-            this.PowerClaimed = 0; // this.GetPowerClaimed();
+            InputPower = GetInputPower;
 
-            this.MaxPower = this.InputLine.GetMaxPower;
+            MaxPower = InputLine.GetMaxPower;
             Console.WriteLine(String.Format("Un noeud de distribution nommé {0} a été créé", name));
+            InputLine.SetOutputNode(this);
         }
 
         public double GetInputPower { get { return InputLine.GetCurrentPower; } }
-        public double GetPowerClaimed()
-        {
-            double sum = 0;
-            foreach (Line OutputLine in this.OutputLineList)
-            {
-                sum += OutputLine.GetCurrentPower;
-            }
-            return sum;
-        }
 
         public Line GetInputLine { get { return this.InputLine; } }
         public Line GetDissipatorLine { get {return this.DissipatorLine; } }

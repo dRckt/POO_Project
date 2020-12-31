@@ -23,10 +23,11 @@ namespace POO_Project
             base.AddOutputLineToList(OutputLine);
 
             OutputPower = GetOutputPower(); //voir commentaire dans header
-            //déclarer quelque chose qui décide sur quelle ligne il réclame combien dans ses entrées
 
-            MaxPower = this.OutputLine.GetMaxPower; 
+            MaxPower = OutputLine.GetMaxPower; 
             Console.WriteLine(String.Format("Une noeud de concentration nommé {0} a été créé.", name));
+            OutputLine.SetInputNode(this); //Ce noeud est le noeud d'entrée de la ligne de sortie
+
         }
 
         //fait la somme des courants sur ligne d'entrées
