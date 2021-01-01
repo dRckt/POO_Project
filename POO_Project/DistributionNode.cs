@@ -11,7 +11,7 @@ namespace POO_Project
 
         private double InputPower;
         private double MaxPower;
-        private List<string> AlertMessageList;
+        
 
 
         public DistributionNode(string name) : base(name)
@@ -42,35 +42,34 @@ namespace POO_Project
 
         //public void addOutputLine(Line newOutputLine) { this.OutputLineList.Add(newOutputLine); }
 
-
+        public override string GetInputState()
+        {
+            if (GetInputLineList[0].GetInputConnectedToNode || GetInputLineList[0].GetIsPowerPlantLine)
+            {
+                return "connected";
+            }
+            else { return "not connected"; }
+        }
+        public override string GetOutputState()
+        {
+            if (OutputLineList.Count > 1)
+            {
+                return "connected";
+            }
+            else { return "not connected"; }
+        }
         public void SetInputLine(Line newInputLine)
         {
-            this.InputLine = newInputLine;
+            InputLine = newInputLine;
         }
 
 
-        public void SetCurrentPowerOfOutputLines()
-        {
-            foreach (Line OutputLine in base.OutputLineList)
-            {
-                foreach (string alertMessage in this.AlertMessageList)
-                {
-                    if (String.Equals(alertMessage, "Trouver un template pour ici"))
-                    {
-                        Console.WriteLine("");
-                    }
-                }
-                //OutputLine.SetCurrentPower("A COMPLETER");
-                //OutputLine.SetCurrentPower( /(base.OutputLineList.Count-1));
-            }
-        }
-
-
+        ///PROGRAM IS BUILDING ...
         public void ShowState()
         {
-            string nodeStateMessage = String.Format("Noeud de distribution {0}:: Puissance d'entrée: {1}W  ; Nombre de sorties:  {2}", base.GetName, this.GetInputPower, base.OutputLineList.Count);
+            string nodeStateMessage = String.Format("Noeud de distribution {0}:: Puissance d'entrée: {1}W  ; Nombre de sorties:  {2}", GetName, GetInputPower, OutputLineList.Count-1);
             Console.WriteLine(nodeStateMessage);
-            foreach (Line OutputLine in base.OutputLineList)
+            foreach (Line OutputLine in OutputLineList)
             {
                 string lineStateMessage = String.Format("   Ligne {0}:: puissance: {1} ", OutputLine.GetName, OutputLine.GetCurrentPower);
                 Console.WriteLine(lineStateMessage);
