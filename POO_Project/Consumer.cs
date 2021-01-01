@@ -23,10 +23,11 @@ namespace POO_Project
             this.name = name;
 
             inputNode = new ConcentrationNode(name + "_inputNode");
-            inputLine = inputNode.GetOutputLine; //ligne d'entrée du consumer = ligne de sortie du noeud de concentration
+            inputLine = inputNode.GetOutputLine; 
             inputLine.SetIsConsumerLine(true);
             inputLine.SetInputNode(inputNode);
-            //SetInputLine(inputLine); //déja fait juste au dessus
+            inputLine.SetName(name + "_line");
+            
             inputLine.SetMyConsumer(this);
 
             alertMessage = "";

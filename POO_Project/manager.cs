@@ -289,35 +289,35 @@ namespace POO_Project
         {
             foreach (PowerPlant PowerPlant in PowerPlantList)
             {
+                
+                //regarde claimed power de sa ligne
+                //si claimed power = 0   =>     if (GetIsWorking){ PowerPlant.Stop() ;} 
+                                                                   //+ alerteMessage: la centrale s'est arretée
+                //si claimed power > 0   =>     if not (GetIsWorking){ PowerPlant.Start(} 
+                                                                        //+ alertMessage: la centrale a démarré
+
+                
                 if (PowerPlant.GetOutPutLine.GetPowerClaimed < PowerPlant.DisponibleProduction())
                 {
-                    ///// -- DAMIEN -- /////
-                    ///// -- DAMIEN -- /////
-                    ///
-                    ///  ici augmenter/diminuer la puissance de la centrale
-                    ///  la central devrait produire:  PowerPlant.GetOutPutLine.GetPowerClaimed
-                    ///  
-                    ///  +/MESSAGE DE NOTIF si la production de la centrale change
-                    ///  
-                    ///// -- DAMIEN -- /////
-                    ///// -- DAMIEN -- /////
+                    //if powerplant production != outputline.getClaimedPower:
+                    //      set powerplant production = outputline.getClaimedPower
+                    //      alertMessage :: la centrale a modifié sa production
+                    //Dans tous les cas:
+                    PowerPlant.GetOutPutLine.SetCurrentPower(PowerPlant.Production());
+                }
+                else
+                {
+                    //if powerlant production != powerplant disponible production:
+                    //      set powerplant production = powerplant.disponibleProduction();
+                    //      message d'alerte:: la centrale a mis a jour sa poduction
+                    //Dans tous les cas:
                     PowerPlant.GetOutPutLine.SetCurrentPower(PowerPlant.Production());
                 }
 
-                ///
-                /// MESSAGE NOTIFICATION
-                /// message de modification de production à une centrale,
-                /// message d'arrêt d'une centrale
-                /// message de démarrage d'une centrale,  (missing power trop élevé = démarrage d'une centrale?)
 
             }
 
         }
-
-
-    
-
-    
-
+   
     }
 }

@@ -38,15 +38,6 @@ namespace POO_Project
             PowerPlant esso = outsider.CreateNewGasPowerPlant("station à gaz esso", market);
             PowerPlant centrale_solaire_bx = outsider.CreateNewSolarPowerPlant("centrale solaire de bruxelles", weather_bx);
 
-            /*
-            PowerPlant doel = new NuclearPowerPlant("doel", market);
-            PowerPlant parc_eolien_os = new WindFarm("parc éolien de Ostende", weather_os);
-            PowerPlant esso = new GasPowerPlant("station à gaz esso", market);
-            PowerPlant centrale_solaire_bx = new SolarPowerPlant("centrale solaire de bruxelles", weather_bx);
-            */
-
-
-
             // CREATION CONSOMATEUR
             Consumer bx = outsider.CreateNewCity("Bruxelles", 1000000, weather_bx);
             Consumer os = outsider.CreateNewCity("Ostende", 70000, weather_os);
@@ -56,31 +47,11 @@ namespace POO_Project
             Consumer vw = outsider.CreateNewEntreprise("VolksWagen", 3000);
             Consumer mc = outsider.CreateNewEntreprise("Mercedes", 4000);
 
-            /*
-            Consumer bx = new City("Bruxelles", 1000000, weather_bx);
-            Consumer os = new City("Ostende", 70000, weather_os);
-
-            Consumer ad = new Entreprise("Audi", 10000);
-            Consumer bm = new Entreprise("BMW", 5000);
-            Consumer vw = new Entreprise("VolksWagen", 3000);
-            Consumer mc = new Entreprise("Mercedes", 4000);
-
-            Consumer diss1 = new Dissipator("Dissipateur 1");
-
-            */
-
             //CREATION DES PAIRES NOEUDS MID
             ConcentrationNode midC1 = outsider.CreateNewConcentrationNode("midC1");
             ConcentrationNode midC2 = outsider.CreateNewConcentrationNode("midC2");
             DistributionNode midD1 = outsider.CreateNewDistributionNode("midD1");
             DistributionNode midD2 = outsider.CreateNewDistributionNode("midD2");
-            /*
-            ConcentrationNode midC1 = new ConcentrationNode("midC1");
-            ConcentrationNode midC2 = new ConcentrationNode("midC2");
-            DistributionNode midD1 = new DistributionNode("midD1");
-            DistributionNode midD2 = new DistributionNode("midD2");
-            */
-
 
             //Liaison des noeuds mid entre eux
             outsider.ConnectConcentrationToDistributionNode(midC1, midD1);
@@ -91,7 +62,6 @@ namespace POO_Project
             outsider.ConnectDistributionToConcentrationNode("LINE_C2.1", parc_eolien_os.GetOutputNode, midC2);
             outsider.ConnectDistributionToConcentrationNode("LINE_C2.2", esso.GetOutputNode, midC2);
             outsider.ConnectDistributionToConcentrationNode("LINE_C2.3", centrale_solaire_bx.GetOutputNode, midC2);
-
             //liaison des noeuds mid aux consumers
             outsider.ConnectDistributionToConcentrationNode("LINE_D1.1", midD1, bx.GetInputNode);
             outsider.ConnectDistributionToConcentrationNode("LINE_D1.2", midD1, os.GetInputNode);
@@ -102,17 +72,12 @@ namespace POO_Project
             outsider.ConnectDistributionToConcentrationNode("LINE_D2.2", midD2, bm.GetInputNode);
             outsider.ConnectDistributionToConcentrationNode("LINE_D2.3", midD2, vw.GetInputNode);
             outsider.ConnectDistributionToConcentrationNode("LINE_D2.4", midD2, mc.GetInputNode);
-
-            
         }
 
-        public Manager GetManagerInstance()
-        {
-            return outsider;
-        }
+        public Manager GetManagerInstance(){ return outsider; }
       
-        
-        
+
+        //A supprimer ::
         public void showTest()
         {
             Console.WriteLine("CENTRALES ::: (claimedPowerActuellement sur ligne de sortie)");

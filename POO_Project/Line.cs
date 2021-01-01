@@ -16,10 +16,12 @@ namespace POO_Project
 
         protected Node inputNode;
         protected Node OutputNode;
+        private double PriorityLevel;
 
         private bool IsConsumerLine;
         private bool IsPowerPlantLine;
         private bool IsDissipatorLine;
+        private bool OutputConnectedToNode;
 
         private PowerPlant myPowerPlant;
         private Consumer myConsumer;
@@ -34,6 +36,8 @@ namespace POO_Project
             IsConsumerLine = false;
             IsPowerPlantLine = false;
             IsDissipatorLine = false;
+            OutputConnectedToNode = false;
+            PriorityLevel = 0;
         }
 
         /// Propriétés GET
@@ -43,7 +47,7 @@ namespace POO_Project
         public Node GetInputNode { get { return inputNode; } }
         public Node GetOutputNode { get { return OutputNode; } }
 
-
+        public double GetPriorityLevel { get { return PriorityLevel; } }
 
         public double GetPowerClaimed { get { return PowerClaimed; } }                 
         public string GetAlertMessage { get { return alertMessage; } }
@@ -55,11 +59,16 @@ namespace POO_Project
         public Consumer GetMyConsumer { get { return myConsumer; } }
 
         /// Methodes SET
+        public void SetName(string Name) { name = Name; }
         public void SetInputNode(Node inputNode) { this.inputNode = inputNode; }
-        public void SetOutputNode(Node OutputNode) { this.OutputNode = OutputNode; }
+        public void SetOutputNode(Node OutputNode) 
+        { 
+            this.OutputNode = OutputNode;
+            OutputConnectedToNode = true;
+        }
         public void SetIsConsumerLine(bool b) { IsConsumerLine = b; }
         public void SetIsDissipatorLine(bool b) { IsDissipatorLine = b; }
-        public void SetIsPowerPlantLine(bool b) 
+        public void SetIsPowerPlantLine(bool b) //, PriorityLevel)
         { 
             IsPowerPlantLine = b;
             if (b)
@@ -68,9 +77,22 @@ namespace POO_Project
             }
         }
         public void SetMyPowerPlant(PowerPlant p) { myPowerPlant = p; }
-        public void SetMyConsumer(Consumer c) { myConsumer = c; }
+        public void SetMyConsumer(Consumer c) 
+        { 
+            myConsumer = c;
+            SetIsConsumerLine(true);
+
+        }
 
         public void SetMaxPower(double newMaxPower) { MaxPower = newMaxPower; }
+        public void SetPriorityLevel(double priorityLevel) 
+        {
+            PriorityLevel = priorityLevel;
+            if (OutputConnectedToNode)
+            {
+                OutputNode.UpdatePriorityLevel();
+            }
+        }
         public void SetCurrentPower(double newCurrentPower)
         {
             if (newCurrentPower > MaxPower)
@@ -85,7 +107,15 @@ namespace POO_Project
         }
         /////////////////////////////////////////////////////
         public void SetPowerClaimed(double newPowerClaimed)  //ne doit etre appellé que depuis les lignes qui rentrent dans consumer
-        { 
+        {
+            if (GetIsConsumerLine)
+            {
+                if (GetPowerClaimed != newPowerClaimed)
+                {
+                    Console.WriteLine("Mise à jour de la demande de {0}:: Ancienne demande: {1} ; Nouvelle demande: {2}", GetMyConsumer.GetName, GetPowerClaimed, newPowerClaimed);
+                }
+            }
+
             PowerClaimed = newPowerClaimed;
             if (GetIsPowerPlantLine)
             {
@@ -95,10 +125,7 @@ namespace POO_Project
             {
                 GetInputNode.UpdatePowerClaimed();
             }   
-            if (GetIsConsumerLine)
-            {
-                //MESSAGE DE NOTIF:: UN UTILISATEUR A CHANGE DE CLAIMING
-            }
+            
         }     
         public double GetDisponiblePower()
         {

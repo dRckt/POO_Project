@@ -16,6 +16,9 @@ namespace POO_Project
             Reseau = reseau;
             consom_count = reseau.GetConsumerList.Count;
             centrale_count = reseau.GetPowerPlantList.Count;
+            Console.WriteLine("______________________________________________________________________");
+            Console.WriteLine("------------------BIENVENUE DANS L'INTERFACE RESEAU-------------------");
+            Console.WriteLine("______________________________________________________________________");
         }
         private void p(string value)
         {
@@ -92,7 +95,7 @@ namespace POO_Project
         public void CreateNewPowerPlant(WeatherManager weather_manager, Clock clock, Market market)
         {
             Console.WriteLine(String.Format("------------------------------CREATION CENTRALE n°{0}------------------------------", centrale_count));
-            Console.WriteLine("Quelle genre de centrale voulez vous créer ? Entrez :");
+            Console.WriteLine("Quelle genre de centrale voulez vous créer ? Appuyez sur enter pour revenur au menu.");
             Console.WriteLine("    g - Gaz Station");
             Console.WriteLine("    n - nuclear Power Plant");
             Console.WriteLine("    w - Wind Farm");
@@ -124,6 +127,11 @@ namespace POO_Project
                         NewPowerPlant = Reseau.CreateNewSolarPowerPlant(ChooseName("solar power plant"), ChooseWeather(weather_manager, clock));
                         break;
                     }
+                case "":
+                    {
+                        Menu();
+                        break;
+                    }
                 default:
                     {
                         p("Erreur : Invalid Input");
@@ -137,7 +145,7 @@ namespace POO_Project
         public void CreateNewConsumer(WeatherManager weather_manager, Clock clock)
         {
             Console.WriteLine(String.Format("------------------------------CREATION CONSOMMATEUR n°{0}------------------------------", consom_count));
-            Console.WriteLine("Quelle genre de centrale voulez vous créer ? Entrez :");
+            Console.WriteLine("Quelle genre de centrale voulez vous créer ? Appuyez sur enter pour revenir au menu.");
             Console.WriteLine("    c - city");
             Console.WriteLine("    e - entreprise");
             Console.WriteLine("    d - dissipator");   //inutile de proposer d'ajouter un dissipateur au réseau puisque chaque noeud de distribution en a déja un
@@ -164,6 +172,11 @@ namespace POO_Project
                         NewConsumer = new Dissipator(ChooseName("dissipator"));
                         break;
                     }
+                case "":
+                    {
+                        Menu();
+                        break;
+                    }
                 default:
                     {
                         p("Erreur : Invalid Input");
@@ -176,7 +189,7 @@ namespace POO_Project
         public void CreateNewNode()
         {
             Console.WriteLine(String.Format("------------------------------CREATION NOEUD n°{0}------------------------------", Reseau.GetNodeList.Count));
-            Console.WriteLine("Quel genre de noeud voulez-vous créer? Entrez :");
+            Console.WriteLine("Quel genre de noeud voulez-vous créer? Appuyez sur enter pour revenir au menu.");
             Console.WriteLine("    d - Noeud de distribution");
             Console.WriteLine("    c - Noeud de concentration");
             string type_node = Console.ReadLine();
@@ -193,6 +206,11 @@ namespace POO_Project
                     NewNode = Reseau.CreateNewConcentrationNode(ChooseName("Concentration Node"));
                     break;
                 }
+                case "":
+                {
+                    Menu();
+                    break;
+                }
                 default:
                 {
                     p("Erreur : Invalid Input");
@@ -206,36 +224,103 @@ namespace POO_Project
 
         public void ShowManager()
         {
-            Console.WriteLine("CENTRALES ::");
-            foreach (PowerPlant pp in Reseau.GetPowerPlantList)
+            Console.WriteLine("Quelle liste souhaitez-vous consulter? Appuyez sur enter pour revenir au menu.");
+            Console.WriteLine("   p - Afficher les centrales");
+            Console.WriteLine("   c - Afficher les consomateurs");
+            Console.WriteLine("   n - Afficher les noeuds");
+            Console.WriteLine("   l - Afficher les lignes");
+            Console.WriteLine("   u - Afficher les élément du réseau non connecté");
+            string rep = Console.ReadLine();
+            switch (rep)
             {
-                Console.WriteLine("PROGRAM IS BUILDING ...");
+                case "p":
+                    {
+                        Console.WriteLine("CENTRALES ::");
+                        foreach (PowerPlant pp in Reseau.GetPowerPlantList)
+                        {
+                            Console.WriteLine("PROGRAM IS BUILDING ...");
+                        }
+                        BackToShowManager();
+                        break;
+                    }
+                case "c":
+                    {
+                        Console.WriteLine("CONSOMMATEURS ::");
+                        foreach (Consumer c in Reseau.GetConsumerList)
+                        {
+                            Console.WriteLine("PROGRAM IS BUILDING ...");
+                        }
+                        BackToShowManager();
+                        break;
+                    }
+                case "n":
+                    {
+                        Console.WriteLine("NODES ::");
+                        foreach (Node n in Reseau.GetNodeList)
+                        {
+                            Console.WriteLine("PROGRAM IS BUILDING ...");
+                        }
+                        BackToShowManager();
+                        break;
+                    }
+                case "l":
+                    {
+                        Console.WriteLine("LINES ::");
+                        foreach (Line l in Reseau.GetLineList)
+                        {
+                            Console.WriteLine("PROGRAM IS BUILDING ...");
+                        }
+                        BackToShowManager();
+                        break;
+                    }
+                case "u":
+                    {
+                        Console.WriteLine("PROGRAM IS BUILDING ...");
+                        BackToShowManager();
+                        break;
+                    }
+                case "":
+                    {
+                        Menu();
+                        break;
+                    }
+                default:
+                    {
+                        Console.WriteLine("Erreur : invalid input");
+                        ShowManager();
+                        break;
+                    }
             }
-            Console.WriteLine("CONSOMMATEURS ::");
-            foreach (Consumer c in Reseau.GetConsumerList)
+        }
+        public void BackToShowManager()
+        {
+            Console.WriteLine("Appuyez sur b pour revenir en arrière ou sur enter pour revenir au menu.");
+            string ans = Console.ReadLine();
+            switch (ans)
             {
-                Console.WriteLine("PROGRAM IS BUILDING ...");
+                case "b":
+                    {
+                        ShowManager();
+                        break;
+                    }
+                case "":
+                    {
+                        Menu();
+                        break;
+                    }
+                default:
+                    {
+                        Console.WriteLine("Erreur: invalid input");
+                        BackToShowManager();
+                        break;
+                    }
             }
-            Console.WriteLine("NODES ::");
-            foreach (Node n in Reseau.GetNodeList)
-            {
-                Console.WriteLine("PROGRAM IS BUILDING ...");
-            }
-            Console.WriteLine("LINES ::");
-            foreach (Line l in Reseau.GetLineList)
-            {
-                Console.WriteLine("PROGRAM IS BUILDING ...");
-                Console.WriteLine("Line : {0}   ;   Current power : {1}   ;   Power claimed : {2}", l.GetName, l.GetCurrentPower, l.GetPowerClaimed);
-            }
-            ////AFFICHER AUSSI LES MESSAGES D ALERTE
-            exit();
-
         }
         public void exit()
         {
-            Console.WriteLine("Appuyez sur la barre d'espace + enter pour revenir au menu.");
+            Console.WriteLine("Appuyez sur enter pour revenir au menu.");
             string enter = Console.ReadLine();
-            if (enter == " ")
+            if (enter == "")
             {
                 Menu();
             }
@@ -248,11 +333,16 @@ namespace POO_Project
 
         public void SetPowerClaimedByConsumer()
         {
-            Console.WriteLine("PROGRAM IS BUILDING ...");
-
-            Console.WriteLine("Entrez le nom du consommateur dont il faut modifier la demande ou appuyez sur la barre d'espace + enter pour quitter:");
+            Console.WriteLine("Voici la liste de consomateurs liés au réseau:");
+            if (Reseau.GetConsumerList.Count == 0) { Console.WriteLine("La liste est vide."); }
+            else
+            {
+                foreach (Consumer c in Reseau.GetConsumerList) { Console.WriteLine("   - {0};", c.GetName); }
+            }
+            Console.WriteLine("");
+            Console.WriteLine("Entrez le nom du consommateur dont il faut modifier la demande ou appuyez sur enter pour revenir au menu:");
             string rep = Console.ReadLine();
-            if (rep == " ") { Menu(); }
+            if (rep == "") { Menu(); }
             else
             {
                 bool found = false;
@@ -295,6 +385,8 @@ namespace POO_Project
             p("    a - Afficher l'état du réseaux");
             p("    m - Modifier la demande d'un consommateur");
             p("    u - Mettre à jour le réseau");
+            p("");
+            
 
 
             string instruction = Console.ReadLine();
@@ -330,7 +422,10 @@ namespace POO_Project
                             // pp.CurrentPower doit devenir égal à pp.GetOutputLine.GetPowerClaimed
                         }
                         Console.WriteLine("Le réseau a été mis à jour.");
-                        
+                        Console.WriteLine("Entrez une action ou appuyez sur enter pour revenir au menu:");
+                        Console.WriteLine("   p - Afficher les notifications de modification de production des centrales.");
+                        Console.WriteLine("  PROGRAM IS BUILDING");
+
                         Menu();
                         break;
                     }

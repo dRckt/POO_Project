@@ -25,6 +25,7 @@ namespace POO_Project
             DissipatorLine = new Line(DissipatorLineName);
             DissipatorLine.SetIsDissipatorLine(true);
             DissipatorLine.SetInputNode(this);
+            base.AddOutputLineToList(DissipatorLine);
 
 
             InputPower = GetInputPower;
@@ -77,12 +78,6 @@ namespace POO_Project
 
         }
 
-        public Dictionary<Line, double> DividePowerClaimed()
-        {
-            Dictionary<Line, double> NewDictLineCoef = new Dictionary<Line, double>();
-            NewDictLineCoef.Add(GetInputLine, 1);
-            return NewDictLineCoef;
-        }
 
             //public bool GetIsCentralNode { get { return this.IsCentralNode; } }
             //public void SetIsCentralNode(bool b) { this.IsCentralNode = b; }

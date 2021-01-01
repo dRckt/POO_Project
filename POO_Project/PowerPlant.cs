@@ -6,6 +6,22 @@ namespace POO_Project
 {
     public class PowerPlant
     {
+        //NIVEAU 1 = PASSE EN PRIORITE, c'est a lui qu'on demandera en premier le courant
+        //          par exemple si un consumer a le choix entre demander du courant sur ligne de niveau 1 ou de niveau 3, le consumer prendra d'abord le courant sur ligne de niveau 1 !!
+        //          Logiquement PLsolarpowerplant = 1 et PLgaspowerplant est plus grand vu qu'il pollue
+
+        //D: stp détermine qui vaut combien dans les variables ci dessous:  (minimum= 0  ; maximum=6);
+        
+        public double PLGasPowerPlant = 1; //priority level de gas powerplant
+        public double PLNuclearPowerPlant = 1;
+        public double PLWindFarm = 1;
+        public double PLSolarPowerPlant = 1;
+        public double PLPurchaseAbroad = 1;
+        public double PLNeutre = 4;
+
+
+        protected double MyPriorityLevel;
+
         protected string name;
         protected Line OutputLine;
         protected bool IsWorking = false;
@@ -34,9 +50,12 @@ namespace POO_Project
             OutPutNode = new DistributionNode(String.Format(name + "_OutPutNode"));
             //OutPutLine.SetMyPowerPlant(this); //a faire hors du constructeur
             OutputLine = OutPutNode.GetInputLine; //ligne de sortie de la centrale = ligne d'entrée de son noeud de distribution
+
             OutputLine.SetIsPowerPlantLine(true);  //je précise que cette ligne est reliée a une centrale
             OutputLine.SetOutputNode(OutPutNode);  //je précise à la ligne qui est mon noeud de sortie (pour pouvoir le récupérer par après)
             OutputLine.SetMyPowerPlant(this);
+            OutputLine.SetName(Name + "_line");
+            OutputLine.SetPriorityLevel(4);
         }
 
         //A chaque création d'une centrale, appeler juste après: <Centrale>.GetOutputLine.SetMyPowerPlant(<centrale>);
@@ -45,9 +64,20 @@ namespace POO_Project
 
         public DistributionNode GetOutputNode{get {return this.OutPutNode; } } 
         public string GetName { get { return name; } }
+        public void SetPriorityLevel(double PL) { MyPriorityLevel = PL; }
+        public double GetPriorityLevel { get { return MyPriorityLevel; } }
 
-        public virtual void Start() { IsWorking = true; }
-        public virtual void Stop() { IsWorking = false; }
+        public virtual void Start() 
+        { 
+            IsWorking = true;
+            OutputLine.SetPriorityLevel(GetPriorityLevel);
+
+        }
+        public virtual void Stop() 
+        { 
+            IsWorking = false;
+            OutputLine.SetPriorityLevel(7);
+        }
         public bool GetIsWorking { get { return IsWorking; } } //j'ai ajouté le Get devant parce que build plantait sinon (ambiguité entre la methode et le bool)
      
         public virtual double Production()
@@ -93,9 +123,12 @@ namespace POO_Project
 
         public GasPowerPlant(string name, Market market) : base(name)
         {
+            SetPriorityLevel(PLGasPowerPlant);
+            OutputLine.SetPriorityLevel(GetPriorityLevel);
             this.market = market;
             constantProduction = true;
             adjustableProduction = false;
+            Start();
         }
 
         public override double DisponibleProduction()
@@ -127,13 +160,26 @@ namespace POO_Project
 
         public NuclearPowerPlant(string name, Market market) : base(name)
         {
+            SetPriorityLevel(PLGasPowerPlant);
+            OutputLine.SetPriorityLevel(GetPriorityLevel);
             this.market = market;
             constantProduction = true;
             adjustableProduction = false;
             Start();                // mise en marche automatique au moment de la création de la centrale
         }
-        public override void Start() { productionState = 2; IsWorking = true; }
-        public override void Stop() { productionState = 3; }
+        public override void Start() 
+        { 
+            productionState = 2; 
+            IsWorking = true; 
+            OutputLine.SetPriorityLevel(GetPriorityLevel);
+
+        }
+        public override void Stop()
+        {
+            productionState = 3;
+            OutputLine.SetPriorityLevel(7);
+
+        }
         public override double DisponibleProduction()
         {
             switch (productionState)
@@ -203,9 +249,12 @@ namespace POO_Project
    
         public WindFarm(string name, Weather meteo) : base(name)
         {
+            SetPriorityLevel(PLGasPowerPlant);
+            OutputLine.SetPriorityLevel(GetPriorityLevel);
             this.meteo = meteo;
             constantProduction = false;
             adjustableProduction = true;
+            Start();
         }
         public override double DisponibleProduction()
         {
@@ -246,9 +295,12 @@ namespace POO_Project
 
         public SolarPowerPlant(string name, Weather meteo) : base(name)
         {
+            SetPriorityLevel(PLGasPowerPlant);
+            OutputLine.SetPriorityLevel(GetPriorityLevel);
             this.meteo = meteo;
             constantProduction = false;
             adjustableProduction = false;
+            Start();
         }
         public override double DisponibleProduction()
         {
@@ -265,8 +317,11 @@ namespace POO_Project
         
         public PurchaseAbroad(string name, double purchasedPower, Market market) : base(name)
         {
+            SetPriorityLevel(PLGasPowerPlant);
+            OutputLine.SetPriorityLevel(GetPriorityLevel);
             this.purchasedPower = purchasedPower;
             this.market = market;
+            Start();
         }
         public override double Production()
         {
