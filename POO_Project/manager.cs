@@ -284,7 +284,14 @@ namespace POO_Project
         }
 
 
-
+        public void UpdateConsumerClaiming()
+        {
+            foreach (Consumer c in GetConsumerList)
+            {
+                Line line = c.getInputLine;
+                line.SetPowerClaimed(line.GetPowerClaimed);
+            }
+        }
         public void UpdatePowerOfPowerPlant()
         {
             foreach (PowerPlant PowerPlant in PowerPlantList)

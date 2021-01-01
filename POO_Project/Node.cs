@@ -142,7 +142,7 @@ namespace POO_Project
             if (maj) { Console.WriteLine("Mise à jour:: {0} à modifié la distribution de ses requêtes de puissance", GetName); }
             if (PowerClaimedOnNode != 0)
             {
-                Console.WriteLine("Le noeud {0} ne reçoit pas assez de puissance pour satisfaire la demande. Il lui manque {1}W.", GetName, PowerClaimedOnNode);
+                Console.WriteLine("ALERTE :: Le noeud {0} ne reçoit pas assez de puissance pour satisfaire la demande. Il lui manque {1}W.", GetName, PowerClaimedOnNode);
             }
         }
 

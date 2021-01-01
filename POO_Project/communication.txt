@@ -3,7 +3,7 @@
 
 DAMIEN : 
 Power plant ligne 13 
-Interface ligne 532 compléter la partie 'u' du menu, voir aussi updatepowerofpowerplants dans manager
+Interface ligne 540 compléter la partie 'u' du menu, voir aussi updatepowerofpowerplants dans manager
 
 
 
