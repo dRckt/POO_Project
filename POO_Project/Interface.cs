@@ -4,10 +4,14 @@ using System.Text;
 
 namespace POO_Project
 {
+
     public class Interface
     {
         double centrale_count; 
-        double consom_count;  
+        double consom_count;
+
+        protected Node node1;
+        protected Node node2;
 
         private Manager Reseau;
 
@@ -18,7 +22,6 @@ namespace POO_Project
             centrale_count = reseau.GetPowerPlantList.Count;
             Console.WriteLine("______________________________________________________________________");
             Console.WriteLine("------------------BIENVENUE DANS L'INTERFACE RESEAU-------------------");
-            Console.WriteLine("______________________________________________________________________");
         }
         private void p(string value)
         {
@@ -109,22 +112,29 @@ namespace POO_Project
                 case "g":
                     {
                         NewPowerPlant = Reseau.CreateNewGasPowerPlant(ChooseName("gaz station"), market);
-                        
+                        Console.WriteLine("La centrale {0} a été ajoutée. ", NewPowerPlant.GetName);
+                        Console.WriteLine("Veuillez connecter son noeud {0} au réseau via l'onglet 'w' du menu.", NewPowerPlant.GetOutputNode.GetName);
                         break;
                     }
                 case "n":
                     {
                         NewPowerPlant = Reseau.CreateNewNuclearPowerPlant(ChooseName("nuclear power plant"), market);
+                        Console.WriteLine("La centrale {0} a été ajoutée. ", NewPowerPlant.GetName);
+                        Console.WriteLine("Veuillez connecter son noeud {0} au réseau via l'onglet 'w' du menu.", NewPowerPlant.GetOutputNode.GetName);
                         break;
                     }
                 case "w":
                     {
                         NewPowerPlant = Reseau.CreateNewWindFarm(ChooseName("wind farm"), ChooseWeather(weather_manager, clock));
+                        Console.WriteLine("La centrale {0} a été ajoutée. ", NewPowerPlant.GetName);
+                        Console.WriteLine("Veuillez connecter son noeud {0} au réseau via l'onglet 'w' du menu.", NewPowerPlant.GetOutputNode.GetName);
                         break;
                     }
                 case "s":
                     {
                         NewPowerPlant = Reseau.CreateNewSolarPowerPlant(ChooseName("solar power plant"), ChooseWeather(weather_manager, clock));
+                        Console.WriteLine("La centrale {0} a été ajoutée. ", NewPowerPlant.GetName);
+                        Console.WriteLine("Veuillez connecter son noeud {0} au réseau via l'onglet 'w' du menu.", NewPowerPlant.GetOutputNode.GetName);
                         break;
                     }
                 case "":
@@ -158,11 +168,15 @@ namespace POO_Project
                 case "c":
                     {
                         NewConsumer = Reseau.CreateNewCity(ChooseName("city"), ChooseNbr("habitants"), ChooseWeather(weather_manager, clock));
+                        Console.WriteLine("La ville {0} a été ajouté.", NewConsumer.GetName);
+                        Console.WriteLine("Veuillez connecter son noeud {0} au réseau via l'onglet 'w' du menu.", NewConsumer.GetInputNode.GetName);
                         break;
                     }
                 case "e":
                     {
                         NewConsumer = Reseau.CreateNewEntreprise(ChooseName("entreprise"), ChooseNbr("machines"));
+                        Console.WriteLine("L'entreprise {0} a été ajouté.", NewConsumer.GetName);
+                        Console.WriteLine("Veuillez connecter son noeud {0} au réseau via l'onglet 'w' du menu.", NewConsumer.GetInputNode.GetName);
                         break;
                     }
 
@@ -170,6 +184,8 @@ namespace POO_Project
                 case "d":
                     {
                         NewConsumer = new Dissipator(ChooseName("dissipator"));
+                        Console.WriteLine("Le dissipateur {0} a été ajouté.", NewConsumer.GetName);
+                        Console.WriteLine("Veuillez connecter son noeud {0} au réseau via l'onglet 'w' du menu.", NewConsumer.GetInputNode.GetName);
                         break;
                     }
                 case "":
@@ -199,12 +215,14 @@ namespace POO_Project
                 case "d":
                 {
                     NewNode = Reseau.CreateNewDistributionNode(ChooseName("Distribution Node"));
+                    Console.WriteLine("Le noeud de distribution {0} a été ajouté, veuillez le connecter au reseau via l'onglet 'w' du menu.");    
                     break;
                 }
                 case "c":
                 {
-                    NewNode = Reseau.CreateNewConcentrationNode(ChooseName("Concentration Node"));
-                    break;
+                    NewNode = Reseau.CreateNewConcentrationNode(ChooseName("Concentration Node"));    
+                    Console.WriteLine("Le noeud de concentration {0} a été ajouté, veuillez le connecter au reseau via l'onglet 'w' du menu.");
+                        break;
                 }
                 case "":
                 {
@@ -238,7 +256,9 @@ namespace POO_Project
                         Console.WriteLine("CENTRALES ::");
                         foreach (PowerPlant pp in Reseau.GetPowerPlantList)
                         {
-                            Console.WriteLine("PROGRAM IS BUILDING ...");
+                            Console.WriteLine("Centrale : {0}", pp.GetName);
+                            Console.WriteLine("          Production: {0}   ;   Demande: {1}", pp.Production(), pp.GetOutPutLine.GetPowerClaimed);
+                            
                         }
                         BackToShowManager();
                         break;
@@ -248,7 +268,8 @@ namespace POO_Project
                         Console.WriteLine("CONSOMMATEURS ::");
                         foreach (Consumer c in Reseau.GetConsumerList)
                         {
-                            Console.WriteLine("PROGRAM IS BUILDING ...");
+                            Console.WriteLine("Consomateur : {0}", c.GetName);
+                            Console.WriteLine("          Puissance reçue: {0}   ;   Demande: {1}", c.getInputLine.GetCurrentPower, c.getInputLine.GetPowerClaimed);
                         }
                         BackToShowManager();
                         break;
@@ -268,7 +289,8 @@ namespace POO_Project
                         Console.WriteLine("LINES ::");
                         foreach (Line l in Reseau.GetLineList)
                         {
-                            Console.WriteLine("PROGRAM IS BUILDING ...");
+                            Console.WriteLine("Ligne : {0}", l.GetName);
+                            Console.WriteLine("      current power: {0} ; claimed power: {1}", l.GetCurrentPower, l.GetPowerClaimed);
                         }
                         BackToShowManager();
                         break;
@@ -373,7 +395,100 @@ namespace POO_Project
             
             
         }
+        public void ConnectTwoNodes()
+        {
+            Console.WriteLine("Voici la listes des noeuds du réseau. Choisissez le premier noeud à connecter ou appuyez sur enter pour revenir au menu.");
+            Console.WriteLine("Remarque: Les noeuds appartenant à un consomateur ne sont pas affichés car vous ne pouvez pas modifier leur sortie.");
 
+            for (int i = 0; i < Reseau.GetNodeList.Count; i++)
+            {
+                if (Reseau.GetNodeList[i].GetOutputLineList.Count > 0) 
+                {
+                    if (Reseau.GetNodeList[i].GetOutputLineList[0].GetIsConsumerLine) { }
+                    else 
+                    { 
+                        Console.WriteLine("   {0} - {1}", i, Reseau.GetNodeList[i].GetName);
+                        Console.WriteLine("                   Input state : {0} ; Output state : {1} ; Type : {2}", Reseau.GetNodeList[i].GetInputState(), Reseau.GetNodeList[i].GetOutputState(), Reseau.GetNodeList[i].GetType());
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("   {0} - {1}", i, Reseau.GetNodeList[i].GetName);
+                    Console.WriteLine("                   Input state : {0} ; Output state : {1} ; Type : {2}", Reseau.GetNodeList[i].GetInputState(), Reseau.GetNodeList[i].GetOutputState(), Reseau.GetNodeList[i].GetType());
+                }
+            }
+            string rep = Console.ReadLine();
+            if (rep == "") { Menu(); }
+            else
+            {
+                int index1 = Convert.ToInt32(rep);
+
+                Console.WriteLine("Voici la listes des noeuds du réseau. Choisissez le second noeud à connecter ou appuyez sur enter pour revenir au menu.");
+                Console.WriteLine("Remarque: Les noeuds appartenant à un e centrale ne sont pas affichés car vous ne pouvez pas modifier leur entrée.");
+
+                for (int j = 0; j < Reseau.GetNodeList.Count; j++)
+                {
+                    if (j == index1) { }
+                    else if (Reseau.GetNodeList[j].GetInputLineList.Count > 0)
+                    {
+                        if (Reseau.GetNodeList[j].GetInputLineList[0].GetIsPowerPlantLine) { }
+                        else
+                        {
+                            Console.WriteLine("   {0} - {1}", j, Reseau.GetNodeList[j].GetName);
+                            Console.WriteLine("                   Input state : {0} ; Output state : {1} ; Type : {2}", Reseau.GetNodeList[j].GetInputState(), Reseau.GetNodeList[j].GetOutputState(), Reseau.GetNodeList[j].GetType());
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("   {0} - {1}", j, Reseau.GetNodeList[j].GetName);
+                        Console.WriteLine("                   Input state : {0} ; Output state : {1} ; Type : {2}", Reseau.GetNodeList[j].GetInputState(), Reseau.GetNodeList[j].GetOutputState(), Reseau.GetNodeList[j].GetType());
+                    }
+                }
+                string rep2 = Console.ReadLine();
+                if (rep2 == "") { Menu(); }
+                else 
+                {
+                    ConnectTwoNodes_part2(rep2, index1);
+                }
+
+            }
+        }
+        public void ConnectTwoNodes_part2(string rep2, int index1)
+        {
+            int index2 = Convert.ToInt32(rep2);
+
+            Console.WriteLine("PROGRAM IS BUILDING ... ///");
+
+            string type1 = Convert.ToString(Reseau.GetNodeList[index1].GetType());
+            string type2 = Convert.ToString(Reseau.GetNodeList[index2].GetType());
+            Console.WriteLine(type1);
+            if (type1 == "POO_Project.ConcentrationNode")
+            {
+                if (type2 == "POO_Project.ConcentrationNode")
+                {
+                    Reseau.ConnectConcentrationToConcentrationNode((ConcentrationNode)Reseau.GetNodeList[index1], (ConcentrationNode)Reseau.GetNodeList[index2]);
+                }
+                else if (type2 == "POO_Project.DistributionNode")
+                {
+                    Reseau.ConnectConcentrationToDistributionNode((ConcentrationNode)Reseau.GetNodeList[index1], (DistributionNode)Reseau.GetNodeList[index2]);
+                }
+            }
+            else if (type1 == "POO_Project.DistributionNode")
+            {
+                if (type2 == "POO_Project.ConcentrationNode")
+                {
+                    Console.WriteLine("Entrez le nom de la ligne qui reliera {0} à {1}", Reseau.GetNodeList[index1].GetName, Reseau.GetNodeList[index2].GetName);
+                    string NewLineName = Console.ReadLine();
+                    Reseau.ConnectDistributionToConcentrationNode(NewLineName, (DistributionNode)Reseau.GetNodeList[index1], (ConcentrationNode)Reseau.GetNodeList[index2]);
+                }
+                else if (type2 == "POO_Project.DistributionNode")
+                {
+
+                    Reseau.ConnectDistributionToDistributionNode((DistributionNode)Reseau.GetNodeList[index1], (DistributionNode)Reseau.GetNodeList[index2]);
+                }
+            }
+            Console.WriteLine("Les noeuds {0} et {1} sont à présent connectés.", Reseau.GetNodeList[index1], Reseau.GetNodeList[index2]);
+        }
         public void Menu()
         {
             p("______________________________________________________________________");   
@@ -395,32 +510,26 @@ namespace POO_Project
                 case "p":
                     {
                         CreateNewPowerPlant(Reseau.GetWeatherManager, Reseau.GetClock, Reseau.GetMarket);
-                        p("Centrale ajoutée!");
                         Menu();
                         break;
                     }
                 case "c":
                     {
                         CreateNewConsumer(Reseau.GetWeatherManager, Reseau.GetClock);
-                        p("Consommateur ajouté!");
                         Menu();
                         break;
                     }
                 case "n":
                     {
                         CreateNewNode();
-                        p("Noeud ajouté!");
                         Menu();
                         break;
                     }
                 case "u":
                     {
-                        Console.WriteLine("PROGRAM IS BUILDING ...");
-                        foreach (PowerPlant pp in Reseau.GetPowerPlantList)
-                        {
-                            // ICI METTRE A JOUR LA PUISSANCE DE 'pp
-                            // pp.CurrentPower doit devenir égal à pp.GetOutputLine.GetPowerClaimed
-                        }
+                        ///DAMIEN
+                        ///FONCTION A COMPLETER DANS MANAGER///
+                        Reseau.UpdatePowerOfPowerPlant();
                         Console.WriteLine("Le réseau a été mis à jour.");
                         Console.WriteLine("Entrez une action ou appuyez sur enter pour revenir au menu:");
                         Console.WriteLine("   p - Afficher les notifications de modification de production des centrales.");
@@ -441,8 +550,7 @@ namespace POO_Project
                     }
                 case "w":
                     {
-                        //////
-                        ///ICI interraction console pour lier 2 noeuds ensembles
+                        ConnectTwoNodes();
                         Menu();
                         break;
                     }

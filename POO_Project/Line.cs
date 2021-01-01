@@ -22,6 +22,7 @@ namespace POO_Project
         private bool IsPowerPlantLine;
         private bool IsDissipatorLine;
         private bool OutputConnectedToNode;
+        private bool InputConnectedToNode;
 
         private PowerPlant myPowerPlant;
         private Consumer myConsumer;
@@ -37,6 +38,7 @@ namespace POO_Project
             IsPowerPlantLine = false;
             IsDissipatorLine = false;
             OutputConnectedToNode = false;
+            InputConnectedToNode = false;
             PriorityLevel = 0;
         }
 
@@ -48,6 +50,8 @@ namespace POO_Project
         public Node GetOutputNode { get { return OutputNode; } }
 
         public double GetPriorityLevel { get { return PriorityLevel; } }
+        public bool GetInputConnectedToNode { get { return InputConnectedToNode; } }
+        public bool GetOutputConnectedToNode { get { return OutputConnectedToNode; } }
 
         public double GetPowerClaimed { get { return PowerClaimed; } }                 
         public string GetAlertMessage { get { return alertMessage; } }
@@ -60,7 +64,11 @@ namespace POO_Project
 
         /// Methodes SET
         public void SetName(string Name) { name = Name; }
-        public void SetInputNode(Node inputNode) { this.inputNode = inputNode; }
+        public void SetInputNode(Node inputNode)
+        {
+            this.inputNode = inputNode;
+            InputConnectedToNode = true;
+        }
         public void SetOutputNode(Node OutputNode) 
         { 
             this.OutputNode = OutputNode;

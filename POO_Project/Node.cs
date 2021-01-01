@@ -14,7 +14,7 @@ namespace POO_Project
 
         private PowerPlant myPowerPlant;
 
-        private List<string> alertMessageList;
+        protected List<string> AlertMessageList;
 
         
         public Node(string name)
@@ -32,7 +32,18 @@ namespace POO_Project
         // recupere la liste des lignes de sorties
         public List<Line> GetOutputLineList { get { return OutputLineList; } }
 
-        
+        public virtual string GetInputState()
+        {
+            return "PROGRAM IS BUILDING ...";
+        }
+        public virtual string GetOutputState()
+        {
+            return "PROGRAM IS BUILDING ...";
+        }
+
+
+
+
         // recupere le nom du noeud
         public string GetName { get { return Name; } }
 

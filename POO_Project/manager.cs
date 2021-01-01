@@ -227,9 +227,9 @@ namespace POO_Project
             // crée la ligne de connexion qui va etre la premiere ligne de la liste des lignes de sortie du noeud de concentration (la seule)
             Line ConnexionLine = ConcentrationNode.GetOutputLineList[0];
 
-            DistributionNode.SetInputLine(ConnexionLine);
+            
             DistributionNode.ResetInputLineList(ConnexionLine);
-
+            DistributionNode.SetInputLine(ConnexionLine);
             ConnexionLine.SetInputNode(ConcentrationNode);
             ConnexionLine.SetOutputNode(DistributionNode);
         }

@@ -37,9 +37,6 @@ namespace POO_Project
         protected bool constantProduction;
         protected bool adjustableProduction;
 
-        //protected double startTime;
-        //protected double stopTime;
-
         protected DistributionNode OutPutNode;
      
 
@@ -48,25 +45,20 @@ namespace POO_Project
             name = Name;
 
             OutPutNode = new DistributionNode(String.Format(name + "_OutPutNode"));
-            //OutPutLine.SetMyPowerPlant(this); //a faire hors du constructeur
-            OutputLine = OutPutNode.GetInputLine; //ligne de sortie de la centrale = ligne d'entrée de son noeud de distribution
+            OutputLine = OutPutNode.GetInputLine; 
 
-            OutputLine.SetIsPowerPlantLine(true);  //je précise que cette ligne est reliée a une centrale
-            OutputLine.SetOutputNode(OutPutNode);  //je précise à la ligne qui est mon noeud de sortie (pour pouvoir le récupérer par après)
+            OutputLine.SetIsPowerPlantLine(true);
+            OutputLine.SetOutputNode(OutPutNode); 
             OutputLine.SetMyPowerPlant(this);
             OutputLine.SetName(Name + "_line");
             OutputLine.SetPriorityLevel(4);
         }
 
-        //A chaque création d'une centrale, appeler juste après: <Centrale>.GetOutputLine.SetMyPowerPlant(<centrale>);
-
         public Line GetOutPutLine { get { return this.OutputLine; } }
-
         public DistributionNode GetOutputNode{get {return this.OutPutNode; } } 
         public string GetName { get { return name; } }
         public void SetPriorityLevel(double PL) { MyPriorityLevel = PL; }
         public double GetPriorityLevel { get { return MyPriorityLevel; } }
-
         public virtual void Start() 
         { 
             IsWorking = true;

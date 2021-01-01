@@ -12,9 +12,6 @@ namespace POO_Project
         private double MaxPower;
         private List<string> AlertMessageList;
 
-        private Dictionary<Line, double> DivisionOfPowerClaimed;
-
-
         public ConcentrationNode(string name) : base(name)
         {
             string OutputLineName = name+"_OutputLine";
@@ -42,8 +39,26 @@ namespace POO_Project
         }
         
         public Line GetOutputLine{ get { return OutputLine; }  }
- 
-       
+
+
+        public override string GetOutputState()
+        {
+            if (GetOutputLineList[0].GetOutputConnectedToNode || GetOutputLineList[0].GetIsConsumerLine)
+            {
+                return "connected";
+            }
+            else { return "not connected"; }
+        }
+
+        public override string GetInputState()
+        {
+            if (GetInputLineList.Count > 0)
+            {
+                return "connected";
+            }
+            else { return "not connected"; }
+        }
+        ///PROGRAM IS BUILDING ...
         public void ShowState()
         {
             string nodeStateMessage = String.Format("Noeud de concentration {0}:: Nombre d'entrées: {1}  ;  Puissance de sortie: {2}W /// claimed on output {3} ", base.GetName, base.InputLineList.Count, this.GetOutputPower(), base.OutputLineList[0].GetPowerClaimed);
@@ -56,34 +71,7 @@ namespace POO_Project
             
         }
 
-        /*
-        public Dictionary<Line, double> DividePowerClaimed()
-        {
-            //Line OutputLine = GetOutputLine;
-            List<Line> InputLineList = GetInputLineList;
-            double PowerClaimed = GetPowerClaimed();
-
-            //Dictionnaire clé=Line valeur=% de powerClaimed
-            Dictionary<Line, double> NewDictLineCoef = new Dictionary<Line, double>();
-
-            double FoundPower = 0;
-
-            foreach (Line line in InputLineList)
-            {
-                double DisponiblePower;
-                DisponiblePower = line.AskDisponiblePower();
-                double NeedOntThisLine = DisponiblePower - FoundPower;
-                double coef = (NeedOntThisLine) / PowerClaimed;
-                FoundPower += NeedOntThisLine;
-
-                NewDictLineCoef.Add(line, coef);
-
-                line.SetPowerClaimed(PowerClaimed * coef);
-            }
-            DivisionOfPowerClaimed = NewDictLineCoef;
-            return NewDictLineCoef;
-        }
-        */
+ 
 
 
 
