@@ -284,6 +284,7 @@ namespace POO_Project
         }
 
 
+        // UPDATE CONSUMER
         public void UpdateConsumerClaiming()
         {
             foreach (Consumer c in GetConsumerList)
@@ -292,24 +293,44 @@ namespace POO_Project
                 line.SetPowerClaimed(line.GetPowerClaimed);
             }
         }
+
+        // UPDATE POWER PLANT
         public void UpdatePowerOfPowerPlant()
         {
             foreach (PowerPlant PowerPlant in PowerPlantList)
             {
-                
-                //regarde claimed power de sa ligne
-                //si claimed power = 0   =>     if (GetIsWorking){ PowerPlant.Stop() ;} 
-                                                                   //+ alerteMessage: la centrale s'est arretée
-                //si claimed power > 0   =>     if not (GetIsWorking){ PowerPlant.Start(} 
-                                                                        //+ alertMessage: la centrale a démarré
+                // powerClaimed = demande sur la ligne de sortie
+                double powerClaimed = PowerPlant.GetOutPutLine.GetPowerClaimed;
 
-                
-                if (PowerPlant.GetOutPutLine.GetPowerClaimed < PowerPlant.DisponibleProduction())
+                if (powerClaimed == 0)      // pas de demande
                 {
-                    //if powerplant production != outputline.getClaimedPower:
-                    //      set powerplant production = outputline.getClaimedPower
-                    //      alertMessage :: la centrale a modifié sa production
-                    //Dans tous les cas:
+                    if (PowerPlant.GetIsWorking == true) { PowerPlant.Stop(); }                      
+                }
+
+                else                        // demande de puissance
+                {
+                    if (PowerPlant.GetIsWorking == false) { PowerPlant.Start(); }
+                }
+
+                Console.WriteLine(PowerPlant.GetAlertMessage);
+
+                // si la demande est inférieure à ce que peux fournir la centrale
+                if (powerClaimed < PowerPlant.DisponibleProduction())
+                {
+                    // si la production actuelle de la centrale est differente de la demande
+                    if (PowerPlant.Production() != PowerPlant.GetOutPutLine.GetPowerClaimed)
+                    {
+                        //      set powerplant production = outputline.getClaimedPower
+                        //      alertMessage :: la centrale a modifié sa production
+
+
+                        ////  ON NE PEUT PAS DECIDER DE LA PRODUCTION DE LA CENTRALE 
+
+                        Console.WriteLine("La centrale a modifié sa production");
+                        
+                    }
+
+                    // La production de la centrale est copiée sur la ligne de sortie
                     PowerPlant.GetOutPutLine.SetCurrentPower(PowerPlant.Production());
                 }
                 else
@@ -320,11 +341,7 @@ namespace POO_Project
                     //Dans tous les cas:
                     PowerPlant.GetOutPutLine.SetCurrentPower(PowerPlant.Production());
                 }
-
-
             }
-
-        }
-   
+        }   
     }
 }

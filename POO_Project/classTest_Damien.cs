@@ -11,7 +11,19 @@ namespace POO_Project
 
         public classTest_Damien()
         {
-            //m.Menu();
+            Market market = new Market();
+            PowerPlant powerplant = new GasPowerPlant("Centrale", market);
+
+            Console.WriteLine(powerplant.GetType());
+            Console.WriteLine("----------------------------------");
+            if (powerplant is GasPowerPlant)
+            {
+                Console.WriteLine("power plant est de type GasPowerPlant");
+            }
+            else
+            {
+                Console.WriteLine("power plant n'est pas de type GasPowerPlant");
+            }
         }
 
     }

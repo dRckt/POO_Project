@@ -12,13 +12,12 @@ namespace POO_Project
 
         //D: stp détermine qui vaut combien dans les variables ci dessous:  (minimum= 0  ; maximum=6);
         
-        public double PLGasPowerPlant = 1; //priority level de gas powerplant
-        public double PLNuclearPowerPlant = 1;
-        public double PLWindFarm = 1;
-        public double PLSolarPowerPlant = 1;
-        public double PLPurchaseAbroad = 1;
-        public double PLNeutre = 4;
-
+        public double PLGasPowerPlant = 1;          // 2
+        public double PLNuclearPowerPlant = 1;      // 1
+        public double PLWindFarm = 1;               // 3
+        public double PLSolarPowerPlant = 1;        // 4
+        public double PLPurchaseAbroad = 1;         // 5
+        public double PLNeutre = 4;                 
 
         protected double MyPriorityLevel;
 
@@ -54,24 +53,32 @@ namespace POO_Project
             OutputLine.SetPriorityLevel(4);
         }
 
+        // PROPRIETES GET
         public Line GetOutPutLine { get { return this.OutputLine; } }
         public DistributionNode GetOutputNode{get {return this.OutPutNode; } } 
         public string GetName { get { return name; } }
-        public void SetPriorityLevel(double PL) { MyPriorityLevel = PL; }
         public double GetPriorityLevel { get { return MyPriorityLevel; } }
+        public bool GetIsWorking { get { return IsWorking; } }
+        public string GetAlertMessage { get { return alertMessage; } }
+
+        // CHANGEMENT PRIORITY LEVEL
+        public void SetPriorityLevel(double PL) { MyPriorityLevel = PL; }
+
+        // START - STOP 
         public virtual void Start() 
         { 
             IsWorking = true;
             OutputLine.SetPriorityLevel(GetPriorityLevel);
-
+            alertMessage = String.Format("La centrale {0} a été démarrée", GetName);
         }
         public virtual void Stop() 
         { 
             IsWorking = false;
             OutputLine.SetPriorityLevel(7);
-        }
-        public bool GetIsWorking { get { return IsWorking; } } //j'ai ajouté le Get devant parce que build plantait sinon (ambiguité entre la methode et le bool)
-     
+            alertMessage = String.Format("La centrale {0} a été stoppée", GetName);
+        }         
+        
+        // RENVOIE LA PRODUCTION ACTUELLE
         public virtual double Production()
         {
             if (IsWorking)
@@ -84,35 +91,27 @@ namespace POO_Project
             }
             return powerProduction;
         }
-        public virtual double DisponibleProduction()
-        {
-            return 0;
-        }
-        public virtual double Cost()
-        {
-            return productionCost;
-        }
-        public virtual double C02()
-        {
-            return CO2emission;
-        }
+
+        // RENVOIE LA PRODUCTION DISPONNIBLE
+        public virtual double DisponibleProduction() { return 0; } // Fonction toujours overridée  --> passage en abstract     
+
+        //public abstract double DisponibleProduction();           // Passage de la fonction en abstract, pour ca il faut que la classe PowerPlant soit abstract, mais erreur dans le manager
+
+        public virtual double Cost() { return productionCost; }
+        public virtual double C02() { return CO2emission; }
+        public double AskDisponiblePower() { return disponibleProduction; }
         public string Resume()
         {
             string resume = string.Format("{0} : Production = {1} W, cout = {2} $, emission = {3} grammes", name, Production(), Cost(), C02());
             return resume;
-        }
-        public double AskDisponiblePower()
-        {
-            return disponibleProduction;
-        }
+        }      
     }
 
     // Classes filles héritées
     public class GasPowerPlant : PowerPlant
     {
-        Market market;
+        private readonly Market market;
        
-
         public GasPowerPlant(string name, Market market) : base(name)
         {
             SetPriorityLevel(PLGasPowerPlant);
@@ -157,20 +156,18 @@ namespace POO_Project
             this.market = market;
             constantProduction = true;
             adjustableProduction = false;
-            Start();                // mise en marche automatique au moment de la création de la centrale
+            Start();                                 // mise en marche automatique au moment de la création de la centrale
         }
         public override void Start() 
         { 
-            productionState = 2; 
-            IsWorking = true; 
+            productionState = 2;
+            IsWorking = true;
             OutputLine.SetPriorityLevel(GetPriorityLevel);
-
         }
         public override void Stop()
         {
             productionState = 3;
             OutputLine.SetPriorityLevel(7);
-
         }
         public override double DisponibleProduction()
         {
@@ -195,7 +192,6 @@ namespace POO_Project
                         if (count_marche <= 10)
                         {
                             powerProduction = productionGoal * (count_marche / 10);
-                            //Console.WriteLine(" en mise en marche : " + count_marche + "---" + powerProduction);
                             count_marche ++;
                         }
                         else
@@ -211,7 +207,6 @@ namespace POO_Project
                         if (count_arret > 0 )
                         {
                             powerProduction = productionGoal * (count_arret / 10);
-                            //Console.WriteLine(" en cours d'arret : " + count_arret + "---" + powerProduction);
                             count_arret --;
                         }
                         else
@@ -315,7 +310,7 @@ namespace POO_Project
             this.market = market;
             Start();
         }
-        public override double Production()
+        public override double DisponibleProduction()
         {
             powerProduction = purchasedPower;
             return powerProduction;

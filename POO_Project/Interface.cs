@@ -7,7 +7,7 @@ namespace POO_Project
 
     public class Interface
     {
-        double centrale_count; 
+        double centrale_count;
         double consom_count;
 
         protected Node node1;
@@ -97,7 +97,7 @@ namespace POO_Project
 
         public void CreateNewPowerPlant(WeatherManager weather_manager, Clock clock, Market market)
         {
-            Console.WriteLine(String.Format("------------------------------CREATION CENTRALE n°{0}------------------------------", centrale_count));
+            Console.WriteLine("------------------------------CREATION CENTRALE------------------------------");
             Console.WriteLine("Quelle genre de centrale voulez vous créer ? Appuyez sur enter pour revenur au menu.");
             Console.WriteLine("    g - Gaz Station");
             Console.WriteLine("    n - nuclear Power Plant");
@@ -158,11 +158,10 @@ namespace POO_Project
         }
         public void CreateNewConsumer(WeatherManager weather_manager, Clock clock)
         {
-            Console.WriteLine(String.Format("------------------------------CREATION CONSOMMATEUR n°{0}------------------------------", consom_count));
+            Console.WriteLine("------------------------------CREATION CONSOMMATEUR------------------------------");
             Console.WriteLine("Quelle genre de centrale voulez vous créer ? Appuyez sur enter pour revenir au menu.");
             Console.WriteLine("    c - city");
             Console.WriteLine("    e - entreprise");
-            Console.WriteLine("    d - dissipator");   //inutile de proposer d'ajouter un dissipateur au réseau puisque chaque noeud de distribution en a déja un
 
             string type_centrale = Console.ReadLine();
             Consumer NewConsumer;
@@ -185,16 +184,6 @@ namespace POO_Project
                         Console.WriteLine("Veuillez connecter son noeud {0} au réseau via l'onglet 'w' du menu.", NewConsumer.GetInputNode.GetName);
                         break;
                     }
-
-                ///A retirer
-                case "d":
-                    {
-                        NewConsumer = new Dissipator(ChooseName("dissipator"));
-                        Console.WriteLine("-----------------------------------------------------------");
-                        Console.WriteLine("Le dissipateur {0} a été ajouté.", NewConsumer.GetName);
-                        Console.WriteLine("Veuillez connecter son noeud {0} au réseau via l'onglet 'w' du menu.", NewConsumer.GetInputNode.GetName);
-                        break;
-                    }
                 case "":
                     {
                         Menu();
@@ -203,7 +192,6 @@ namespace POO_Project
                 default:
                     {
                         p("Erreur : Invalid Input");
-
                         CreateNewConsumer(weather_manager, clock);
                         break;
                     }
@@ -543,11 +531,11 @@ namespace POO_Project
                         ///il faut compléter UpdatePowerOfPowerPlant() dans manager///
                         Reseau.UpdateConsumerClaiming();
                         Reseau.UpdatePowerOfPowerPlant();
-                        Console.WriteLine("-------------------------------");
-                        Console.WriteLine("Le réseau a été mis à jour.");
-                        Console.WriteLine("Entrez une action ou appuyez sur enter pour revenir au menu:");
-                        Console.WriteLine("   p - Afficher les notifications de modification de production des centrales.");
-                        Console.WriteLine("  PROGRAM IS BUILDING");
+                        p("-------------------------------");
+                        p("Le réseau a été mis à jour.");
+                        p("Entrez une action ou appuyez sur enter pour revenir au menu:");
+                        p("   p - Afficher les notifications de modification de production des centrales.");
+                        p("  INTERFACE IS BUILDING");
 
                         exit();
                         break;

@@ -13,7 +13,6 @@ namespace POO_Project
         private double MaxPower;
         
 
-
         public DistributionNode(string name) : base(name)
         {
             string InputLineName = name + "_InputLine";
@@ -27,6 +26,7 @@ namespace POO_Project
             DissipatorLine.SetInputNode(this);
             base.AddOutputLineToList(DissipatorLine);
 
+            Consumer dissipator = new Dissipator("dissipator_" + name);
 
             InputPower = GetInputPower;
 
@@ -36,7 +36,6 @@ namespace POO_Project
         }
 
         public double GetInputPower { get { return InputLine.GetCurrentPower; } }
-
         public Line GetInputLine { get { return this.InputLine; } }
         public Line GetDissipatorLine { get {return this.DissipatorLine; } }
 
