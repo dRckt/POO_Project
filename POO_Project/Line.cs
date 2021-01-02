@@ -143,8 +143,8 @@ namespace POO_Project
         {
             if (GetIsPowerPlantLine)
             {
-                return 1000;  //POUR TEST
-                //return GetMyPowerPlant.DisponibleProduction();
+                //return 1000;  POUR TEST
+                return GetMyPowerPlant.DisponibleProduction();
 
             }
             else

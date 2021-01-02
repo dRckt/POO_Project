@@ -15,6 +15,8 @@ namespace POO_Project
         protected List<Line> LineList;
         protected List<Node> NodeList;
 
+        
+
         private Market market;
         private WeatherManager weather_manager;
         private Clock clock;
@@ -352,11 +354,15 @@ namespace POO_Project
                     PowerPlant.GetOutPutLine.SetCurrentPower(PowerPlant.Production());
                 }
             }
-
+            /*
             foreach (Market m in MarketList)
             {
                 // DEFINIR PUISSANCE DE SORTIE DU MARKET = le power claimed sur sa ligne
             }
+            */
+            foreach (Node n in NodeList) { n.UpdateCurrentPower(); }
         }   
+    
+        
     }
 }

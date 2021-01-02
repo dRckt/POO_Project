@@ -14,7 +14,6 @@ namespace POO_Project
         protected Node node2;
 
         private Manager Reseau;
-
         public Interface(Manager reseau) 
         {
             Reseau = reseau;
@@ -211,14 +210,14 @@ namespace POO_Project
                 {
                     NewNode = Reseau.CreateNewDistributionNode(ChooseName("Distribution Node"));
                     Console.WriteLine("-----------------------------------------------------------");
-                    Console.WriteLine("Le noeud de distribution {0} a été ajouté, veuillez le connecter au reseau via l'onglet 'w' du menu.");    
+                    Console.WriteLine("Le noeud de distribution {0} a été ajouté, veuillez le connecter au reseau via l'onglet 'w' du menu.", NewNode.GetName);    
                     break;
                 }
                 case "c":
                 {
                     NewNode = Reseau.CreateNewConcentrationNode(ChooseName("Concentration Node"));
                     Console.WriteLine("-----------------------------------------------------------");
-                    Console.WriteLine("Le noeud de concentration {0} a été ajouté, veuillez le connecter au reseau via l'onglet 'w' du menu.");
+                    Console.WriteLine("Le noeud de concentration {0} a été ajouté, veuillez le connecter au reseau via l'onglet 'w' du menu.", NewNode.GetName);
                     break;
             }
                 case "":
@@ -276,7 +275,20 @@ namespace POO_Project
                         Console.WriteLine("NODES ::");
                         foreach (Node n in Reseau.GetNodeList)
                         {
-                            Console.WriteLine("PROGRAM IS BUILDING ...");
+                            Console.WriteLine("Noeud :: {0}", n.GetName);
+                            Console.WriteLine("     Lignes d'entrée:");
+                            foreach (Line l in n.GetInputLineList)
+                            {
+                                Console.WriteLine("       Ligne : {0}", l.GetName);
+                                Console.WriteLine("            current power: {0} ; claimed power: {1}", l.GetCurrentPower, l.GetPowerClaimed);
+                            }
+                            Console.WriteLine("     Lignes de sortie:");
+                            foreach (Line l in n.GetOutputLineList)
+                            {
+                                Console.WriteLine("       Ligne : {0}", l.GetName);
+                                Console.WriteLine("            current power: {0} ; claimed power: {1}", l.GetCurrentPower, l.GetPowerClaimed);
+                            }
+
                         }
                         BackToShowManager();
                         break;
@@ -562,7 +574,8 @@ namespace POO_Project
                     }
             }         
         }
-        
+
+
         public void InvalideInput()
         {
             p("Input invalide");
