@@ -211,9 +211,15 @@ namespace POO_Project
                     return CreateNewConcentrationNode(newName);
                 }
             }
+
             ConcentrationNode NewConcentrationNode = new ConcentrationNode(name);
             NodeList.Add(NewConcentrationNode);
             LineList.Add(NewConcentrationNode.GetOutputLine);
+
+            //PowerPlant shop = new PurchaseAbroad("shop_" + name, market);
+            //NewConcentrationNode.AddInputLineToList(shop.GetOutPutLine);
+            //shop.GetOutPutLine.SetOutputNode(NewConcentrationNode);
+
             return NewConcentrationNode;
         }
 
@@ -326,8 +332,7 @@ namespace POO_Project
 
                         ////  ON NE PEUT PAS DECIDER DE LA PRODUCTION DE LA CENTRALE 
 
-                        Console.WriteLine("La centrale a modifié sa production");
-                        
+                        Console.WriteLine("La centrale a modifié sa production");                        
                     }
 
                     // La production de la centrale est copiée sur la ligne de sortie

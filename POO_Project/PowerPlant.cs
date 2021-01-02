@@ -16,7 +16,7 @@ namespace POO_Project
         public double PLNuclearPowerPlant = 1;      // 1
         public double PLWindFarm = 1;               // 3
         public double PLSolarPowerPlant = 1;        // 4
-        public double PLPurchaseAbroad = 1;         // 5
+        public double PLPurchaseAbroad = 7;         // 5
         public double PLNeutre = 4;                 
 
         protected double MyPriorityLevel;
@@ -302,13 +302,16 @@ namespace POO_Project
         double purchasedPower;
         Market market;
         
-        public PurchaseAbroad(string name, double purchasedPower, Market market) : base(name)
+        public PurchaseAbroad(string name, Market market) : base(name)
         {
             SetPriorityLevel(PLGasPowerPlant);
             OutputLine.SetPriorityLevel(GetPriorityLevel);
-            this.purchasedPower = purchasedPower;
             this.market = market;
             Start();
+        }
+        public override double Production()
+        {
+            //// renvoie la demande 
         }
         public override double DisponibleProduction()
         {

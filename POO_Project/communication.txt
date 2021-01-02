@@ -4,11 +4,3 @@
 DAMIEN : 
 Power plant ligne 13 
 Interface ligne 540 compléter la partie 'u' du menu, voir aussi updatepowerofpowerplants dans manager
-
-
-
-
-ROBIN : 
-
-soucis dans la logique de la ligne --> elle ne peut pas décider de ce que va produire la centrale (manager, ligne 327)
-									   il n'existe pas de methode set powerplant production 
