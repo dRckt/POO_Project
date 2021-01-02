@@ -527,8 +527,6 @@ namespace POO_Project
                     }
                 case "u":
                     {
-                        ///DAMIEN
-                        ///il faut compléter UpdatePowerOfPowerPlant() dans manager///
                         Reseau.UpdateConsumerClaiming();
                         Reseau.UpdatePowerOfPowerPlant();
                         p("-------------------------------");
