@@ -23,6 +23,7 @@ namespace POO_Project
         private bool IsDissipatorLine;
         private bool OutputConnectedToNode;
         private bool InputConnectedToNode;
+        private bool IsMarketLine;
 
         private PowerPlant myPowerPlant;
         private Consumer myConsumer;
@@ -39,6 +40,7 @@ namespace POO_Project
             IsDissipatorLine = false;
             OutputConnectedToNode = false;
             InputConnectedToNode = false;
+            IsMarketLine = false;
             PriorityLevel = 0;
         }
 
@@ -49,6 +51,7 @@ namespace POO_Project
         public Node GetInputNode { get { return inputNode; } }
         public Node GetOutputNode { get { return OutputNode; } }
 
+        public bool GetIsMarketLine { get { return IsMarketLine; } }
         public double GetPriorityLevel { get { return PriorityLevel; } }
         public bool GetInputConnectedToNode { get { return InputConnectedToNode; } }
         public bool GetOutputConnectedToNode { get { return OutputConnectedToNode; } }
@@ -74,6 +77,7 @@ namespace POO_Project
             this.OutputNode = OutputNode;
             OutputConnectedToNode = true;
         }
+        public void SetIsMarketLine(bool b) { IsMarketLine = b};
         public void SetIsConsumerLine(bool b) { IsConsumerLine = b; }
         public void SetIsDissipatorLine(bool b) { IsDissipatorLine = b; }
         public void SetIsPowerPlantLine(bool b) //, PriorityLevel)

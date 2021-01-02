@@ -10,6 +10,8 @@ namespace POO_Project
         protected List<PowerPlant> PowerPlantList;
         protected List<Consumer> ConsumerList;
 
+        protected List<Market> MarketList;
+
         protected List<Line> LineList;
         protected List<Node> NodeList;
 
@@ -216,9 +218,10 @@ namespace POO_Project
             NodeList.Add(NewConcentrationNode);
             LineList.Add(NewConcentrationNode.GetOutputLine);
 
-            //PowerPlant shop = new PurchaseAbroad("shop_" + name, market);
-            //NewConcentrationNode.AddInputLineToList(shop.GetOutPutLine);
-            //shop.GetOutPutLine.SetOutputNode(NewConcentrationNode);
+            PowerPlant shop = new PurchaseAbroad("shop_" + name, market);
+            NewConcentrationNode.AddInputLineToList(shop.GetOutPutLine);
+            shop.GetOutPutLine.SetOutputNode(NewConcentrationNode);
+            shop.GetOutPutLine.SetIsMarketLine(true);
 
             return NewConcentrationNode;
         }
@@ -256,6 +259,8 @@ namespace POO_Project
             // creation d'une nouvelle ligne
             Line ConnexionLine = new Line(ConnexionLineName);
             LineList.Add(ConnexionLine);
+
+            if (DistributionNode.GetHasMarket) { ConnexionLine.SetIsMarketLine(true); }//MarketList.Add(DistributionNode.GetMyMarket); }
 
             ConcentrationNode.AddInputLineToList(ConnexionLine);
             DistributionNode.AddOutputLineToList(ConnexionLine);
@@ -346,6 +351,11 @@ namespace POO_Project
                     //Dans tous les cas:
                     PowerPlant.GetOutPutLine.SetCurrentPower(PowerPlant.Production());
                 }
+            }
+
+            foreach (Market m in MarketList)
+            {
+                // DEFINIR PUISSANCE DE SORTIE DU MARKET = le power claimed sur sa ligne
             }
         }   
     }

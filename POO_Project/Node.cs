@@ -12,9 +12,15 @@ namespace POO_Project
         protected List<Line> OutputLineList;
         private string Name;
 
+        private Line MarketLine;
+        private bool HasMarket;
+        
         private PowerPlant myPowerPlant;
+        private Market myMarket;
 
         protected List<string> AlertMessageList;
+
+        
 
         
         public Node(string name)
@@ -23,6 +29,8 @@ namespace POO_Project
             InputLineList = new List<Line> { };
             OutputLineList = new List<Line> { };
             PriorityLevel = 0;
+            //HasMarket = false;
+
 
         }
 
@@ -42,7 +50,11 @@ namespace POO_Project
         }
 
 
+        public bool GetHasMarket { get { return HasMarket; } }
+        public void SetHasMarket(bool b) { HasMarket = b; }
 
+        public Market GetMyMarket { get { return myMarket; } }
+        public void SetMyMarket(Market m) { myMarket = m; }
 
         // recupere le nom du noeud
         public string GetName { get { return Name; } }
@@ -100,6 +112,7 @@ namespace POO_Project
         public void UpdatePowerClaimed()
         {
             double PowerClaimedOnNode = 0;
+            //bool HasMarket = false;
             foreach (Line line in OutputLineList)
             {
                 PowerClaimedOnNode += line.GetPowerClaimed;
@@ -107,11 +120,12 @@ namespace POO_Project
             Dictionary<Line, double> n_set = new Dictionary<Line, double> { };
             foreach (Line line in InputLineList)
             {
-                n_set.Add(line, line.GetDisponiblePower());
+                if (line.GetIsMarketLine) { MarketLine = line; }// HasMarket = true; }
+                else { n_set.Add(line, line.GetDisponiblePower()); }
             }
 
             bool maj = false;
-            for (double i = 0; i<8; i++)
+            for (double i = 0; i<10; i++)
             {
                 foreach (Line line in InputLineList)
                 {
@@ -142,7 +156,16 @@ namespace POO_Project
             if (maj) { Console.WriteLine("Mise à jour:: {0} à modifié la distribution de ses requêtes de puissance", GetName); }
             if (PowerClaimedOnNode != 0)
             {
-                Console.WriteLine("ALERTE :: Le noeud {0} ne reçoit pas assez de puissance pour satisfaire la demande. Il lui manque {1}W.", GetName, PowerClaimedOnNode);
+                if (GetHasMarket) 
+                {
+                    MarketLine.SetPowerClaimed(PowerClaimedOnNode);
+                    Console.WriteLine("ALERTE : Le noeud {0} à du acheter {1}W.", GetName, PowerClaimedOnNode);
+                }
+                else 
+                {
+                    Console.WriteLine("ALERTE :: Le noeud {0} ne reçoit pas assez de puissance pour satisfaire la demande. Il lui manque {1}W.", GetName, PowerClaimedOnNode);
+                }
+                
             }
         }
 
