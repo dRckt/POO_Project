@@ -77,7 +77,7 @@ namespace POO_Project
             this.OutputNode = OutputNode;
             OutputConnectedToNode = true;
         }
-        public void SetIsMarketLine(bool b) { IsMarketLine = b};
+        public void SetIsMarketLine(bool b) { IsMarketLine = b; }
         public void SetIsConsumerLine(bool b) { IsConsumerLine = b; }
         public void SetIsDissipatorLine(bool b) { IsDissipatorLine = b; }
         public void SetIsPowerPlantLine(bool b) //, PriorityLevel)

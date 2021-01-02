@@ -312,6 +312,8 @@ namespace POO_Project
         public override double Production()
         {
             //// renvoie la demande 
+            double il_faut_retourner_un_truc_sinon_erreur_de_build = 0;
+            return il_faut_retourner_un_truc_sinon_erreur_de_build;
         }
         public override double DisponibleProduction()
         {
