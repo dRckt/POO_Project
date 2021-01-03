@@ -294,6 +294,7 @@ namespace POO_Project
             if (DistributionNode.GetInputLine.GetIsPowerPlantLine)
             {
                 Line BatteryLine = DistributionNode.GetInputLine.GetMyPowerPlant.GetMyBattery.GetOutputLine;
+                BatteryLine.SetMyBattery(DistributionNode.GetInputLine.GetMyPowerPlant.GetMyBattery);
                 LineList.Add(BatteryLine);
 
                 ConcentrationNode.AddInputLineToList(BatteryLine);
@@ -343,8 +344,10 @@ namespace POO_Project
         {
             foreach (PowerPlant PowerPlant in PowerPlantList)
             {
-                PowerPlant.GetOutPutLine.SetCurrentPower(PowerPlant.UpdatePowerPlant());
+                PowerPlant.GetOutPutLine.SetCurrentPower(PowerPlant.UpdatePowerPlant()); // update power plant envoie le surlplus sur la batterie
                 Console.WriteLine(PowerPlant.GetAlertMessage);
+
+                PowerPlant.GetMyBattery.UpdateBattery();
             }
             
             foreach (PurchaseAbroad m in MarketList)
@@ -354,6 +357,8 @@ namespace POO_Project
             }
             
             foreach (Node n in NodeList) { n.UpdateCurrentPower(); }
+
+            
         }   
     
         

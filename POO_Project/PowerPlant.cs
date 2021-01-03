@@ -67,14 +67,14 @@ namespace POO_Project
         public bool GetIsWorking { get { return IsWorking; } }
         public string GetAlertMessage { get { return alertMessage; } }
         public double GetPowerProduction { get { return powerProduction; } }
-        public Battery GetMyBattery { get { return battery; } }
+        public Battery GetMyBattery { get { return battery;} }
 
         // CHANGEMENT PRIORITY LEVEL
         public void SetPriorityLevel(double PL) { MyPriorityLevel = PL; }
 
         // START - STOP 
         public virtual void Start() 
-        { 
+        {
             IsWorking = true;
             OutputLine.SetPriorityLevel(GetPriorityLevel);
             alertMessage = String.Format("La centrale {0} a été démarrée", GetName);

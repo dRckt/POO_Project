@@ -29,7 +29,7 @@ namespace POO_Project
             alert_message = "";
             outputLine = new Line(name + "_outputLine");
             outputLine.SetPriorityLevel(PLBattery);
-            outputLine.SetIsBatteryLine();
+            outputLine.SetIsBatteryLine(true);
         } 
         public double GetPLBattery { get { return PLBattery; } }
         public string GetAlert { get { return alert_message; } }
@@ -48,6 +48,12 @@ namespace POO_Project
             {
                 alert_message = String.Format("La batterie {0} ne peut pas satisfaire à la demande", name);
             }
-        }        
+        }  
+        
+        public void UpdateBattery()
+        {
+            outputLine.SetCurrentPower(outputLine.GetPowerClaimed);
+            DechargeBattery(outputLine.GetPowerClaimed);
+        }
     }
 }

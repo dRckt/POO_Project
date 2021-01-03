@@ -28,6 +28,7 @@ namespace POO_Project
 
         private PowerPlant myPowerPlant;
         private Consumer myConsumer;
+        private Battery myBattery;
 
         public Line(string name)
         {
@@ -84,6 +85,7 @@ namespace POO_Project
         public void SetIsConsumerLine(bool b) { IsConsumerLine = b; }
         public void SetIsDissipatorLine(bool b) { IsDissipatorLine = b; }
         public void SetIsBatteryLine(bool b) { IsBatteryLine = b; }
+        public void SetMyBattery(Battery myBattery) { this.myBattery = myBattery; }
         public void SetIsPowerPlantLine(bool b) //, PriorityLevel)
         { 
             IsPowerPlantLine = b;
@@ -150,6 +152,10 @@ namespace POO_Project
                 //return 1000;  POUR TEST
                 return GetMyPowerPlant.DisponibleProduction();
 
+            }
+            else if (GetIsBatteryLine)
+            {
+                return myBattery.charge;
             }
             else
             {
