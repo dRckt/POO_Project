@@ -28,7 +28,8 @@ namespace POO_Project
             base.AddOutputLineToList(DissipatorLine);
 
             Consumer dissipator = new Dissipator("dissipator_" + name);
-            dissipator.getInputLine = DissipatorLine;
+
+            dissipator.SetInputLine(DissipatorLine);
             InputPower = GetInputPower;
 
             MaxPower = InputLine.GetMaxPower;

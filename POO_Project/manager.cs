@@ -289,6 +289,16 @@ namespace POO_Project
             ConnexionLine.SetInputNode(DistributionNode);
             ConnexionLine.SetOutputNode(ConcentrationNode);
 
+            if (DistributionNode.GetInputLine.GetIsPowerPlantLine)
+            {
+                Line BatteryLine = DistributionNode.GetInputLine.GetMyPowerPlant.GetMyBattery.GetOutputLine;
+                LineList.Add(BatteryLine);
+
+                ConcentrationNode.AddInputLineToList(BatteryLine);
+
+                BatteryLine.SetOutputNode(ConcentrationNode);
+            }
+
         }
         
         // Connexion :: DistributionNode -> DistributuonNode
