@@ -41,10 +41,7 @@ namespace POO_Project
         public void SetInputLine(Line newInputLine) { inputLine = newInputLine; }
 
         // générer une demande de puissance
-        public virtual void UpdateClaimingPower()
-        {
-            SetMissingPower();
-        }
+        public virtual void UpdateClaimingPower() { SetMissingPower(); }
 
         public double GetClaimingPower { get { return claimingPower; } }
 

@@ -341,44 +341,8 @@ namespace POO_Project
         {
             foreach (PowerPlant PowerPlant in PowerPlantList)
             {
-                
-
-                Console.WriteLine(PowerPlant.GetAlertMessage);
-
-                /*
-                // si la demande est inférieure à ce que peux fournir la centrale
-                if (powerClaimed < PowerPlant.DisponibleProduction())
-                {
-                    // si la production actuelle de la centrale est differente de la demande
-                    if (PowerPlant.() != PowerPlant.GetOutPutLine.GetPowerClaimed)
-                    {
-                        //      set powerplant production = outputline.getClaimedPower
-                        //      alertMessage :: la centrale a modifié sa production
-
-
-                        ////  ON NE PEUT PAS DECIDER DE LA PRODUCTION DE LA CENTRALE 
-                        AlertMessageList.Add(String.Format("La centrale {0} envoie à présent {1}W de sa production dans le réseau.", PowerPlant.GetName, PowerPlant.Production()));
-                        AlertMessageList.Add(String.Format("ALERTE :: La centrale {0} est incapable de fournir {1}W, il lui manque {2}W pour satisfaire la demande.", PowerPlant.GetName, PowerPlant.GetOutPutLine.GetPowerClaimed, (PowerPlant.GetOutPutLine.GetPowerClaimed- PowerPlant.Production())));
-
-                        //Console.WriteLine("La centrale a modifié sa production");                        
-                    }
-
-                    // La production de la centrale est copiée sur la ligne de sortie
-                    PowerPlant.GetOutPutLine.SetCurrentPower(PowerPlant.Production());
-                }
-                else
-                {
-                    //if powerlant production != powerplant disponible production:
-                    //      set innjecter power claimed dans le réseau et Production()-powerclaimed dans la batterie, sauf si elle est pleine
-                    //      message d'alerte:: la centrale a mis a jour sa poduction
-                    //Dans tous les cas:
-                    PowerPlant.GetOutPutLine.SetCurrentPower(PowerPlant.Production());
-                    AlertMessageList.Add(String.Format("La centrale {0} envoie à présent {1}W de sa production dans le réseau.", PowerPlant.GetName, PowerPlant.GetOutPutLine.GetPowerClaimed));
-                    //D :: Y a un stuut ici, ca pas tout encoyer
-                }
-                */
                 PowerPlant.GetOutPutLine.SetCurrentPower(PowerPlant.UpdatePowerPlant());
-
+                Console.WriteLine(PowerPlant.GetAlertMessage);
             }
             
             foreach (PurchaseAbroad m in MarketList)
