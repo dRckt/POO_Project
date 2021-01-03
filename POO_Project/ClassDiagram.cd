@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="POO_Project.Battery" Collapsed="true">
+    <Position X="16" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAhBAAAAABAQAAAAIAAAAAQAAEABAIABACAAgCBAA=</HashCode>
+      <FileName>Battery.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.Clock" Collapsed="true">
+    <Position X="17.75" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAACAAgAAAA=</HashCode>
+      <FileName>Clock.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.ConcentrationNode" Collapsed="true">
+    <Position X="9.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAhAAAAAIIAAAAAABAAAAAAAAAAAIAAABAAIAAAAA=</HashCode>
+      <FileName>concentrationNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.Consumer" Collapsed="true">
+    <Position X="6" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgABAAAABAEAAAAAAAEAAiCAAAAUAAAAAAAACCsIBQI=</HashCode>
+      <FileName>Consumer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.City" Collapsed="true">
+    <Position X="2.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAEAAAAAAAAAAAAAAAQAAAAAAAA=</HashCode>
+      <FileName>Consumer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.Entreprise" Collapsed="true">
+    <Position X="2.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAABAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Consumer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.SaleAbroad" Collapsed="true">
+    <Position X="2.75" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAEAAAAABAAEBAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Consumer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.Dissipator" Collapsed="true">
+    <Position X="2.75" Y="9.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Consumer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.DistributionNode" Collapsed="true">
+    <Position X="12.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAABAAAAAAAAAAAIABAAAAAAAIAAAIIgBAAAAAAABI=</HashCode>
+      <FileName>distributionNode.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.Interface" Collapsed="true">
+    <Position X="19.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAAAAAgACCAAAAAQACAAAAgoEAIgAAAgEIAAKAAgoA=</HashCode>
+      <FileName>Interface.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.Line">
+    <Position X="11" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>aiCIBgQCIQAYBMEkBAoEIijAAAAEAIAACCYEQkpiBII=</HashCode>
+      <FileName>Line.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.Manager" Collapsed="true">
+    <Position X="16" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BgHICADhCSAAAIBFUQIAAAAAAiIgQABACRBCgQAAAAA=</HashCode>
+      <FileName>manager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.Market" Collapsed="true">
+    <Position X="17.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAARAAAEBAAAAAAABAAAAAAAAAAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Market.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.Node" Collapsed="true">
+    <Position X="11" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIAAAAAAIAQQIAAEjQhAMAQABApBAAYAABBAQCACBAI=</HashCode>
+      <FileName>Node.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.PowerPlant" Collapsed="true">
+    <Position X="6.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IgCFAgIAACAAgACAAAkQgBCAgAwMgAIAIIIBQAAoBJA=</HashCode>
+      <FileName>PowerPlant.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.GasPowerPlant" Collapsed="true">
+    <Position X="2.75" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAAABAAAAABAAAAAAgAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PowerPlant.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.NuclearPowerPlant" Collapsed="true">
+    <Position X="2.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAACAAAAAFkAQAABAAAAAAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>PowerPlant.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.WindFarm" Collapsed="true">
+    <Position X="2.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAEAAAAAAAAQAAAAAoAAAAAAAAAAAAAAAIAAAgAAA=</HashCode>
+      <FileName>PowerPlant.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.SolarPowerPlant" Collapsed="true">
+    <Position X="2.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAAAAQAAAAAAAAAACAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>PowerPlant.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.PurchaseAbroad" Collapsed="true">
+    <Position X="2.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAABAAAAABAAAAAAAAAAAAAAAAAgAAA=</HashCode>
+      <FileName>PowerPlant.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.Program" Collapsed="true">
+    <Position X="19.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.RESEAUX_1" Collapsed="true">
+    <Position X="21.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAhAAACICAAAIBAAAAAAAgACAAIAAAAAECAAgCAAk=</HashCode>
+      <FileName>RESEAUX_1.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.Weather" Collapsed="true">
+    <Position X="16" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQgABgAAAAQAAAAQAAAAAAACAAAgAAAAARCAAAAAAA=</HashCode>
+      <FileName>Weather.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="POO_Project.WeatherManager" Collapsed="true">
+    <Position X="17.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAIAAAAAAAAAAAAgAAAAAACAAAAAAAA=</HashCode>
+      <FileName>Weather.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
