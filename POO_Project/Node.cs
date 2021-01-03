@@ -124,6 +124,7 @@ namespace POO_Project
             {
                 foreach (Line line in InputLineList)
                 {
+                    if (PowerClaimedOnNode < 0) { PowerClaimedOnNode = 0; }
                     if (line.GetIsMarketLine){}
                     else
                     {
