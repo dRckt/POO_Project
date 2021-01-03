@@ -122,27 +122,22 @@ namespace POO_Project
                 currentPower = newCurrentPower;
             }
         }
-        /////////////////////////////////////////////////////
-        public void SetPowerClaimed(double newPowerClaimed)  //ne doit etre appellé que depuis les lignes qui rentrent dans consumer
+        public void SetPowerClaimed(double newPowerClaimed) 
         {
             if (GetIsConsumerLine)
             {
                 if (GetPowerClaimed != newPowerClaimed)
                 {
-                    Console.WriteLine("Mise à jour de la demande de {0}:: Ancienne demande: {1} ; Nouvelle demande: {2}", GetMyConsumer.GetName, GetPowerClaimed, newPowerClaimed);
+                    alertMessage = (String.Format("Mise à jour de la demande de {0}:: Ancienne demande: {1} ; Nouvelle demande: {2}", GetMyConsumer.GetName, GetPowerClaimed, newPowerClaimed));
                 }
             }
 
             PowerClaimed = newPowerClaimed;
-            if (GetIsPowerPlantLine)
-            {
-                Console.WriteLine(""); //pass
-            }
+            if (GetIsPowerPlantLine) {/*pass*/}
             else
             {
-                GetInputNode.UpdatePowerClaimed();  ///////////////////
+                GetInputNode.UpdatePowerClaimed();
             }   
-            
         }     
         public double GetDisponiblePower()
         {
@@ -161,35 +156,17 @@ namespace POO_Project
                 return GetInputNode.GetDisponiblePower(this);
             }            
         }
-
-        /////////////////////////////////////////////////////
-      
-        public void UpdateCurrentPower(double newCurrentPower)  //ne doit etre appellée que pour les lignes qui sortent de central
+        public void UpdateCurrentPower(double newCurrentPower) 
         {
-            if (GetDisponiblePower() > newCurrentPower)
-            {
-                SetCurrentPower(newCurrentPower);
-            }
+            if (GetDisponiblePower() > newCurrentPower){SetCurrentPower(newCurrentPower);}
             else
             {
                 SetCurrentPower(GetDisponiblePower());
-                ////MESSAGE D'ALERTE :: Il manque du courant (newCurrentPower-GetDisponiblePower()) sur une des lignes
+                alertMessage = String.Format("La ligne {0} requiert {1}W supplémentaire", GetName, (newCurrentPower - GetDisponiblePower()));
             }
 
-            if (GetIsConsumerLine)
-            {
-                ///MESSAGE DE NOTIF? changement de puissance d'entrée pour le consumer
-            }
-            else
-            {
-                GetOutputNode.UpdateCurrentPower();
-            }
-            
-
+            if (GetIsConsumerLine){/*pass*/}
+            else{GetOutputNode.UpdateCurrentPower();}
         }
-
-        /////////////////////////////////////////////////////
-
-
     }
 }

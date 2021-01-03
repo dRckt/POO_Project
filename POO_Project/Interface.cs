@@ -564,7 +564,7 @@ namespace POO_Project
                         p("Le réseau a été mis à jour.");
                         p("Passez par l'onglet 't' du menu pour voir les messages de notification du réseau.");
 
-                        exit();
+                        Menu();
                         break;
                     }
                 case "a":
