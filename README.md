@@ -6,6 +6,7 @@ Dans ce projet vous trouverez un ensemble de classes ainsi qu'une interface perm
 Au lancement de celui-ci, l'interface vous proposera de créer un réseau de toutes pieces ou de lancer une démonstration illustrant les différents éléments (centrales, consommateurs, lignes, météo, ...) qu'il est possible d'utiliser. Vous pouvez tester/remodeler ce réseau a votre guise.
 
 
+ETAPES DE CREATION D'UN RESEAU:
 
   Créez une nouvelle centrale:
   
