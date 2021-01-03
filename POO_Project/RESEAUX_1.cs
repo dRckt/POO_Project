@@ -63,6 +63,10 @@ namespace POO_Project
             outsider.ConnectDistributionToConcentrationNode("LINE_C2.1", parc_eolien_os.GetOutputNode, midC2);
             outsider.ConnectDistributionToConcentrationNode("LINE_C2.2", esso.GetOutputNode, midC2);
             outsider.ConnectDistributionToConcentrationNode("LINE_C2.3", centrale_solaire_bx.GetOutputNode, midC2);
+                ///magasins
+            outsider.ConnectDistributionToConcentrationNode("LINE_SHOP1", shop1.GetOutputNode, midC1);
+            outsider.ConnectDistributionToConcentrationNode("LINE_SHOP1", shop1.GetOutputNode, midC2);
+
             //liaison des noeuds mid aux consumers
             outsider.ConnectDistributionToConcentrationNode("LINE_D1.1", midD1, bx.GetInputNode);
             outsider.ConnectDistributionToConcentrationNode("LINE_D1.2", midD1, os.GetInputNode);
@@ -73,6 +77,9 @@ namespace POO_Project
             outsider.ConnectDistributionToConcentrationNode("LINE_D2.2", midD2, bm.GetInputNode);
             outsider.ConnectDistributionToConcentrationNode("LINE_D2.3", midD2, vw.GetInputNode);
             outsider.ConnectDistributionToConcentrationNode("LINE_D2.4", midD2, mc.GetInputNode);
+
+            
+
         }
 
         public Manager GetManagerInstance(){ return outsider; }
