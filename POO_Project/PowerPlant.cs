@@ -198,11 +198,13 @@ namespace POO_Project
         { 
             productionState = 2;
             IsWorking = true;
+            alertMessage = String.Format("La centrale {0} a été démarrée", GetName);
             OutputLine.SetPriorityLevel(GetPriorityLevel);
         }
         public override void Stop()
         {
             productionState = 3;
+            alertMessage = String.Format("La centrale {0} a été stoppée", GetName);
             OutputLine.SetPriorityLevel(7);
         }
         public override double DisponibleProduction()
