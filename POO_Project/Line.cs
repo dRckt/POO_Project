@@ -129,7 +129,7 @@ namespace POO_Project
             {
                 if (GetPowerClaimed != newPowerClaimed)
                 {
-                    Console.WriteLine("Mise à jour de la demande de {0}:: Ancienne demande: {1} ; Nouvelle demande: {2}", GetMyConsumer.GetName, GetPowerClaimed, newPowerClaimed);
+                    alertMessage = (String.Format("Mise à jour de la demande de {0}:: Ancienne demande: {1} ; Nouvelle demande: {2}", GetMyConsumer.GetName, GetPowerClaimed, newPowerClaimed));
                 }
             }
 
