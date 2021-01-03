@@ -24,6 +24,7 @@ namespace POO_Project
         private bool OutputConnectedToNode;
         private bool InputConnectedToNode;
         private bool IsMarketLine;
+        private bool IsBatteryLine;
 
         private PowerPlant myPowerPlant;
         private Consumer myConsumer;
@@ -41,6 +42,7 @@ namespace POO_Project
             OutputConnectedToNode = false;
             InputConnectedToNode = false;
             IsMarketLine = false;
+            IsBatteryLine = false;
             PriorityLevel = 0;
         }
 
@@ -61,6 +63,7 @@ namespace POO_Project
 
         public bool GetIsConsumerLine { get { return IsConsumerLine; } }
         public bool GetIsDissipatorLine { get { return IsDissipatorLine; } }
+        public bool GetIsBatteryLine { get { return IsBatteryLine; } }
         public bool GetIsPowerPlantLine { get { return IsPowerPlantLine; } }
         public PowerPlant GetMyPowerPlant { get { return myPowerPlant; } }
         public Consumer GetMyConsumer { get { return myConsumer; } }
@@ -80,6 +83,7 @@ namespace POO_Project
         public void SetIsMarketLine(bool b) { IsMarketLine = b; }
         public void SetIsConsumerLine(bool b) { IsConsumerLine = b; }
         public void SetIsDissipatorLine(bool b) { IsDissipatorLine = b; }
+        public void SetIsBatteryLine(bool b) { IsBatteryLine = b; }
         public void SetIsPowerPlantLine(bool b) //, PriorityLevel)
         { 
             IsPowerPlantLine = b;
