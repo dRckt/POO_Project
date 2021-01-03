@@ -511,11 +511,16 @@ namespace POO_Project
         }
         public void ShowNotificationMessage()
         {
-            foreach(string msg in Reseau.GetAlertMessageList())
+            if(Reseau.GetAlertMessageList().Count == 0) { Console.WriteLine("Aucune notification."); }
+            else
             {
-                Console.WriteLine(msg);
+                foreach(string msg in Reseau.GetAlertMessageList())
+                {
+                    Console.WriteLine(msg);
+                }
+                Reseau.ResetAlertMessageList();
             }
-            Reseau.ResetAlertMessageList();
+            
             exit();
         }
         public void Menu()

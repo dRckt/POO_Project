@@ -370,7 +370,9 @@ namespace POO_Project
                 n.ResetAlertMessageList();
                 n.UpdateCurrentPower();
                 foreach (string msg in n.GetAlertMessageList()) { AlertMessageList.Add(msg); }
-            }            
+            }          
+            
+            foreach (Line l in LineList) { AlertMessageList.Add(l.GetAlertMessage); }
         }            
     }
 }

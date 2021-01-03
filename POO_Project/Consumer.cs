@@ -50,6 +50,7 @@ namespace POO_Project
             return claimingPower;
         }
 
+        /*
         public void UpdateConsomation()
         {
             inputLinePower = inputLine.GetCurrentPower;
@@ -79,6 +80,7 @@ namespace POO_Project
                 inputLine.SetCurrentPower(0);
             }
         }
+        */
     }
 
     public class City : Consumer
