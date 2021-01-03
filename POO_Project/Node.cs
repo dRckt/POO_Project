@@ -129,27 +129,32 @@ namespace POO_Project
             {
                 foreach (Line line in InputLineList)
                 {
-                    if (line.GetPriorityLevel == i)
+                    if (line.GetIsMarketLine){}
+                    else
                     {
-                        if (PowerClaimedOnNode > n_set[line])
+                        if (line.GetPriorityLevel == i)
                         {
-                            if (line.GetPowerClaimed != n_set[line])
+                            if (PowerClaimedOnNode > n_set[line])
                             {
-                                maj = true;
-                                line.SetPowerClaimed(n_set[line]);
+                                if (line.GetPowerClaimed != n_set[line])
+                                {
+                                    maj = true;
+                                    line.SetPowerClaimed(n_set[line]);
+                                }
+                                PowerClaimedOnNode -= n_set[line];
                             }
-                            PowerClaimedOnNode -= n_set[line];
-                        }
-                        else
-                        {
-                            if (line.GetPowerClaimed != PowerClaimedOnNode)
+                            else
                             {
-                                maj = true;
-                                line.SetPowerClaimed(PowerClaimedOnNode);
+                                if (line.GetPowerClaimed != PowerClaimedOnNode)
+                                {
+                                    maj = true;
+                                    line.SetPowerClaimed(PowerClaimedOnNode);
+                                }
+                                PowerClaimedOnNode = 0;
                             }
-                            PowerClaimedOnNode = 0;
                         }
                     }
+                    
                     
                 }
             }

@@ -331,6 +331,7 @@ namespace POO_Project
         }
         public void BackToShowManager()
         {
+            Console.WriteLine("");
             Console.WriteLine("Appuyez sur b pour revenir en arrière ou sur enter pour revenir au menu.");
             string ans = Console.ReadLine();
             switch (ans)
@@ -355,6 +356,7 @@ namespace POO_Project
         }
         public void exit()
         {
+            Console.WriteLine("");
             Console.WriteLine("Appuyez sur enter pour revenir au menu.");
             string enter = Console.ReadLine();
             if (enter == "")
@@ -550,7 +552,7 @@ namespace POO_Project
                         p("-------------------------------");
                         p("Le réseau a été mis à jour.");
                         p("Entrez une action ou appuyez sur enter pour revenir au menu:");
-                        p("   p - Afficher les notifications de modification de production des centrales.");
+                        //p("   p - Afficher les notifications de modification de production des centrales.");
                         p("  INTERFACE IS BUILDING");
 
                         exit();

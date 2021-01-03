@@ -22,7 +22,7 @@ namespace POO_Project
             OutputPower = GetOutputPower(); //voir commentaire dans header
 
             MaxPower = OutputLine.GetMaxPower; 
-            Console.WriteLine(String.Format("Une noeud de concentration nommé {0} a été créé.", name));
+            //Console.WriteLine(String.Format("Une noeud de concentration nommé {0} a été créé.", name));
             OutputLine.SetInputNode(this); //Ce noeud est le noeud d'entrée de la ligne de sortie
 
         }
