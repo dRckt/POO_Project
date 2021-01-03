@@ -31,7 +31,7 @@ namespace POO_Project
             InputPower = GetInputPower;
 
             MaxPower = InputLine.GetMaxPower;
-            Console.WriteLine(String.Format("Un noeud de distribution nommé {0} a été créé", name));
+            //Console.WriteLine(String.Format("Un noeud de distribution nommé {0} a été créé", name));
             InputLine.SetOutputNode(this);
         }
 

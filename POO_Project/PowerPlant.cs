@@ -102,7 +102,7 @@ namespace POO_Project
         public double AskDisponiblePower() { return disponibleProduction; }
         public string Resume()
         {
-            string resume = string.Format("{0} : Production = {1} W, cout = {2} $, emission = {3} grammes", name, Production(), Cost(), C02());
+            string resume = string.Format("Production = {0} W, Demande = {1}, cout = {2} $, emission = {3} grammes", Production(), OutputLine.GetPowerClaimed, Cost(), C02());
             return resume;
         }      
     }
@@ -312,8 +312,7 @@ namespace POO_Project
         public override double Production()
         {
             //// renvoie la demande 
-            double il_faut_retourner_un_truc_sinon_erreur_de_build = 0;
-            return il_faut_retourner_un_truc_sinon_erreur_de_build;
+            return OutputLine.GetPowerClaimed;
         }
         public override double DisponibleProduction()
         {
