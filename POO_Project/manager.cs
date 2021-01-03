@@ -10,7 +10,7 @@ namespace POO_Project
         protected List<PowerPlant> PowerPlantList;
         protected List<Consumer> ConsumerList;
 
-        protected List<Market> MarketList;
+        protected List<PurchaseAbroad> MarketList;
 
         protected List<Line> LineList;
         protected List<Node> NodeList;
@@ -133,6 +133,24 @@ namespace POO_Project
             return NewPowerPlant;
         }
 
+        public PowerPlant CreateNewPurchasedAbroad(string name, Market market)
+        {
+            foreach (PowerPlant pp in PowerPlantList)
+            {
+                if (pp.GetName == name)
+                {
+                    Console.WriteLine("La centrale nommée {0} existe déjà. Entrez un nouveau nom :", name);
+                    string newName = Console.ReadLine();
+                    return CreateNewPurchasedAbroad(newName, market);
+                }
+            }
+            PowerPlant NewPowerPlant = new PurchaseAbroad(name, market);
+            PowerPlantList.Add(NewPowerPlant);
+            NodeList.Add(NewPowerPlant.GetOutputNode);
+            LineList.Add(NewPowerPlant.GetOutPutLine);
+            MarketList.Add((PurchaseAbroad)NewPowerPlant);
+            return NewPowerPlant;
+        }
         ///CREATION DE NOUVEAU CONSUMER
         public Consumer CreateNewConsumer(string name)
         {
@@ -327,39 +345,16 @@ namespace POO_Project
 
                 Console.WriteLine(PowerPlant.GetAlertMessage);
 
-                // si la demande est inférieure à ce que peux fournir la centrale
-                if (powerClaimed < PowerPlant.DisponibleProduction())
-                {
-                    // si la production actuelle de la centrale est differente de la demande
-                    if (PowerPlant.Production() != PowerPlant.GetOutPutLine.GetPowerClaimed)
-                    {
-                        //      set powerplant production = outputline.getClaimedPower
-                        //      alertMessage :: la centrale a modifié sa production
+                PowerPlant.GetOutPutLine.SetCurrentPower(PowerPlant.UpdatePowerPlant());
 
-
-                        ////  ON NE PEUT PAS DECIDER DE LA PRODUCTION DE LA CENTRALE 
-
-                        Console.WriteLine("La centrale a modifié sa production");                        
-                    }
-
-                    // La production de la centrale est copiée sur la ligne de sortie
-                    PowerPlant.GetOutPutLine.SetCurrentPower(PowerPlant.Production());
-                }
-                else
-                {
-                    //if powerlant production != powerplant disponible production:
-                    //      set powerplant production = powerplant.disponibleProduction();
-                    //      message d'alerte:: la centrale a mis a jour sa poduction
-                    //Dans tous les cas:
-                    PowerPlant.GetOutPutLine.SetCurrentPower(PowerPlant.Production());
-                }
             }
-            /*
-            foreach (Market m in MarketList)
+            
+            foreach (PurchaseAbroad m in MarketList)
             {
                 // DEFINIR PUISSANCE DE SORTIE DU MARKET = le power claimed sur sa ligne
+                m.GetOutPutLine.SetCurrentPower(m.UpdatePowerPlant());
             }
-            */
+            
             foreach (Node n in NodeList) { n.UpdateCurrentPower(); }
         }   
     

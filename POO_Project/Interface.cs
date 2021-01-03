@@ -4,7 +4,6 @@ using System.Text;
 
 namespace POO_Project
 {
-
     public class Interface
     {
         double centrale_count;
@@ -26,7 +25,6 @@ namespace POO_Project
         {
             Console.WriteLine(value);
         }
-
         private double ChooseNbr(string obj) 
         {
             Console.WriteLine(String.Format("Number of {0} :", obj));
@@ -93,7 +91,6 @@ namespace POO_Project
                 return ChooseWeather(weather_manager, clock);
             }
         }
-
         public void CreateNewPowerPlant(WeatherManager weather_manager, Clock clock, Market market)
         {
             Console.WriteLine("------------------------------CREATION CENTRALE------------------------------");
@@ -102,6 +99,7 @@ namespace POO_Project
             Console.WriteLine("    n - nuclear Power Plant");
             Console.WriteLine("    w - Wind Farm");
             Console.WriteLine("    s - Solar Station");
+            Console.WriteLine("    p - Purchase Abroad");
 
             string type_central = Console.ReadLine();
             PowerPlant NewPowerPlant;
@@ -135,6 +133,14 @@ namespace POO_Project
                 case "s":
                     {
                         NewPowerPlant = Reseau.CreateNewSolarPowerPlant(ChooseName("solar power plant"), ChooseWeather(weather_manager, clock));
+                        Console.WriteLine("-----------------------------------------------------------");
+                        Console.WriteLine("La centrale {0} a été ajoutée. ", NewPowerPlant.GetName);
+                        Console.WriteLine("Veuillez connecter son noeud {0} au réseau via l'onglet 'w' du menu.", NewPowerPlant.GetOutputNode.GetName);
+                        break;
+                    }
+                case "p":
+                    {
+                        NewPowerPlant = Reseau.CreateNewPurchasedAbroad(ChooseName("purchased abroad"), market);
                         Console.WriteLine("-----------------------------------------------------------");
                         Console.WriteLine("La centrale {0} a été ajoutée. ", NewPowerPlant.GetName);
                         Console.WriteLine("Veuillez connecter son noeud {0} au réseau via l'onglet 'w' du menu.", NewPowerPlant.GetOutputNode.GetName);
@@ -253,7 +259,7 @@ namespace POO_Project
                         foreach (PowerPlant pp in Reseau.GetPowerPlantList)
                         {
                             Console.WriteLine("Centrale : {0}", pp.GetName);
-                            Console.WriteLine("          Production: {0}   ;   Demande: {1}", pp.Production(), pp.GetOutPutLine.GetPowerClaimed);
+                            Console.WriteLine("          Production: {0}   ;   Demande: {1}", pp.GetPowerProduction, pp.GetOutPutLine.GetPowerClaimed);
                             
                         }
                         BackToShowManager();
@@ -574,8 +580,6 @@ namespace POO_Project
                     }
             }         
         }
-
-
         public void InvalideInput()
         {
             p("Input invalide");

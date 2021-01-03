@@ -81,10 +81,10 @@ namespace POO_Project
         public void showTest()
         {
             Console.WriteLine("CENTRALES ::: (claimedPowerActuellement sur ligne de sortie)");
-            Console.WriteLine("Centrale :: {0}  ;  Production : {1}  ;  ClaimedPower : {2}", doel.GetName, doel.Production(), doel.GetOutPutLine.GetPowerClaimed);
-            Console.WriteLine("Centrale :: {0}  ;  Production : {1}  ;  ClaimedPower : {2}", parc_eolien_os.GetName, parc_eolien_os.Production(), parc_eolien_os.GetOutPutLine.GetPowerClaimed);
-            Console.WriteLine("Centrale :: {0}  ;  Production : {1}  ;  ClaimedPower : {2}", esso.GetName, esso.Production(), esso.GetOutPutLine.GetPowerClaimed);
-            Console.WriteLine("Centrale :: {0}  ;  Production : {1}  ;  ClaimedPower : {2}", centrale_solaire_bx.GetName, centrale_solaire_bx.Production(), centrale_solaire_bx.GetOutPutLine.GetPowerClaimed);
+            Console.WriteLine("Centrale :: {0}  ;  Production : {1}  ;  ClaimedPower : {2}", doel.GetName, doel.GetPowerProduction, doel.GetOutPutLine.GetPowerClaimed);
+            Console.WriteLine("Centrale :: {0}  ;  Production : {1}  ;  ClaimedPower : {2}", parc_eolien_os.GetName, parc_eolien_os.GetPowerProduction, parc_eolien_os.GetOutPutLine.GetPowerClaimed);
+            Console.WriteLine("Centrale :: {0}  ;  Production : {1}  ;  ClaimedPower : {2}", esso.GetName, esso.GetPowerProduction, esso.GetOutPutLine.GetPowerClaimed);
+            Console.WriteLine("Centrale :: {0}  ;  Production : {1}  ;  ClaimedPower : {2}", centrale_solaire_bx.GetName, centrale_solaire_bx.GetPowerProduction, centrale_solaire_bx.GetOutPutLine.GetPowerClaimed);
             Console.WriteLine("Sum of power claimed : {0}", (doel.GetOutPutLine.GetPowerClaimed + parc_eolien_os.GetOutPutLine.GetPowerClaimed + esso.GetOutPutLine.GetPowerClaimed + centrale_solaire_bx.GetOutPutLine.GetPowerClaimed));
 
             Console.WriteLine("CONSUMERS :::  (currentPower et claimedPower actuellement sur ligne d'entrée");

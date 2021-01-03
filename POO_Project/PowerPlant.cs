@@ -11,12 +11,12 @@ namespace POO_Project
         //          Logiquement PLsolarpowerplant = 1 et PLgaspowerplant est plus grand vu qu'il pollue
 
         //D: stp détermine qui vaut combien dans les variables ci dessous:  (minimum= 0  ; maximum=6);
-        
-        public double PLGasPowerPlant = 1;          // 2
-        public double PLNuclearPowerPlant = 1;      // 1
-        public double PLWindFarm = 1;               // 3
-        public double PLSolarPowerPlant = 1;        // 4
-        public double PLPurchaseAbroad = 7;         // 5
+       
+        public double PLGasPowerPlant = 1;          
+        public double PLNuclearPowerPlant = 0;      
+        public double PLWindFarm = 2;               
+        public double PLSolarPowerPlant = 3;      
+        public double PLPurchaseAbroad = 7;         
         public double PLNeutre = 4;                 
 
         protected double MyPriorityLevel;
@@ -32,11 +32,15 @@ namespace POO_Project
         protected double CO2emission;
         protected double powerProduction;
         protected double disponibleProduction;
+        protected double claimedPower;
 
         protected bool constantProduction;
         protected bool adjustableProduction;
 
         protected DistributionNode OutPutNode;
+
+        // STOCKAGE 
+        protected Battery battery;
      
 
         public PowerPlant(string Name)
@@ -51,6 +55,8 @@ namespace POO_Project
             OutputLine.SetMyPowerPlant(this);
             OutputLine.SetName(Name + "_line");
             OutputLine.SetPriorityLevel(4);
+
+            battery = new Battery(Name + "_battery", this);
         }
 
         // PROPRIETES GET
@@ -60,6 +66,7 @@ namespace POO_Project
         public double GetPriorityLevel { get { return MyPriorityLevel; } }
         public bool GetIsWorking { get { return IsWorking; } }
         public string GetAlertMessage { get { return alertMessage; } }
+        public double GetPowerProduction { get { return powerProduction; } }
 
         // CHANGEMENT PRIORITY LEVEL
         public void SetPriorityLevel(double PL) { MyPriorityLevel = PL; }
@@ -77,34 +84,51 @@ namespace POO_Project
             OutputLine.SetPriorityLevel(7);
             alertMessage = String.Format("La centrale {0} a été stoppée", GetName);
         }         
-        
-        // RENVOIE LA PRODUCTION ACTUELLE
-        public virtual double Production()
-        {
-            if (IsWorking)
-            {
-                powerProduction = DisponibleProduction();
-            }
-            else
-            {
-                powerProduction = 0;
-            }
-            return powerProduction;
-        }
 
         // RENVOIE LA PRODUCTION DISPONNIBLE
         public virtual double DisponibleProduction() { return 0; } // Fonction toujours overridée  --> passage en abstract     
-
+        public double UpdateClaimedPower() { return OutputLine.GetPowerClaimed; }
+        
         //public abstract double DisponibleProduction();           // Passage de la fonction en abstract, pour ca il faut que la classe PowerPlant soit abstract, mais erreur dans le manager
 
         public virtual double Cost() { return productionCost; }
         public virtual double C02() { return CO2emission; }
         public double AskDisponiblePower() { return disponibleProduction; }
-        public string Resume()
+         
+        
+
+        public virtual double UpdatePowerPlant()
         {
-            string resume = string.Format("{0} : Production = {1} W, cout = {2} $, emission = {3} grammes", name, Production(), Cost(), C02());
-            return resume;
-        }      
+            if (IsWorking == true)
+            {
+                powerProduction = DisponibleProduction();
+                claimedPower = UpdateClaimedPower();
+
+                double surplus = powerProduction - claimedPower;
+
+                if (surplus > 0)
+                {
+                    if (battery.charge + surplus < battery.GetMaximumCharge)
+                    {
+                        battery.charge += surplus;
+                        return claimedPower;
+                    }
+                    else
+                    {
+                        return powerProduction;
+                    }
+                }
+                else
+                {
+                    return powerProduction;
+                }
+            }
+            else
+            {
+                powerProduction = 0;
+                return powerProduction;
+            }            
+        }
     }
 
     // Classes filles héritées
@@ -171,19 +195,20 @@ namespace POO_Project
         }
         public override double DisponibleProduction()
         {
+            double dispopowerProduction=0;
             switch (productionState)
             {
                 // production stable
                 case 0:
                     {
-                        powerProduction = productionGoal;
+                        dispopowerProduction = productionGoal;
                         break;
                     }
                 // production nulle
                 case 1:
                     {
                         IsWorking = false;
-                        powerProduction = 0;
+                        dispopowerProduction = 0;
                         break;
                     }
                 // mise en route
@@ -191,7 +216,7 @@ namespace POO_Project
                     {
                         if (count_marche <= 10)
                         {
-                            powerProduction = productionGoal * (count_marche / 10);
+                            dispopowerProduction = productionGoal * (count_marche / 10);
                             count_marche ++;
                         }
                         else
@@ -206,7 +231,7 @@ namespace POO_Project
                     {
                         if (count_arret > 0 )
                         {
-                            powerProduction = productionGoal * (count_arret / 10);
+                            dispopowerProduction = productionGoal * (count_arret / 10);
                             count_arret --;
                         }
                         else
@@ -217,7 +242,7 @@ namespace POO_Project
                         break;
                     }
             }
-            return powerProduction;
+            return dispopowerProduction;
         }
         public override double Cost()
         {
@@ -250,24 +275,42 @@ namespace POO_Project
             return powerProduction;
         }
 
-        public override double Production()
+        public override double UpdatePowerPlant()
         {
-            if (IsWorking)
+            if (IsWorking == true)
             {
-                if (reduceProduction)
+                powerProduction = DisponibleProduction();
+                claimedPower = UpdateClaimedPower();
+
+                if (reduceProduction == true)
                 {
-                    powerProduction = DisponibleProduction() / 2;
+                    powerProduction /= 2;
+                }
+ 
+                double surplus = powerProduction - claimedPower;
+
+                if (surplus > 0)
+                {
+                    if (battery.charge + surplus < battery.GetMaximumCharge)
+                    {
+                        battery.charge += surplus;
+                        return claimedPower;
+                    }
+                    else
+                    {
+                        return powerProduction;
+                    }
                 }
                 else
                 {
-                    powerProduction = DisponibleProduction();
-                }   
+                    return powerProduction;
+                }
             }
             else
             {
                 powerProduction = 0;
+                return powerProduction;
             }
-            return powerProduction;
         }
 
         public bool ReduceProduction { set { reduceProduction = true; } }
@@ -299,25 +342,22 @@ namespace POO_Project
 
     public class PurchaseAbroad : PowerPlant
     {
-        double purchasedPower;
         Market market;
         
         public PurchaseAbroad(string name, Market market) : base(name)
         {
             SetPriorityLevel(PLGasPowerPlant);
             OutputLine.SetPriorityLevel(GetPriorityLevel);
+            OutputLine.SetIsMarketLine(true);
+            OutputLine.GetInputNode.SetHasMarket(true);
+            OutputLine.GetInputNode.SetMyMarket(this); 
             this.market = market;
             Start();
         }
-        public override double Production()
+        public override double UpdatePowerPlant()
         {
-            //// renvoie la demande 
-            double il_faut_retourner_un_truc_sinon_erreur_de_build = 0;
-            return il_faut_retourner_un_truc_sinon_erreur_de_build;
-        }
-        public override double DisponibleProduction()
-        {
-            powerProduction = purchasedPower;
+            claimedPower = UpdateClaimedPower();
+            powerProduction = claimedPower;
             return powerProduction;
         }
         public override double Cost()

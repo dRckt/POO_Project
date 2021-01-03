@@ -16,7 +16,7 @@ namespace POO_Project
         private bool HasMarket;
         
         private PowerPlant myPowerPlant;
-        private Market myMarket;
+        private PurchaseAbroad myMarket;
 
         protected List<string> AlertMessageList;
 
@@ -53,8 +53,8 @@ namespace POO_Project
         public bool GetHasMarket { get { return HasMarket; } }
         public void SetHasMarket(bool b) { HasMarket = b; }
 
-        public Market GetMyMarket { get { return myMarket; } }
-        public void SetMyMarket(Market m) { myMarket = m; }
+        public PurchaseAbroad GetMyMarket { get { return myMarket; } }
+        public void SetMyMarket(PurchaseAbroad m) { myMarket = m; }
 
         // recupere le nom du noeud
         public string GetName { get { return Name; } }

@@ -8,17 +8,17 @@ namespace POO_Project
     {
         private string name;
         private double maximum_charge;
-        private double charge;
+        public double charge;
 
-        Line inputLine;
+        PowerPlant input;
 
         private string alert_message;
 
-        public Battery(string name, Line inputLine, double maximum_charge)
+        public Battery(string name, PowerPlant input)
         {
             this.name = name;
-            this.inputLine = inputLine;
-            this.maximum_charge = maximum_charge;
+            this.input = input;
+            maximum_charge = 1000;
 
             charge = 0;     // batterie vide lors de sa construction
 
@@ -26,21 +26,13 @@ namespace POO_Project
         }
         public string GetAlert { get { return alert_message; } }
         public string GetName { get { return name; } }
-        public string GetLine { get { return inputLine.GetName; } }
+        public string GetPowerPlant { get { return input.GetName; } }
+        public double GetMaximumCharge { get { return maximum_charge; } }
 
 
         public void ChargeBattery()
         {
-            double charge_supp = inputLine.GetCurrentPower;
-            if ((charge + charge_supp) <= maximum_charge)       // si la charge maximum permet de stocker la puissance de l'inputLine, la batterie stocke la puissance
-            {
-                charge += charge_supp;
-            }
-            else
-            {
-                alert_message = String.Format("Battery {0} can not support the charge ({1}) coming from {2}", name, charge_supp, inputLine.GetName);
-            }
-
+            
         }
 
     }
