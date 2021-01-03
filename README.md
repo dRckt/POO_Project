@@ -33,6 +33,7 @@ Sachez que lignes dissipatives sont créés automatiquement avec chaque noeud de
   Assemblez le réseau:
   
 Après avoir créé les éléments de votre réseau, il est temps d'assembler le tout! Passez par l'onglet 'w' du menu. L'interface s'occupe de créer les lignes qui relieront les noeud entre eux. 
+N'oubliez pas d'également connecter les batteries au réseau.
 
 
 Fonctionnement général:
