@@ -66,6 +66,11 @@ namespace POO_Project
         public double GetPriorityLevel { get { return MyPriorityLevel; } }
         public bool GetIsWorking { get { return IsWorking; } }
         public string GetAlertMessage { get { return alertMessage; } }
+        public void ResetAlertMessage()
+        {
+            alertMessage = ""; 
+        }
+     
         public double GetPowerProduction { get { return powerProduction; } }
         public Battery GetMyBattery { get { return battery;} }
 

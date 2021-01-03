@@ -509,6 +509,15 @@ namespace POO_Project
             }
             Console.WriteLine("Les noeuds {0} et {1} sont à présent connectés.", Reseau.GetNodeList[index1], Reseau.GetNodeList[index2]);
         }
+        public void ShowNotificationMessage()
+        {
+            foreach(string msg in Reseau.GetAlertMessageList())
+            {
+                Console.WriteLine(msg);
+            }
+            Reseau.ResetAlertMessageList();
+            exit();
+        }
         public void Menu()
         {
             p("______________________________________________________________________");   
@@ -517,10 +526,12 @@ namespace POO_Project
             p("    c - Créer un nouveau consommateur");
             p("    n - Créer un nouveu noeud");
             p("    w - Connecter 2 noeuds ensemble");
+            p("");
             p("    a - Afficher l'état du réseaux");
             p("    m - Modifier la demande d'un consommateur");
-            p("    u - Mettre à jour le réseau");
             p("");
+            p("    u - Mettre à jour le réseau");
+            p("    t - Afficher les message de notifications du réseau");
             
 
 
@@ -551,9 +562,7 @@ namespace POO_Project
                         Reseau.UpdatePowerOfPowerPlant();
                         p("-------------------------------");
                         p("Le réseau a été mis à jour.");
-                        p("Entrez une action ou appuyez sur enter pour revenir au menu:");
-                        //p("   p - Afficher les notifications de modification de production des centrales.");
-                        p("  INTERFACE IS BUILDING");
+                        p("Passez par l'onglet 't' du menu pour voir les messages de notification du réseau.");
 
                         exit();
                         break;
@@ -572,6 +581,11 @@ namespace POO_Project
                     {
                         ConnectTwoNodes();
                         exit();
+                        break;
+                    }
+                case "t":
+                    {
+                        ShowNotificationMessage();
                         break;
                     }
                 default:

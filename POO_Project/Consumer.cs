@@ -69,7 +69,7 @@ namespace POO_Project
 
         public double GetMissingPower { get { return missingPower; } }
         public string GetAlertMessage { get { return alertMessage; } }
-        public string CleanAlertMessage { set { alertMessage = ""; } }
+        public string ResetAlertMessage { set { alertMessage = ""; } }
 
         public void Consuming()
         {

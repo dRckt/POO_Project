@@ -47,6 +47,8 @@ namespace POO_Project
         public List<Line> GetLineList { get { return LineList; } }
         public List<Node> GetNodeList { get { return NodeList; } }
 
+        public List<string> GetAlertMessageList() { return AlertMessageList; }
+        public void ResetAlertMessageList() { AlertMessageList = new List<string> { }; }
 
         ///CREATION DE NOUVELLE CENTRALE
         public PowerPlant CreateNewPowerPlant(string name)
@@ -332,11 +334,14 @@ namespace POO_Project
         // UPDATE CONSUMER
         public void UpdateConsumerClaiming()
         {
+
             foreach (Consumer c in GetConsumerList)
             {
                 Line line = c.getInputLine;
                 line.SetPowerClaimed(line.GetPowerClaimed);
             }
+
+
         }
 
         // UPDATE POWER PLANT
@@ -344,8 +349,14 @@ namespace POO_Project
         {
             foreach (PowerPlant PowerPlant in PowerPlantList)
             {
+                PowerPlant.ResetAlertMessage();
                 PowerPlant.GetOutPutLine.SetCurrentPower(PowerPlant.UpdatePowerPlant()); // update power plant envoie le surlplus sur la batterie
-                Console.WriteLine(PowerPlant.GetAlertMessage);
+                if (PowerPlant.GetAlertMessage != "")
+                {
+                    AlertMessageList.Add(PowerPlant.GetAlertMessage);
+                    //Console.WriteLine(PowerPlant.GetAlertMessage);
+                }
+                
 
                 PowerPlant.GetMyBattery.UpdateBattery();
             }
@@ -356,7 +367,12 @@ namespace POO_Project
                 m.GetOutPutLine.SetCurrentPower(m.UpdatePowerPlant());
             }
             
-            foreach (Node n in NodeList) { n.UpdateCurrentPower(); }
+            foreach (Node n in NodeList)
+            {
+                n.ResetAlertMessageList();
+                n.UpdateCurrentPower();
+                foreach (string msg in n.GetAlertMessageList()) { AlertMessageList.Add(msg); }
+            }
 
             
         }   
