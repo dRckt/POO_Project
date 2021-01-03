@@ -100,15 +100,15 @@ namespace POO_Project
             // température peut prendre une valeur entre -5 et +35°C
             if (temperature < 10)
             {
-                claimingPower = 1000;
+                claimingPower = 5;
             }
             else if (temperature >= 5 & temperature < 20)
             {
-                claimingPower = 500;
+                claimingPower = 2;
             }
             else  // temperature >= 20°C
             {
-                claimingPower = 50;     // faible consomation
+                claimingPower = 1;     // faible consomation
             }
 
             claimingPower *= nbr_hab;   // * le nombre d'habitant de la ville
@@ -127,7 +127,7 @@ namespace POO_Project
         }
         public override double UpdateClaimingPower()
         {
-            claimingPower = nbr_machines * 10000; // chaque machine consomme 10000W
+            claimingPower = nbr_machines * 1; // chaque machine consomme 10000W
 
             inputLine.SetPowerClaimed(claimingPower);
             return claimingPower;

@@ -40,13 +40,13 @@ namespace POO_Project
             PowerPlant shop1 = outsider.CreateNewPurchasedAbroad("shop1", market);
 
             // CREATION CONSOMATEUR
-            Consumer bx = outsider.CreateNewCity("Bruxelles", 1000000, weather_bx);
-            Consumer os = outsider.CreateNewCity("Ostende", 70000, weather_os);
+            Consumer bx = outsider.CreateNewCity("Bruxelles", 10, weather_bx);
+            Consumer os = outsider.CreateNewCity("Ostende", 7, weather_os);
 
-            Consumer ad = outsider.CreateNewEntreprise("Audi", 10000);
-            Consumer bm = outsider.CreateNewEntreprise("BMW", 5000);
-            Consumer vw = outsider.CreateNewEntreprise("VolksWagen", 3000);
-            Consumer mc = outsider.CreateNewEntreprise("Mercedes", 4000);
+            Consumer ad = outsider.CreateNewEntreprise("Audi", 2);
+            Consumer bm = outsider.CreateNewEntreprise("BMW", 5);
+            Consumer vw = outsider.CreateNewEntreprise("VolksWagen", 3);
+            Consumer mc = outsider.CreateNewEntreprise("Mercedes", 4);
 
             //CREATION DES PAIRES NOEUDS MID
             ConcentrationNode midC1 = outsider.CreateNewConcentrationNode("midC1");
