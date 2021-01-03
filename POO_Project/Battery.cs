@@ -10,7 +10,11 @@ namespace POO_Project
         private double maximum_charge;
         public double charge;
 
+        private double PLBattery = 6;
+
         PowerPlant input;
+
+        Line outputLine;
 
         private string alert_message;
 
@@ -23,17 +27,26 @@ namespace POO_Project
             charge = 0;     // batterie vide lors de sa construction
 
             alert_message = "";
+            outputLine = new Line(name + "_outputLine");
+            outputLine.SetPriorityLevel(PLBattery);
         }
+        public double GetPLBattery { get { return PLBattery; } }
         public string GetAlert { get { return alert_message; } }
         public string GetName { get { return name; } }
         public string GetPowerPlant { get { return input.GetName; } }
         public double GetMaximumCharge { get { return maximum_charge; } }
+        public Line GetOutputLine { get { return outputLine; } }
 
-
-        public void ChargeBattery()
+        public void DechargeBattery(double powerClaimed)
         {
-            
-        }
-
+            if (powerClaimed <= charge)
+            {
+                charge -= powerClaimed;
+            }
+            else
+            {
+                alert_message = String.Format("La batterie {0} ne peut pas satisfaire à la demande", name);
+            }
+        }        
     }
 }

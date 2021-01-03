@@ -331,18 +331,7 @@ namespace POO_Project
         {
             foreach (PowerPlant PowerPlant in PowerPlantList)
             {
-                // powerClaimed = demande sur la ligne de sortie
-                double powerClaimed = PowerPlant.GetOutPutLine.GetPowerClaimed;
-
-                if (powerClaimed == 0)      // pas de demande
-                {
-                    if (PowerPlant.GetIsWorking == true) { PowerPlant.Stop(); }                      
-                }
-
-                else                        // demande de puissance
-                {
-                    if (PowerPlant.GetIsWorking == false) { PowerPlant.Start(); }
-                }
+                
 
                 Console.WriteLine(PowerPlant.GetAlertMessage);
 
@@ -378,6 +367,8 @@ namespace POO_Project
                     //D :: Y a un stuut ici, ca pas tout encoyer
                 }
                 */
+                PowerPlant.GetOutPutLine.SetCurrentPower(PowerPlant.UpdatePowerPlant());
+
             }
             
             foreach (PurchaseAbroad m in MarketList)
