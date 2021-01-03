@@ -99,7 +99,6 @@ namespace POO_Project
         { 
             myConsumer = c;
             SetIsConsumerLine(true);
-
         }
 
         public void SetMaxPower(double newMaxPower) { MaxPower = newMaxPower; }
@@ -141,7 +140,7 @@ namespace POO_Project
             }
             else
             {
-                GetInputNode.UpdatePowerClaimed();
+                GetInputNode.UpdatePowerClaimed();  ///////////////////
             }   
             
         }     

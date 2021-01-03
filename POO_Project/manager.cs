@@ -334,14 +334,11 @@ namespace POO_Project
         // UPDATE CONSUMER
         public void UpdateConsumerClaiming()
         {
-
             foreach (Consumer c in GetConsumerList)
             {
                 Line line = c.getInputLine;
                 line.SetPowerClaimed(line.GetPowerClaimed);
             }
-
-
         }
 
         // UPDATE POWER PLANT
@@ -372,11 +369,7 @@ namespace POO_Project
                 n.ResetAlertMessageList();
                 n.UpdateCurrentPower();
                 foreach (string msg in n.GetAlertMessageList()) { AlertMessageList.Add(msg); }
-            }
-
-            
-        }   
-    
-        
+            }            
+        }            
     }
 }

@@ -21,8 +21,6 @@ namespace POO_Project
         protected List<string> AlertMessageList;
 
         
-
-        
         public Node(string name)
         {
             Name = name;

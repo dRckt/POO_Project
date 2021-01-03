@@ -11,6 +11,7 @@ namespace POO_Project
 
         protected double claimingPower;
         protected double missingPower;
+        protected double inputLinePower;
 
         protected string alertMessage;
 
@@ -36,46 +37,47 @@ namespace POO_Project
         public string GetName { get { return name; } }
         public Line getInputLine { get { return inputLine; } }
         public ConcentrationNode GetInputNode { get { return inputNode; } }
-
-        // si besoin éventuel, permet de brancher le consommateur sur une autre ligne passée en paramètre
-        public void SetInputLine(Line newInputLine) { inputLine = newInputLine; }
-
-        // générer une demande de puissance
-        public virtual void UpdateClaimingPower() { SetMissingPower(); }
-
-        public double GetClaimingPower { get { return claimingPower; } }
-
-        // va chercher la puissance sur inputLine
-        public void SetMissingPower()
-        {
-            double a = claimingPower;
-            double b = inputLine.GetCurrentPower;
-            missingPower = a - b;  // puissance manquante = puissance demandée - puissance disponible sur inputLine
-
-            if (missingPower > 0)   // pas assez de puissance sur la lige
-            {
-                alertMessage = String.Format("The consumer {0} is missing {1}W.", name, missingPower);
-            }
-            else if (missingPower == 0)     // bonne quantité de puissance sur la ligne
-            {
-                alertMessage = String.Format("The consumer {0} has received all the available power", name);
-                Consuming();
-            }
-            else        // trop de puissance sur la ligne
-            {
-                alertMessage = String.Format("The consumer {0} is receiving {1}W in excess.", name, Math.Abs(missingPower));
-            }
-        }
-
         public double GetMissingPower { get { return missingPower; } }
         public string GetAlertMessage { get { return alertMessage; } }
         public string ResetAlertMessage { set { alertMessage = ""; } }
+        public void SetInputLine(Line newInputLine) { inputLine = newInputLine; }     
+        public double GetClaimingPower { get { return claimingPower; } }
 
-        public void Consuming()
+        // UPDATE CLAIMED POWER
+        public virtual double UpdateClaimingPower()
         {
-            // Le consomateur vide inputLine
-            claimingPower -= inputLine.GetCurrentPower;
-            inputLine.SetCurrentPower(0);
+            inputLine.SetPowerClaimed(claimingPower);
+            return claimingPower;
+        }
+
+        public void UpdateConsomation()
+        {
+            inputLinePower = inputLine.GetCurrentPower;
+            claimingPower = UpdateClaimingPower();
+            missingPower = claimingPower - inputLinePower;
+
+            // il manque de la puissance sur linputLine
+            if (missingPower > 0)
+            {
+                alertMessage = String.Format("ALERT :: Le consomateur {0} a {1}W en manque (il consomme la puissance disponnible)", name, missingPower);
+                claimingPower -= inputLinePower;
+                inputLine.SetCurrentPower(0);
+            }
+            // il y a du surplus
+            if (missingPower < 0)
+            {
+                double surplus = -missingPower;
+                alertMessage = String.Format("La ligne {0} fournit {1} en trop à {2}", inputLine.GetName, surplus, name);
+                claimingPower = 0;
+                inputLine.SetCurrentPower(inputLinePower - claimingPower);
+            }
+            // tout va bien
+            else
+            {
+                alertMessage = String.Format("Le consomateur {0} fonctionne normalement", name);
+                claimingPower = 0;
+                inputLine.SetCurrentPower(0);
+            }
         }
     }
 
@@ -91,7 +93,7 @@ namespace POO_Project
             this.nbr_hab = nbr_hab;
         }
 
-        public override void UpdateClaimingPower()
+        public override double UpdateClaimingPower()
         {
             // température peut prendre une valeur entre -5 et +35°C
             if (temperature < 10)
@@ -110,8 +112,7 @@ namespace POO_Project
             claimingPower *= nbr_hab;   // * le nombre d'habitant de la ville
 
             inputLine.SetPowerClaimed(claimingPower);
-
-            SetMissingPower();
+            return claimingPower;            
         }
     }
 
@@ -122,13 +123,12 @@ namespace POO_Project
         {
             this.nbr_machines = nbr_machines;
         }
-        public override void UpdateClaimingPower()
+        public override double UpdateClaimingPower()
         {
             claimingPower = nbr_machines * 10000; // chaque machine consomme 10000W
 
             inputLine.SetPowerClaimed(claimingPower);
-
-            SetMissingPower();
+            return claimingPower;
         }
     }
 
@@ -137,34 +137,33 @@ namespace POO_Project
         Market market;
         double wattPrice;
         double benefices;
+        double tot_benef;
         public SaleAbroad(string name, Market market) : base(name)
         {
             this.market = market;
         }
-        public override void UpdateClaimingPower()
+        public override double UpdateClaimingPower()
         {
             wattPrice = market.GetWattPrice;
             claimingPower = inputLine.GetCurrentPower;
             benefices = claimingPower * wattPrice;
+            tot_benef += benefices;
 
             inputLine.SetPowerClaimed(claimingPower);
-
-            SetMissingPower();
+            return claimingPower;
         }
     }
-
     public class Dissipator : Consumer
     {
         public Dissipator(string name) : base(name)
         {
             isConsuming = false;
         }
-        public override void UpdateClaimingPower()
+        public override double UpdateClaimingPower()
         {
             claimingPower = inputLine.GetCurrentPower;
-
-            SetMissingPower();
+            inputLine.SetPowerClaimed(claimingPower);
+            return claimingPower;
         }
-
     }
 }
