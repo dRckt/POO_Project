@@ -70,7 +70,7 @@
       <FileName>Interface.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="POO_Project.Line">
+  <Class Name="POO_Project.Line" Collapsed="true">
     <Position X="11" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>aiCIBgQCIQAYBMEkBAoEIijAAAAEAIAACCYEQkpiBII=</HashCode>
