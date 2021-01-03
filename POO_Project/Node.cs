@@ -29,7 +29,7 @@ namespace POO_Project
             InputLineList = new List<Line> { };
             OutputLineList = new List<Line> { };
             PriorityLevel = 0;
-            //HasMarket = false;
+            AlertMessageList = new List<string> { };
 
 
         }
@@ -48,7 +48,8 @@ namespace POO_Project
         {
             return "PROGRAM IS BUILDING ...";
         }
-
+        public List<string> GetAlertMessageList() { return AlertMessageList;  }
+        public void ResetAlertMessageList() { AlertMessageList = new List<string> { }; }
 
         public bool GetHasMarket { get { return HasMarket; } }
         public void SetHasMarket(bool b) { HasMarket = b; }
@@ -106,13 +107,9 @@ namespace POO_Project
         }
         public double GetPriorityLevel { get { return PriorityLevel; } }
 
-
-        /////////////////////////////////////////////////////
-
         public void UpdatePowerClaimed()
         {
             double PowerClaimedOnNode = 0;
-            //bool HasMarket = false;
             foreach (Line line in OutputLineList)
             {
                 PowerClaimedOnNode += line.GetPowerClaimed;
@@ -120,7 +117,7 @@ namespace POO_Project
             Dictionary<Line, double> n_set = new Dictionary<Line, double> { };
             foreach (Line line in InputLineList)
             {
-                if (line.GetIsMarketLine) { MarketLine = line; }// HasMarket = true; }
+                if (line.GetIsMarketLine) { MarketLine = line; }
                 else { n_set.Add(line, line.GetDisponiblePower()); }
             }
 
@@ -158,17 +155,17 @@ namespace POO_Project
                     
                 }
             }
-            if (maj) { Console.WriteLine("Mise à jour:: {0} à modifié la distribution de ses requêtes de puissance", GetName); }
+            if (maj) { AlertMessageList.Add(String.Format("Mise à jour:: {0} à modifié la distribution de ses requêtes de puissance", GetName)); }
             if (PowerClaimedOnNode != 0)
             {
                 if (GetHasMarket) 
                 {
                     MarketLine.SetPowerClaimed(PowerClaimedOnNode);
-                    Console.WriteLine("ALERTE : Le noeud {0} à du acheter {1}W.", GetName, PowerClaimedOnNode);
+                    AlertMessageList.Add(String.Format("ALERTE :: Le noeud {0} à du acheter {1}W.", GetName, PowerClaimedOnNode));
                 }
                 else 
                 {
-                    Console.WriteLine("ALERTE :: Le noeud {0} ne reçoit pas assez de puissance pour satisfaire la demande. Il lui manque {1}W.", GetName, PowerClaimedOnNode);
+                    AlertMessageList.Add(String.Format("ALERTE :: Le noeud {0} ne reçoit pas assez de puissance pour satisfaire la demande. Il lui manque {1}W.", GetName, PowerClaimedOnNode));
                 }
                 
             }
@@ -183,19 +180,12 @@ namespace POO_Project
             }
             foreach (Line line in InputLineList)
             {
-                if (line == avalLine)
-                {
-                    Console.WriteLine(""); //pass
-                }
-                else
-                {
-                    disponiblePower -= line.GetPowerClaimed;
-                }
+                if (line == avalLine){/*pass*/}
+                else{disponiblePower -= line.GetPowerClaimed;}
             }
             return disponiblePower;
         }
 
-        /////////////////////////////////////////////////////
 
         public void UpdateCurrentPower()
         {
@@ -204,7 +194,7 @@ namespace POO_Project
             foreach (Line line in InputLineList){ CurrentPowerOfNode += line.GetCurrentPower;}
             foreach (Line line in OutputLineList)
             {
-                if (line.GetIsDissipatorLine) { Console.WriteLine(""); } //pass
+                if (line.GetIsDissipatorLine) {/*pass*/}
                 else
                 {
                     if (line.GetPowerClaimed <= CurrentPowerOfNode)
@@ -224,29 +214,25 @@ namespace POO_Project
                             maj = true;
                         }
                         CurrentPowerOfNode = 0;
-                        ////MESSAGE D'ALERTE:: il manque du courant (line.GetPowerClaimed-CurrentPowerOfNode) sur une des lignes
+                        AlertMessageList.Add(String.Format("ALERTE :: Il manque {0}W sur le noeud {1} ", (line.GetPowerClaimed - CurrentPowerOfNode), GetName));
                     }
-
                 }
             }
 
             if (maj)
             {
-                Console.WriteLine("Le noeud {0} a mis à jour sa distribution de puissance");
+                AlertMessageList.Add(String.Format("Le noeud {0} a mis à jour sa distribution de puissance", GetName));
             }
-
-            //S'il y a une ligne de dissipation on lui envoie ce qu'il reste de courant non-distribué (normalement 0)
             foreach (Line line in OutputLineList)
             {
                 if (line.GetIsDissipatorLine){
                     line.SetCurrentPower(CurrentPowerOfNode);
-                    if (CurrentPowerOfNode > 0) { Console.WriteLine("La ligne de dissipation {0} est active.", line.GetName); }
+                    if (CurrentPowerOfNode > 0) 
+                    { 
+                        AlertMessageList.Add(String.Format("La ligne de dissipation {0} est active.", line.GetName));
+                    }
                 }
-                
             }
-
         }
-
-        /////////////////////////////////////////////////////
     }
 }
