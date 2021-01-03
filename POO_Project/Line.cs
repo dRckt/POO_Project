@@ -33,7 +33,7 @@ namespace POO_Project
         public Line(string name)
         {
             this.name = name;
-            MaxPower = 75000;
+            MaxPower = 75000000;
             PowerClaimed = 0;
             SetCurrentPower(0);
 
@@ -91,7 +91,7 @@ namespace POO_Project
             IsPowerPlantLine = b;
             if (b)
             {
-                SetMaxPower(250000); //Les lignes des centrales sont plus grosses par défaut
+                SetMaxPower(250000000); //Les lignes des centrales sont plus grosses par défaut
             }
         }
         public void SetMyPowerPlant(PowerPlant p) { myPowerPlant = p; }
@@ -136,7 +136,9 @@ namespace POO_Project
             if (GetIsPowerPlantLine) {/*pass*/}
             else
             {
-                GetInputNode.UpdatePowerClaimed();
+                if (IsBatteryLine) {/*pass*/ }
+                else { GetInputNode.UpdatePowerClaimed(); }
+                
             }   
         }     
         public double GetDisponiblePower()

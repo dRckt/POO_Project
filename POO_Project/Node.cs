@@ -124,6 +124,7 @@ namespace POO_Project
             {
                 foreach (Line line in InputLineList)
                 {
+                    if (PowerClaimedOnNode < 0) { PowerClaimedOnNode = 0; }
                     if (line.GetIsMarketLine){}
                     else
                     {
@@ -195,25 +196,31 @@ namespace POO_Project
                 if (line.GetIsDissipatorLine) {/*pass*/}
                 else
                 {
-                    if (line.GetPowerClaimed <= CurrentPowerOfNode)
-                    {   if (line.GetPowerClaimed != line.GetCurrentPower)
-                        {
-                            line.UpdateCurrentPower(line.GetPowerClaimed);
-                            maj = true;
-                        }
-                        
-                        CurrentPowerOfNode -= line.GetPowerClaimed;
-                    }
-                    else
+                    if (CurrentPowerOfNode>0)
                     {
-                        if (CurrentPowerOfNode != line.GetCurrentPower)
+                        if (line.GetPowerClaimed <= CurrentPowerOfNode)
                         {
-                            line.UpdateCurrentPower(CurrentPowerOfNode);
-                            maj = true;
+                            if (line.GetPowerClaimed != line.GetCurrentPower)
+                            {
+                                line.UpdateCurrentPower(line.GetPowerClaimed);
+                                maj = true;
+                            }
+
+                            CurrentPowerOfNode -= line.GetPowerClaimed;
                         }
-                        CurrentPowerOfNode = 0;
-                        AlertMessageList.Add(String.Format("ALERTE :: Il manque {0}W sur le noeud {1} ", (line.GetPowerClaimed - CurrentPowerOfNode), GetName));
+                        else
+                        {
+                            if (CurrentPowerOfNode != line.GetCurrentPower)
+                            {
+                                line.UpdateCurrentPower(CurrentPowerOfNode);
+                                maj = true;
+                            }
+                            CurrentPowerOfNode = 0;
+                            AlertMessageList.Add(String.Format("ALERTE :: Il manque {0}W sur le noeud {1} ", (line.GetPowerClaimed - CurrentPowerOfNode), GetName));
+                        }
                     }
+                    else { line.UpdateCurrentPower(0); }
+                    
                 }
             }
 

@@ -43,3 +43,7 @@ L'onglet 'u' du menu permet de mettre à jour les centrales. Celle-ci regardent 
 Si la demande est nulle ou fort élevée, une centrale peut décider de s'arreter ou de démarrer. Les différents noeuds de concentration/distribution s'occupent eux même de répartir les demandes:
 Le programme ira d'abord chercher le courant chez les centrale en route et propres telles que des panneaux solaire, avant de réclamer aux centrales en route plus poluantes/plus chères. Si ca ne suffit pas, les batteries alimentent également le réseau. Si ca ne suffit toujours pas, les centrales qui ne l'étaient pas se mettent en route. Finalement, si toutes les centrales sont en route et que le réseau est sous alimenté, les noeuds réclameront du courant au 'magasin' (si vous en avez connecté un au réseau).
 
+
+Pour plus de lisibilité, le diagramme de classe est repris sur l'image suivante sans les détails de variables, propriétés et méthodes. Ceux-ci sont repris dans le document ClassDiagram.cd du projet
+
+![Class Diagram POO_Project](https://user-images.githubusercontent.com/60742506/103483542-3876e700-4de8-11eb-9388-538cc202c090.png)

@@ -336,7 +336,8 @@ namespace POO_Project
         {
             foreach (Consumer c in GetConsumerList)
             {
-                c.UpdateConsomation();
+                if (c.GetManualClaiming) { /*pass*/}
+                else { c.UpdateClaimingPower(); }
                 Line line = c.getInputLine;
                 line.SetPowerClaimed(line.GetPowerClaimed);
             }
@@ -370,7 +371,9 @@ namespace POO_Project
                 n.ResetAlertMessageList();
                 n.UpdateCurrentPower();
                 foreach (string msg in n.GetAlertMessageList()) { AlertMessageList.Add(msg); }
-            }            
+            }          
+            
+            foreach (Line l in LineList) { AlertMessageList.Add(l.GetAlertMessage); }
         }            
     }
 }
