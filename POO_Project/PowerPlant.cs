@@ -67,6 +67,7 @@ namespace POO_Project
         public bool GetIsWorking { get { return IsWorking; } }
         public string GetAlertMessage { get { return alertMessage; } }
         public double GetPowerProduction { get { return powerProduction; } }
+        public Battery GetMyBattery { get { return battery; } }
 
         // CHANGEMENT PRIORITY LEVEL
         public void SetPriorityLevel(double PL) { MyPriorityLevel = PL; }
