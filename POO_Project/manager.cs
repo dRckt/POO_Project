@@ -25,6 +25,8 @@ namespace POO_Project
             PowerPlantList = new List<PowerPlant> { };
             ConsumerList = new List<Consumer> { };
 
+            MarketList = new List<PurchaseAbroad> { };
+
             LineList = new List<Line> { };
             NodeList = new List<Node> { };
 
