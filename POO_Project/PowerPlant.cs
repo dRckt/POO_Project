@@ -56,9 +56,7 @@ namespace POO_Project
             OutputLine.SetName(Name + "_line");
             OutputLine.SetPriorityLevel(4);
 
-            battery = new Battery(Name + "_battery", this);
-
-            //OutPutNode.SetInputLine(batteryLine);
+            battery = new Battery(Name + "_battery", this);                   
         }
 
         // PROPRIETES GET
@@ -101,10 +99,21 @@ namespace POO_Project
 
         public virtual double UpdatePowerPlant()
         {
-            if (IsWorking == true)
+            powerProduction = DisponibleProduction();
+            claimedPower = UpdateClaimedPower();
+
+            if (claimedPower == 0)      // pas de demande
             {
-                powerProduction = DisponibleProduction();
-                claimedPower = UpdateClaimedPower();
+                if (IsWorking == true) { Stop(); }
+            }
+
+            else                        // demande de puissance
+            {
+                if (IsWorking == false) { Start(); }
+            }
+
+            if (IsWorking == true)
+            {             
 
                 double surplus = powerProduction - claimedPower;
 
