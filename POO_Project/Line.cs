@@ -154,8 +154,7 @@ namespace POO_Project
             else
             {
                 return GetInputNode.GetDisponiblePower(this);
-            }
-            
+            }            
         }
 
         /////////////////////////////////////////////////////

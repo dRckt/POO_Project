@@ -64,8 +64,8 @@ namespace POO_Project
             outsider.ConnectDistributionToConcentrationNode("LINE_C2.2", esso.GetOutputNode, midC2);
             outsider.ConnectDistributionToConcentrationNode("LINE_C2.3", centrale_solaire_bx.GetOutputNode, midC2);
                 ///magasins
-            outsider.ConnectDistributionToConcentrationNode("LINE_SHOP1", shop1.GetOutputNode, midC1);
-            outsider.ConnectDistributionToConcentrationNode("LINE_SHOP1", shop1.GetOutputNode, midC2);
+            outsider.ConnectDistributionToConcentrationNode("LINE_SHOPC1", shop1.GetOutputNode, midC1);
+            outsider.ConnectDistributionToConcentrationNode("LINE_SHOPC2", shop1.GetOutputNode, midC2);
 
             //liaison des noeuds mid aux consumers
             outsider.ConnectDistributionToConcentrationNode("LINE_D1.1", midD1, bx.GetInputNode);

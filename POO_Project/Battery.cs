@@ -29,7 +29,8 @@ namespace POO_Project
             alert_message = "";
             outputLine = new Line(name + "_outputLine");
             outputLine.SetPriorityLevel(PLBattery);
-        }
+            outputLine.SetIsBatteryLine();
+        } 
         public double GetPLBattery { get { return PLBattery; } }
         public string GetAlert { get { return alert_message; } }
         public string GetName { get { return name; } }
