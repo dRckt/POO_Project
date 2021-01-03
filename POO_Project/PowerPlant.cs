@@ -57,6 +57,8 @@ namespace POO_Project
             OutputLine.SetPriorityLevel(4);
 
             battery = new Battery(Name + "_battery", this);
+
+            //OutPutNode.SetInputLine(batteryLine);
         }
 
         // PROPRIETES GET

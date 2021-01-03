@@ -24,6 +24,7 @@ namespace POO_Project
             DissipatorLine = new Line(DissipatorLineName);
             DissipatorLine.SetIsDissipatorLine(true);
             DissipatorLine.SetInputNode(this);
+
             base.AddOutputLineToList(DissipatorLine);
 
             Consumer dissipator = new Dissipator("dissipator_" + name);

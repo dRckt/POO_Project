@@ -37,6 +37,7 @@ namespace POO_Project
             PowerPlant parc_eolien_os = outsider.CreateNewWindFarm("parc éolien de Ostende", weather_os);
             PowerPlant esso = outsider.CreateNewGasPowerPlant("station à gaz esso", market);
             PowerPlant centrale_solaire_bx = outsider.CreateNewSolarPowerPlant("centrale solaire de bruxelles", weather_bx);
+            PowerPlant shop1 = outsider.CreateNewPurchasedAbroad("shop1", market);
 
             // CREATION CONSOMATEUR
             Consumer bx = outsider.CreateNewCity("Bruxelles", 1000000, weather_bx);
