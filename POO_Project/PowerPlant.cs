@@ -349,8 +349,11 @@ namespace POO_Project
             SetPriorityLevel(PLGasPowerPlant);
             OutputLine.SetPriorityLevel(GetPriorityLevel);
             OutputLine.SetIsMarketLine(true);
-            OutputLine.GetInputNode.SetHasMarket(true);
-            OutputLine.GetInputNode.SetMyMarket(this); 
+            //OutputLine.GetInputNode.SetHasMarket(true);
+            //OutputLine.GetOutputeNode.SetHasMarket(true);
+            OutPutNode.SetHasMarket(true);
+            //OutputLine.GetInputNode.SetMyMarket(this); 
+            OutPutNode.SetMyMarket(this);
             this.market = market;
             Start();
         }

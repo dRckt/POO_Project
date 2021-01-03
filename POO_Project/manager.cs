@@ -346,11 +346,12 @@ namespace POO_Project
 
                 Console.WriteLine(PowerPlant.GetAlertMessage);
 
+                /*
                 // si la demande est inférieure à ce que peux fournir la centrale
                 if (powerClaimed < PowerPlant.DisponibleProduction())
                 {
                     // si la production actuelle de la centrale est differente de la demande
-                    if (PowerPlant.Production() != PowerPlant.GetOutPutLine.GetPowerClaimed)
+                    if (PowerPlant.() != PowerPlant.GetOutPutLine.GetPowerClaimed)
                     {
                         //      set powerplant production = outputline.getClaimedPower
                         //      alertMessage :: la centrale a modifié sa production
@@ -376,9 +377,10 @@ namespace POO_Project
                     AlertMessageList.Add(String.Format("La centrale {0} envoie à présent {1}W de sa production dans le réseau.", PowerPlant.GetName, PowerPlant.GetOutPutLine.GetPowerClaimed));
                     //D :: Y a un stuut ici, ca pas tout encoyer
                 }
+                */
             }
-            /*
-            foreach (Market m in MarketList)
+            
+            foreach (PurchaseAbroad m in MarketList)
             {
                 // DEFINIR PUISSANCE DE SORTIE DU MARKET = le power claimed sur sa ligne
                 m.GetOutPutLine.SetCurrentPower(m.UpdatePowerPlant());
