@@ -61,7 +61,6 @@ namespace POO_Project
             {
                 alertMessage = String.Format("ALERT :: Le consomateur {0} a {1}W en manque (il consomme la puissance disponnible)", name, missingPower);
                 claimingPower -= inputLinePower;
-                inputLine.SetCurrentPower(0);
             }
             // il y a du surplus
             if (missingPower < 0)
@@ -69,14 +68,12 @@ namespace POO_Project
                 double surplus = -missingPower;
                 alertMessage = String.Format("La ligne {0} fournit {1} en trop à {2}", inputLine.GetName, surplus, name);
                 claimingPower = 0;
-                inputLine.SetCurrentPower(inputLinePower - claimingPower);
             }
             // tout va bien
             else
             {
                 alertMessage = String.Format("Le consomateur {0} fonctionne normalement", name);
                 claimingPower = 0;
-                inputLine.SetCurrentPower(0);
             }
         }
     }
@@ -112,7 +109,7 @@ namespace POO_Project
             claimingPower *= nbr_hab;   // * le nombre d'habitant de la ville
 
             inputLine.SetPowerClaimed(claimingPower);
-            return claimingPower;            
+            return claimingPower;           
         }
     }
 

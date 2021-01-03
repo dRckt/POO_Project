@@ -31,6 +31,7 @@ namespace POO_Project
             outputLine.SetPriorityLevel(PLBattery);
             outputLine.SetIsBatteryLine(true);
         } 
+
         public double GetPLBattery { get { return PLBattery; } }
         public string GetAlert { get { return alert_message; } }
         public string GetName { get { return name; } }
