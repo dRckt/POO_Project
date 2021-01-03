@@ -136,7 +136,9 @@ namespace POO_Project
             if (GetIsPowerPlantLine) {/*pass*/}
             else
             {
-                GetInputNode.UpdatePowerClaimed();
+                if (IsBatteryLine) {/*pass*/ }
+                else { GetInputNode.UpdatePowerClaimed(); }
+                
             }   
         }     
         public double GetDisponiblePower()

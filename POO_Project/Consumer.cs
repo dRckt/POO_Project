@@ -16,6 +16,7 @@ namespace POO_Project
         protected string alertMessage;
 
         protected bool isConsuming = true;
+        private bool ManualClaiming = false;
 
         protected ConcentrationNode inputNode;
 
@@ -43,6 +44,9 @@ namespace POO_Project
         public void SetInputLine(Line newInputLine) { inputLine = newInputLine; }     
         public double GetClaimingPower { get { return claimingPower; } }
 
+        public void SetManualClaiming(bool b) { ManualClaiming = b; }
+        public bool GetManualClaiming { get { return ManualClaiming; } } 
+
         // UPDATE CLAIMED POWER
         public virtual double UpdateClaimingPower()
         {
@@ -50,37 +54,9 @@ namespace POO_Project
             return claimingPower;
         }
 
-        /*
-        public void UpdateConsomation()
-        {
-            inputLinePower = inputLine.GetCurrentPower;
-            claimingPower = UpdateClaimingPower();
-            missingPower = claimingPower - inputLinePower;
-
-            // il manque de la puissance sur linputLine
-            if (missingPower > 0)
-            {
-                alertMessage = String.Format("ALERT :: Le consomateur {0} a {1}W en manque (il consomme la puissance disponnible)", name, missingPower);
-                claimingPower -= inputLinePower;
-                inputLine.SetCurrentPower(0);
-            }
-            // il y a du surplus
-            if (missingPower < 0)
-            {
-                double surplus = -missingPower;
-                alertMessage = String.Format("La ligne {0} fournit {1} en trop à {2}", inputLine.GetName, surplus, name);
-                claimingPower = 0;
-                inputLine.SetCurrentPower(inputLinePower - claimingPower);
-            }
-            // tout va bien
-            else
-            {
-                alertMessage = String.Format("Le consomateur {0} fonctionne normalement", name);
-                claimingPower = 0;
-                inputLine.SetCurrentPower(0);
-            }
-        }
-        */
+        
+      
+        
     }
 
     public class City : Consumer

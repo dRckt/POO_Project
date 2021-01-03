@@ -336,7 +336,8 @@ namespace POO_Project
         {
             foreach (Consumer c in GetConsumerList)
             {
-                c.UpdateClaimingPower();
+                if (c.GetManualClaiming) { /*pass*/}
+                else { c.UpdateClaimingPower(); }
                 Line line = c.getInputLine;
                 line.SetPowerClaimed(line.GetPowerClaimed);
             }

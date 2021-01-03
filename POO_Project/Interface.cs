@@ -18,6 +18,8 @@ namespace POO_Project
             Reseau = reseau;
             consom_count = reseau.GetConsumerList.Count;
             centrale_count = reseau.GetPowerPlantList.Count;
+            Reseau.UpdateConsumerClaiming();
+            Reseau.UpdatePowerOfPowerPlant();
             Console.WriteLine("______________________________________________________________________");
             Console.WriteLine("------------------BIENVENUE DANS L'INTERFACE RESEAU-------------------");
         }
@@ -395,6 +397,7 @@ namespace POO_Project
                         ///
                         ////// ICI MODIFIER POWER CLAIMED DU CONSUMER EN reponse
                         c.getInputLine.SetPowerClaimed(reponse);
+                        c.SetManualClaiming(true);
                         ///
                         Console.WriteLine("La puissance réclamée par {0} à été mise à jour.", c.GetName);
                         found = true;
